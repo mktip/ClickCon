@@ -37,6 +37,7 @@ planeto.prototype.drawConnections = function (G, gameMap){
 			G.strokeStyle = "#999";
 			G.fillStyle = "#999";
 		}
+		G.lineWidth = 3;
 		G.moveTo(this.x, this.y);
 		G.lineTo(gameMap[connectee].x, gameMap[connectee].y);
 		console.log("Drawing to: " + connectee);
@@ -44,11 +45,13 @@ planeto.prototype.drawConnections = function (G, gameMap){
 	}
 }
 planeto.prototype.drawPlaneto = function (G){
+	G.lineWidth = 1;
 	G.fillStyle = this.colour;
+	G.strokeStyle = this.color;
 	G.beginPath();
 	G.arc(this.x, this.y, this.radius*2, 0, 2*Math.PI);
 	G.fill();
-	G.stroke();
+	//G.stroke();
 }
 //Getters and setters
 planeto.prototype.setShield = function (shi){

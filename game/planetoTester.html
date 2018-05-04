@@ -2,6 +2,7 @@
 <head>
 	<title>Planeto Demonstration</title>
 	<script src='planeto.js'></script>
+	<script src='map.js'></script>
 </head>
 <style>
 	body {
@@ -10,12 +11,9 @@
 </style>
 <canvas id='canvas'></canvas>
 <script>
-var w = 300, h = 300;
-//maps are hardcoded here, but could very easily be used for random gen instead
-var map = [new planeto(1,50,50, '#f00', 10, [1,2,3]),
-			new planeto(0,200,50, '#fff', 10, [0,3]),
-			new planeto(1,50,200, '#f00', 10, [0,3]),
-			new planeto(2,200,200, '#00f', 10, [0,1,2])];
+var w = 1300, h = 1000;
+//maps are hardcoded in the file, but obviously can be tweaked to use the random gen coordinates
+var map = prettySim();
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = w;
