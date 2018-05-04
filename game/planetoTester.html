@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+	<title>Planeto Demonstration</title>
+	<script src='planeto.js'></script>
+</head>
+<style>
+	body {
+	background-color:#000;
+	}
+</style>
+<canvas id='canvas'></canvas>
+<script>
+var w = 300, h = 300;
+//maps are hardcoded here, but could very easily be used for random gen instead
+var map = [new planeto(1,50,50, '#f00', 10, [1,2,3]),
+			new planeto(0,200,50, '#fff', 10, [0,3]),
+			new planeto(1,50,200, '#f00', 10, [0,3]),
+			new planeto(2,200,200, '#00f', 10, [0,1,2])];
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+canvas.width = w;
+canvas.height = h;
+ctx.beginPath();
+ctx.rect(0,0,canvas.w,canvas.h);
+ctx.fillStyle = '#fff';
+ctx.fill();//this bit doesn't seem to do anything, was intended to make the canvas black and wipe the previous frame at the same time though
+var i;
+for (i = 0; i < map.length; i++){
+	map[i].drawConnections(ctx, map);
+}			
+for (i = 0; i < map.length; i++){
+	map[i].drawPlaneto(ctx, map);
+}
+</script>
