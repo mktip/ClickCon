@@ -13,7 +13,7 @@ var x,y;
 var name; //optional pretty random gen name exactly like hovering over a planet in galcon
 
 
-function planeto(own, nx,ny, col, rad, cons){
+function planeto(own, nx, ny, col, rad, cons){
 	this.ownerID = own;
 	this.x = nx;
 	this.y = ny;

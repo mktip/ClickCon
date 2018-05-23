@@ -8,7 +8,7 @@ function testMap(){
 			new planeto(2, 50, 300, '#00f', 10, [2,4])];
 	return map;
 }
-function prettySim(){
+function prettySym(){
 	var map = [new planeto(2, 1075,754, '#009', 10, [4,36,56]), //0
 			new planeto(1, 265,82, '#900',  10, [5,37,57]),
 			new planeto(3, 1075,82, '#090',  10, [6,38,58]),

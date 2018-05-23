@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<head>
+	<title>ClickCon!</title>
+	<script src='planeto.js'></script>
+	<script src='map.js'></script>
+	<script src='game.js'></script>
+</head>
+<style>
+	body {
+	background-color:#000;
+	}
+</style>
+<canvas id='canvas' onclick="checkHit(map)"></canvas>
+<script>
+var w = 1500, h = 1500;
+var map = prettySym();
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+canvas.width = w;
+canvas.height = h;
+ctx.beginPath();
+render(map);
+</script>
