@@ -21,8 +21,8 @@ function checkHit(map){
 	var y = event.clientY;
 	var r;
 	for(r=0; r<map.length;r++){
-		if (x >= map[r].getX() - map[r].getRadius() && x <= map[r].getX() + map[r].getRadius()){
-			if (y >= map[r].getY() - map[r].getRadius() && y <= map[r].getY() + map[r].getRadius()){
+		if (x >= map[r].getX() - map[r].getRadius() && x <= map[r].getX() + map[r].getRadius()*2){
+			if (y >= map[r].getY() - map[r].getRadius() && y <= map[r].getY() + map[r].getRadius()*2){
 				move(map[r], map);
 				break;
 			}
