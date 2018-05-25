@@ -7,7 +7,9 @@ Player.prototype.makeMove = function(map){
 }
 
 var map;
-function render(map){	
+function render(map){
+	ctx.fillStyle = "#000";
+	ctx.fillRect(0,0,canvas.width,canvas.height);
 	var i;
 	for (i = 0; i < map.length; i++){
 		map[i].drawConnections(ctx, map);

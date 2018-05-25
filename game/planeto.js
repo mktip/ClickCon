@@ -40,12 +40,12 @@ planeto.prototype.drawConnections = function (G, gameMap){
 		G.lineWidth = 3;
 		G.moveTo(this.x, this.y);
 		G.lineTo(gameMap[connectee].x, gameMap[connectee].y);
-		console.log("Drawing to: " + connectee);
+		//console.log("Drawing to: " + connectee);
 		G.stroke();
 	}
 }
 planeto.prototype.drawPlaneto = function (G){
-	G.lineWidth = 1;
+	G.lineWidth = .5;
 	G.fillStyle = this.colour;
 	G.strokeStyle = this.color;
 	G.beginPath();
