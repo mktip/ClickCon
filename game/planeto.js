@@ -72,8 +72,11 @@ planeto.prototype.setX = function (nX){
 planeto.prototype.setY = function (nY){
 	this.y = nY;
 }
+planeto.prototype.getConnections = function(){
+	return this.connections;
+}
 planeto.prototype.getShield = function(){
-	return this.shield();
+	return this.shield;
 }
 planeto.prototype.getOwner = function(){
 	return this.ownerID;
