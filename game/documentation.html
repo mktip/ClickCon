@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<head>
+<title>ClickCon Documentation</title>
+<style>
+	body {
+	background-color:#000;
+	color:#fff;
+	}
+</style>
+</head>
+<body>
+<p>
+<h1>The Basics</h1>
+<br>
+All bots function as a Player.
+Declaring a bot requires at least the following two methods:
+<br><br>
+<font color="#ff0"><b>function</b></font>    BotNameHere(name, colour, id, any extras) {
+<br><br>
+Player.call(name, colour, id); <font color="#0a0">   //Required for bot to work in the first place</font>
+<br>
+(Any extra setup steps needed)
+<br><br>
+}
+<br><br>
+Next you need to override the base Player.move() method, and have it return a move:
+<br><br>
+BotNameHere.<font color="#ff0">prototype</font>.move = <font color="#ff0">function</font>(map){
+<br><br>
+Here you declare the bot code. The bot has access to anything that the Player class has, which can be found below.<br><br>
+
+<b>IMPORTANT</b><br><br>	
+Ensure you add the following line, which returns the move of the bot:<br>
+<font color="#ff0">return</font> move; <font color="#0a0"> //The move variable can be called whatever, as long as it is an <b>integer</b></font>
+<br><br>
+}
+</p>
+<p>
+<h1>Player Class</h1>
+The Player class takes in the following:
+<ul>
+<li>Colour <font color="#0a0">//Simply the players colour</font>
+<li>name <font color="#0a0">//The player name for visual purposes (scoreboards, etc)</font>
+<li>id <font color="#0a0">//The id of the player for backend in the code, typically auto-assigned, so dont worry too much outside of testing</font>
+</ul>
+</p>
+</body>

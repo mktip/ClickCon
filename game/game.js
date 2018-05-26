@@ -37,8 +37,9 @@ function render(map){
 	}
 }
 function checkHit(map){
-	var x = event.clientX;
-	var y = event.clientY;
+	var canvRect = canvas.getBoundingClientRect();
+	var x = event.clientX - canvRect.left;
+	var y = event.clientY - canvRect.top;
 	var r;
 	for(r=0; r<map.length;r++){
 		if (x >= map[r].getX() - map[r].getRadius() && x <= map[r].getX() + map[r].getRadius()*2){
