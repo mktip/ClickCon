@@ -4,6 +4,7 @@
 	<script src='planeto.js'></script>
 	<script src='map.js'></script>
 	<script src='game.js'></script>
+	<script src='bot.js'></script>
 </head>
 <style>
 	body {
@@ -19,7 +20,20 @@ var ctx = canvas.getContext('2d');
 canvas.width = w;
 canvas.height = h;
 ctx.beginPath();
-var players = [new Player("Vi", "#a3a", 1), new Player("Impostor Vi", "#fa3",2), new Player("ZimNub", "#66f",3), new Player("WormNub","#3f3",4)];
+//var players = [new Player("Vi", "#a3a", 1, false), new Player("Impostor Vi", "#fa3",2, false), new Player("ZimNub", "#66f",3, false), new Player("WormNub","#3f3",4, false)];
+var players = [new Player("Vi", "#a3a", 1, false), new randoBot("Impostor Vi", "#fa3",2), new randoBot("ZimNub", "#66f",3), new randoBot("WormNub","#3f3", 4)];
 setupGame(players,map,5);
 render(map);
+var allBots = true;
+for (var y = 0; y<players.length; y++){
+	if(players[y].isBot != true){
+		allBots = false;
+		break;
+	}
+}
+if (allBots){
+	for (var y =0; y<players.length; y++){
+		players[y].move();
+	}
+}
 </script>

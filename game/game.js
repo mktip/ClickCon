@@ -1,10 +1,17 @@
-function Player(name, colour, id){
+function Player(name, colour, id, bot){
 	this.name = name;
 	this.colour = colour;
 	this.id = id;
+	this.isBot = bot;
 }
-Player.prototype.makeMove = function(map){
-	return null;
+Player.prototype.getOwned = function(){
+	var list = [];
+	for(var r = 0; r<map.length; r++){
+		if (map[r].getOwner() == this.id){
+			list.push(r);
+		}
+	}
+	return list;
 }
 Player.prototype.getColour = function(){
 	return this.colour;
@@ -13,7 +20,7 @@ Player.prototype.getID = function(){
 	return this.id;
 }
 
-var map;
+var currentPlayer;
 function setupGame(players, map, spawns){
 	var r;
 	for (r=0; r<players.length; r++){
@@ -23,6 +30,11 @@ function setupGame(players, map, spawns){
 			map[pick].setOwner(players[r].getID());
 			map[pick].setColour(players[r].getColour());
 		}
+	}
+	currentPlayer = Math.floor(Math.random()*players.length);
+	alert(currentPlayer);
+	if (players[currentPlayer].isBot){
+		players[currentPlayer].makeMove();
 	}
 }
 function render(map){
@@ -53,15 +65,39 @@ function checkHit(map){
 function checkProxy(targ, map){
 	var r;
 	var cons = targ.getConnections();
-	for(r=0; r < cons.length; r++){
-		if (map[cons[r]].getOwner() == 1){
-			move(targ, map);
-			break;
+	if (targ.getOwner() != players[currentPlayer].getID()){
+		for(r=0; r < cons.length; r++){
+			if (map[cons[r]].getOwner() == players[currentPlayer].getID()){
+				move(targ, map);
+				break;
+			}
 		}
 	}
 }
 function move(targ, map){
-	targ.setOwner(players[0].getID());
-	targ.setColour(players[0].getColour());
+	if (players[currentPlayer].isBot){
+		map[targ].setOwner(players[currentPlayer].getID());
+		map[targ].setColour(players[currentPlayer].getColour());
+	}
+	else{
+		targ.setOwner(players[currentPlayer].getID());
+		targ.setColour(players[currentPlayer].getColour());
+	}
 	render(map);
+	if(!allBots){
+		//alert("called swap");
+		swapPlayer();
+	}
+}
+function swapPlayer(){
+	if (currentPlayer == players.length - 1) {
+		currentPlayer = 0;
+	}
+	else{
+		currentPlayer += 1;
+	}
+	if (players[currentPlayer].isBot){
+		players[currentPlayer].makeMove();
+	}
+	//alert(currentPlayer);
 }
