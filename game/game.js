@@ -32,7 +32,6 @@ function setupGame(players, map, spawns){
 		}
 	}
 	currentPlayer = Math.floor(Math.random()*players.length);
-	alert(currentPlayer);
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
 	}
@@ -41,6 +40,15 @@ function render(map){
 	ctx.fillStyle = "#000";
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	var i;
+	ctx.fillStyle = "#0ff";
+	for (i = 0; i < map.length; i++){
+		if (map[i].getOwner() == currentPlayer + 1 && players[currentPlayer].isBot != true){
+			var x = map[i].getX();
+			var y = map[i].getY();
+			var rad = map[i].getRadius();
+			ctx.fillRect(x-rad*2, y-rad*2, rad*4, rad*4);
+		}
+	}	
 	for (i = 0; i < map.length; i++){
 		map[i].drawConnections(ctx, map);
 	}			
@@ -96,6 +104,7 @@ function swapPlayer(){
 	else{
 		currentPlayer += 1;
 	}
+	render(map);
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
 	}
