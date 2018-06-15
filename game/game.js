@@ -104,6 +104,9 @@ function swapPlayer(){
 	else{
 		currentPlayer += 1;
 	}
+	if (players[currentPlayer].getOwned().length == 0){
+		swapPlayer()
+	}
 	render(map);
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
