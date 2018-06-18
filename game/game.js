@@ -38,8 +38,8 @@ function setupGame(players, map, spawns){
 			}
 		}
 	}
-	//currentPlayer = Math.floor(Math.random()*players.length);
-	currentPlayer = 0;
+	currentPlayer = Math.floor(Math.random()*players.length);
+	//currentPlayer = 0;
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
 	}

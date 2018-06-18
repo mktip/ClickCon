@@ -8,13 +8,26 @@
 </head>
 <style>
 	body {
+	color:#fff;
 	background-color:#000;
+	font-size:30px;
+	}
+	span{
+	display:inline;
 	}
 </style>
-<canvas id='canvas' onclick="checkHit(map)"></canvas>
-<form>
-	
-</form>
+<span>
+	<form size="3">
+		<fieldset>
+		<legend>Score Box</legend>
+		Player 1:<br>
+		Player 2:<br>Player:<br>Player:<br>Player:<br>Player:<br>
+		</fieldset>
+	</form>
+</span>
+<span>
+	<canvas id='canvas' onclick="checkHit(map)"></canvas>
+</span>
 <script>
 var w = 1500, h = 1500;
 var map = prettySym();
@@ -25,7 +38,8 @@ canvas.height = h;
 ctx.beginPath();
 //var players = [new Player("Vi", "#a3a", 1, false), new Player("Impostor Vi", "#fa3",2, false), new Player("ZimNub", "#66f",3, false), new Player("WormNub","#3f3",4, false)];
 var players = [new Player("Vi", "#a3a", 1, false), new randoBot("Impostor Vi", "#fa3",2), new randoBot("ZimNub", "#66f",3), new randoBot("WormNub","#3f3", 4), new randoBot("RagWag", "#600", 5), new randoBot("ShagWag", "#f63", 6)];
-setupGame(players,map,5);
+var spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
+setupGame(players,map,spawns);
 render(map);
 var allBots = true;
 for (var y = 0; y<players.length; y++){
