@@ -81,28 +81,38 @@ function checkHit(map){
 function checkProxy(targ, map){
 	var r;
 	var cons = targ.getConnections();
-	if (targ.getOwner() != players[currentPlayer].getID()){
 		for(r=0; r < cons.length; r++){
 			if (map[cons[r]].getOwner() == players[currentPlayer].getID()){
 				move(targ, map);
 				break;
 			}
 		}
-	}
 }
 function move(targ, map){
-	if (players[currentPlayer].isBot){
-		map[targ].setOwner(players[currentPlayer].getID());
-		map[targ].setColour(players[currentPlayer].getColour());
-	}
-	else{
-		targ.setOwner(players[currentPlayer].getID());
-		targ.setColour(players[currentPlayer].getColour());
-	}
+	var validMove = false;
+		if (targ.getOwner() == players[currentPlayer].getID()){
+			if(targ.getShield() == false){
+			targ.setShield(true);
+			validMove = true;
+			}
+		}
+		else{
+			if (targ.getShield()){
+				targ.setShield(false);
+				validMove = true;
+			}
+			else{
+				targ.setOwner(players[currentPlayer].getID());
+				targ.setColour(players[currentPlayer].getColour());
+				validMove = true;
+			}
+		}
 	render(map);
 	if(!allBots){
 		//alert("called swap");
-		swapPlayer();
+		if(validMove){
+			swapPlayer();
+		}
 	}
 }
 function swapPlayer(){

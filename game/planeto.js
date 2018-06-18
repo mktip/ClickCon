@@ -51,7 +51,12 @@ planeto.prototype.drawPlaneto = function (G){
 	G.beginPath();
 	G.arc(this.x, this.y, this.radius*2, 0, 2*Math.PI);
 	G.fill();
-	//G.stroke();
+	if (this.hasShield){
+		G.lineWidth = 2;
+		G.strokeStyle = "#0ff";
+		G.arc(this.x, this.y, this.radius*2 + 8, 0, 2*Math.PI);
+		G.stroke();
+	}
 }
 //Getters and setters
 planeto.prototype.setShield = function (shi){
@@ -76,7 +81,7 @@ planeto.prototype.getConnections = function(){
 	return this.connections;
 }
 planeto.prototype.getShield = function(){
-	return this.shield;
+	return this.hasShield;
 }
 planeto.prototype.getOwner = function(){
 	return this.ownerID;

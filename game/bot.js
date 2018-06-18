@@ -8,10 +8,13 @@ function randoBot(name, colour, id){
 randoBot.prototype = Object.create(Player.prototype);
 randoBot.prototype.constructor = randoBot;
 randoBot.prototype.makeMove = function(){
-	var owndedList = this.getOwned();
-	var pick = owndedList[Math.floor(Math.random()*owndedList.length)];
-	var consList = map[pick].getConnections();
-	var tar = consList[Math.floor(Math.random()*consList.length)];
+	var tar = new planeto(0,-10,-10, "#fff", 10, [-1]);
+	tar.setShield(true);
+	while (tar.getShield()){
+		var owndedList = this.getOwned();
+		var pick = owndedList[Math.floor(Math.random()*owndedList.length)];
+		var consList = map[pick].getConnections();
+		tar = map[consList[Math.floor(Math.random()*consList.length)]];
+	}
 	move(tar, map);
-	//alert("moved");
 }
