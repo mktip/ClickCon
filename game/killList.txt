@@ -1,0 +1,19 @@
+kill list (update log)
+
+v1.5
+ -Better bots
+ -Teams mode
+
+v1.0
+
+ -Shields
+ -Lock life
+ -Formations
+ -Maps
+ -Bot timer
+ -Random roadblocks
+ -Random shields
+ -Formation lock mode
+ -Hide scores
+ -Spawn types
+ -Tutorial Page
