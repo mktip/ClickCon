@@ -23,15 +23,23 @@ Player.prototype.getID = function(){
 var currentPlayer;
 function setupGame(players, map, spawns){
 	var r;
+	var left = map;
 	for (r=0; r<players.length; r++){
 		var reps = spawns;
 		for (reps =0; reps<spawns; reps++){
-			var pick = Math.floor(Math.random()*map.length);
-			map[pick].setOwner(players[r].getID());
-			map[pick].setColour(players[r].getColour());
+			var pick = Math.floor(Math.random()*left.length);
+			left[pick].setOwner(players[r].getID());
+			left[pick].setColour(players[r].getColour());
+			left = [];
+			for (var w = 0; w<map.length; w++){
+				if (map[w].getOwner() == 0){
+					left.push(map[w]);
+				}
+			}
 		}
 	}
-	currentPlayer = Math.floor(Math.random()*players.length);
+	//currentPlayer = Math.floor(Math.random()*players.length);
+	currentPlayer = 0;
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
 	}
@@ -62,8 +70,8 @@ function checkHit(map){
 	var y = event.clientY - canvRect.top;
 	var r;
 	for(r=0; r<map.length;r++){
-		if (x >= map[r].getX() - map[r].getRadius() && x <= map[r].getX() + map[r].getRadius()*2){
-			if (y >= map[r].getY() - map[r].getRadius() && y <= map[r].getY() + map[r].getRadius()*2){
+		if (x >= map[r].getX() - map[r].getRadius()*2 && x <= map[r].getX() + map[r].getRadius()*2){
+			if (y >= map[r].getY() - map[r].getRadius()*2 && y <= map[r].getY() + map[r].getRadius()*2){
 				checkProxy(map[r], map);
 				break;
 			}
