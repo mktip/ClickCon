@@ -21,6 +21,7 @@ Player.prototype.getID = function(){
 }
 
 var currentPlayer;
+var starter;
 function setupGame(players, map, spawns){
 	var r;
 	var left = map;
@@ -39,6 +40,7 @@ function setupGame(players, map, spawns){
 		}
 	}
 	currentPlayer = Math.floor(Math.random()*players.length);
+	starter = currentPlayer;
 	//currentPlayer = 0;
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
@@ -88,8 +90,15 @@ function checkProxy(targ, map){
 			}
 		}
 }
+function decayLockLife(){
+	var r;
+	for (r=0; r<map.length; r++){
+		map[r].rotLockLife();
+	}
+}
 function move(targ, map){
 	var validMove = false;
+	if(targ.getLockLife() == 0){
 		if (targ.getOwner() == players[currentPlayer].getID()){
 			if(targ.getShield() == false){
 			targ.setShield(true);
@@ -102,18 +111,17 @@ function move(targ, map){
 				validMove = true;
 			}
 			else{
-				targ.setOwner(players[currentPlayer].getID());
-				targ.setColour(players[currentPlayer].getColour());
+				targ.setOwner(players[currentPlayer].getID(), players[currentPlayer].colour);
 				validMove = true;
 			}
 		}
-	render(map);
-	if(!allBots){
-		//alert("called swap");
-		if(validMove){
-			swapPlayer();
+		render(map);
+		if(!allBots){
+			if(validMove){
+				swapPlayer();
+			}
 		}
-	}
+	}	
 }
 function swapPlayer(){
 	if (currentPlayer == players.length - 1) {
@@ -122,6 +130,9 @@ function swapPlayer(){
 	else{
 		currentPlayer += 1;
 	}
+	if (currentPlayer == starter){
+		decayLockLife();
+	}
 	if (players[currentPlayer].getOwned().length == 0){
 		swapPlayer()
 	}
@@ -129,5 +140,4 @@ function swapPlayer(){
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
 	}
-	//alert(currentPlayer);
 }

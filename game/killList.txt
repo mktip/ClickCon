@@ -7,7 +7,7 @@ v1.5
 v1.0
 
 X-Shields
- -Lock life
+X-Lock life
  -Formations
  -Maps
  -Bot timer

@@ -18,7 +18,7 @@ randoBot.prototype.makeMove = function(){
 		tar = map[consList[Math.floor(Math.random()*consList.length)]];
 	}
 	move(tar, map);
-}
+};
 
 function wildExpand(name, colour, id){
 	Player.call(this, name, colour, id, true);
@@ -34,15 +34,20 @@ wildExpand.prototype.makeMove = function(){
 	for (var r = 0; r<owned.length; r++){
 		var cons = map[owned[r]].getConnections();
 		for (var t = 0; t<cons.length; t++){
-			if(map[cons[t]].getOwner() != this.id){
+			if(map[cons[t]].getOwner() != this.id && map[cons[t]].getLockLife() == 0){
 				hitList.push(map[cons[t]]);
 			}
 		}
 	}
-	var pick = Math.floor(Math.random()*hitList.length);
-	var tar = hitList[pick];
-	move(tar, map);
-}
+	if(hitList.length > 0){
+		var pick = Math.floor(Math.random()*hitList.length);
+		var tar = hitList[pick];
+		move(tar, map);
+	}
+	else{	
+		swapPlayer();
+	}
+};
 
 function wildStep(name, colour, id){
 	Player.call(this, name, colour, id, true);
@@ -58,12 +63,17 @@ wildStep.prototype.makeMove = function(){
 	for (var r = 0; r<owned.length; r++){
 		var cons = map[owned[r]].getConnections();
 		for (var t = 0; t<cons.length; t++){
-			if(map[cons[t]].getOwner() != this.id || map[cons[t]].getShield() != true){
+			if((map[cons[t]].getOwner() != this.id || map[cons[t]].getShield() !== true) && map[cons[t]].getLockLife() == 0){
 				hitList.push(map[cons[t]]);
 			}
 		}
 	}
-	var pick = Math.floor(Math.random()*hitList.length);
-	var tar = hitList[pick];
-	move(tar, map);
-}
+	if(hitList.length > 0){
+		var pick = Math.floor(Math.random()*hitList.length);
+		var tar = hitList[pick];
+		move(tar, map);
+	}
+	else{
+		swapPlayer()
+	}
+};
