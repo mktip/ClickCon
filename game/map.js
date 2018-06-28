@@ -116,7 +116,6 @@ function scatterBlob(){
 			new planeto(0, 809,727, '#fff',  15, [10,24])];
 	return map;
 }
-
 function praiseJibbers(){
 	var map = [new planeto(0, 120, 22.5,  "#fff", 10,  [1,  2]),
 			new planeto(0, 210, 15,  "#fff", 10,  [0, 2,  3]),
@@ -204,4 +203,7 @@ function praiseJibbers(){
 			new planeto(0, 202.5, 907.5,  "#fff", 10,  [78, 81, 84]), 
 			new planeto(0, 135, 952.5,  "#fff", 10,  [81, 82, 83])];
 	return map;
+}
+function genBoners(count, length){
+	
 }

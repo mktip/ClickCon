@@ -3,6 +3,7 @@ function Player(name, colour, id, bot){
 	this.colour = colour;
 	this.id = id;
 	this.isBot = bot;
+	this.score;
 }
 Player.prototype.getOwned = function(){
 	var list = [];
@@ -22,6 +23,7 @@ Player.prototype.getID = function(){
 
 var currentPlayer;
 var starter;
+var boners = [];
 function setupGame(players, map, spawns){
 	var r;
 	var left = map;
@@ -39,6 +41,7 @@ function setupGame(players, map, spawns){
 			}
 		}
 	}
+	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
 	//currentPlayer = 0;
@@ -46,7 +49,43 @@ function setupGame(players, map, spawns){
 		players[currentPlayer].makeMove();
 	}
 }
+function setupScoreBoard(count){
+	var element = document.getElementById("board");
+	var frag = document.createDocumentFragment();
+	for(var r = 0; r<players.length; r++){
+		var div = document.createElement("div");
+		var id = "player" + r;
+		div.id = id;
+		var txt = document.createTextNode(players[r].name + ": " + 0);
+		div.appendChild(txt);
+		element.appendChild(div);
+		document.getElementById(id).style.color = players[r].getColour();
+	}
+}
+function calcScores(){
+	for (var t = 0; t<players.length; t++){
+		players[t].score = 0;
+		var countList = players[t].getOwned();
+		var r;
+		for (r=0; r<countList.length; r++){
+			if (map[countList[r]].isShowing){
+				players[t].score += 2;
+			}
+			else{
+				players[t].score += 1;
+			}
+		}
+	}
+}
+function updateScoreBox(){
+	for (var r = 0; r<players.length; r++){
+		var id = "player" + r;
+		document.getElementById(id).innerHTML = players[r].name + ": " + players[r].score;
+	}
+}
 function render(map){
+	calcScores();
+	updateScoreBox();
 	ctx.fillStyle = "#000";
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	var i;
@@ -74,7 +113,12 @@ function checkHit(map){
 	for(r=0; r<map.length;r++){
 		if (x >= map[r].getX() - map[r].getRadius()*2 && x <= map[r].getX() + map[r].getRadius()*2){
 			if (y >= map[r].getY() - map[r].getRadius()*2 && y <= map[r].getY() + map[r].getRadius()*2){
-				checkProxy(map[r], map);
+				if (map[r].getOwner() == players[currentPlayer].getID()){
+					move(map[r], map);
+				}
+				else{
+					checkProxy(map[r], map);
+				}
 				break;
 			}
 		}

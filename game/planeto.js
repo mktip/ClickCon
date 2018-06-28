@@ -52,6 +52,7 @@ planeto.prototype.drawPlaneto = function (G){
 	if (this.hasShield){
 		G.lineWidth = 2;
 		G.strokeStyle = "#0ff";
+		G.beginPath();
 		G.arc(this.x, this.y, this.radius*2 + 8, 0, 2*Math.PI);
 		G.stroke();
 	}
