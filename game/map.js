@@ -205,5 +205,36 @@ function praiseJibbers(){
 	return map;
 }
 function genBoners(count, length){
-	
+	var list = [];
+	for (var t = 0; t<count;t++){
+		var mini = [];
+		var spot = Math.floor(Math.random()* map.length);
+		mini.push(spot);
+		for (var r = 0;r<length-1;r++){
+			//console.log("Landed at: "+spot);
+			var cons = [];
+			for (var x=0; x<mini.length; x++){
+				//console.log("rep");
+				var temp = map[mini[x]].getConnections();
+				for (var y=0; y<temp.length;y++){
+					cons.push(temp[y]);
+				}
+				//console.log(cons);
+				for(var e=0; e<cons.length;e++){
+					if(cons[e] == mini[x]){
+						//console.log("found a form planeto, removing");
+						var qui = [];
+						qui = removeAtIndex(cons, e);
+						cons = qui;
+						e -= 1;
+					}
+				}
+				//console.log(cons);
+			}
+			spot = cons[Math.floor(Math.random()*cons.length)];
+			mini.push(spot);
+		}
+		list.push(mini);
+	}
+	return list;
 }

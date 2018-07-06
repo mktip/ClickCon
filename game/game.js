@@ -21,9 +21,10 @@ Player.prototype.getID = function(){
 	return this.id;
 }
 
+var debug = false;
 var currentPlayer;
 var starter;
-var boners = [];
+var boners;
 function setupGame(players, map, spawns){
 	var r;
 	var left = map;
@@ -41,12 +42,34 @@ function setupGame(players, map, spawns){
 			}
 		}
 	}
+	//boners = genBoners(1,5);
+	if (map.length >= 68){
+		boners = genBoners(map.length/9,map.length/17);
+	}
+	else{
+		boners = genBoners(map.length/7, map.length/9);
+	}
+	console.log(boners);
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
 	//currentPlayer = 0;
 	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
+	}
+}
+function createPlanetLabels(){
+	for (var r = 0; r<map.length; r++){
+		if(map[r].getShowing()){
+			ctx.fillStyle = "#f00";
+			ctx.strokeStyle = "#f00";
+		}
+		else{
+			ctx.fillStyle = "#fff";
+			ctx.strokeStyle = "#fff";
+		}
+		ctx.font = "20px Arial";
+		ctx.fillText(r, map[r].getX()-20, map[r].getY() - 20);
 	}
 }
 function setupScoreBoard(count){
@@ -68,7 +91,7 @@ function calcScores(){
 		var countList = players[t].getOwned();
 		var r;
 		for (r=0; r<countList.length; r++){
-			if (map[countList[r]].isShowing){
+			if (map[countList[r]].getShowing()){
 				players[t].score += 2;
 			}
 			else{
@@ -84,8 +107,6 @@ function updateScoreBox(){
 	}
 }
 function render(map){
-	calcScores();
-	updateScoreBox();
 	ctx.fillStyle = "#000";
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	var i;
@@ -100,9 +121,48 @@ function render(map){
 	}	
 	for (i = 0; i < map.length; i++){
 		map[i].drawConnections(ctx, map);
-	}			
+	}
+	drawBoners();
 	for (i = 0; i < map.length; i++){
 		map[i].drawPlaneto(ctx, map);
+	}
+	if (debug){
+		createPlanetLabels();
+	}
+	calcScores();
+	updateScoreBox();
+}
+function drawBoners(){
+	for (var r = 0; r<boners.length; r++){
+		var up = true;
+		var mini = boners[r];
+		for (var t = 0; t<mini.length; t++){
+			if(map[mini[0]].getOwner() != map[mini[t]].getOwner() || map[mini[0]].getOwner() == 0){
+				up = false;
+				break;
+			}
+		}
+		if(up){
+			for(var x = 0;x<mini.length;x++){
+				var tempCons = map[mini[x]].getConnections();
+				for (var y =0;y<tempCons.length;y++){
+					for (var z =0;z<tempCons.length;z++){
+						if (tempCons[y] == mini[z]){
+							ctx.strokeStyle = "#fff";
+							ctx.fillStyle = "#fff";
+							ctx.lineWidth = 9;
+							ctx.beginPath();
+							ctx.moveTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
+							ctx.lineTo(map[mini[x]].getX(), map[mini[x]].getY());
+							ctx.stroke();
+						}
+					}
+				}
+			}
+		}
+		for(var a = 0;a<mini.length; a++){
+			map[mini[a]].setShowing(up);
+		}
 	}
 }
 function checkHit(map){

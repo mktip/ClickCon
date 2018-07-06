@@ -5,6 +5,7 @@
 	<script src='map.js'></script>
 	<script src='game.js'></script>
 	<script src='bot.js'></script>
+	<script src='utils.js'></script>
 </head>
 <style>
 	body {
@@ -46,8 +47,10 @@ ctx.beginPath();
 var players = [new Player("Vi", "#a3a", 1, false), new wildExpand("Impostor Vi", "#fa3",2), new wildExpand("ZimNub", "#66f",3), new wildStep("WormNub","#3f3", 4), new wildStep("RagWag", "#600", 5), new wildStep("ShagWag", "#f63", 6)];
 //var players = [new Player("Vi", "#a3a", 1, false), new wildStep("Impostor Vi", "#fa3",2)];
 //var players = [new Player("Vi", "#a3a", 1, false), new Player("Impostor Vi", "#fa3",2, false)];
+//var players = [new Player("Vi", "#a3a", 1, false)];	
 var spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
 setupGame(players,map,spawns);
+//setupGame(players,map,map.length);
 render(map);
 var allBots = true;
 for (var y = 0; y<players.length; y++){

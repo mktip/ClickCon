@@ -1,5 +1,15 @@
 kill list (update log)
 
+v?
+-Tombstone planetos
+-gamemodes:
+	-Chaos mode:
+		-Warp planeto, lock planeto, mine planeto
+	-Hill:
+		-Central hill, everyone who doesnt own at end of turn cycle gets random number of planetos scrambled
+	-Plague:
+		-Unscored plague bot gets one less move then there are players each turn, occasionally getting as many as there are players
+
 v1.5
  -Better bots
  -Teams mode

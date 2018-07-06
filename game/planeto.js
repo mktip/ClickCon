@@ -95,6 +95,9 @@ planeto.prototype.setOwner = function (own, col){
 		this.setColour(col);
 	}
 }
+planeto.prototype.setShowing = function(state){
+	this.bonerShowing = state;
+}
 planeto.prototype.setLockLife = function(amt) {
 	this.lockLife = amt;
 }
@@ -112,6 +115,9 @@ planeto.prototype.setY = function (nY){
 }
 planeto.prototype.getConnections = function(){
 	return this.connections;
+}
+planeto.prototype.getShowing = function(){
+	return this.bonerShowing;
 }
 planeto.prototype.getShield = function(){
 	return this.hasShield;
