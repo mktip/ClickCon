@@ -9,6 +9,11 @@ v?
 		-Central hill, everyone who doesnt own at end of turn cycle gets random number of planetos scrambled
 	-Plague:
 		-Unscored plague bot gets one less move then there are players each turn, occasionally getting as many as there are players
+	-Domination:
+		-Max players, big map
+	-Crumble:
+		-Map edges slowly disappear with each turn until turn limit reached
+-formation generation tweaks, no duplicate planetos
 
 v1.5
  -Better bots
@@ -18,7 +23,7 @@ v1.0
 
 X-Shields
 X-Lock life
- -Formations
+X-Formations
  -Maps
  -Bot timer
  -Random roadblocks

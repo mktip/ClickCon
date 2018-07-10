@@ -19,7 +19,6 @@
 	display:inline-block;
 	}
 	.content{
-	width:100px;
 	margin:0 auto;
 	display:inline-block;
 </style>
@@ -30,9 +29,9 @@
 		</fieldset>
 	</form>
 </span>
-<div class="content">
+<span class="content" id='thingy'>
 	<canvas id='canvas' width='1500' height='1500' onclick="checkHit(map)"></canvas>
-</div>
+</span>
 <script>
 //var w = 1500, h = 1500;
 var mapPick = Math.floor(Math.random()*3);
@@ -49,7 +48,7 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 //canvas.width = w;
 //canvas.height = h;
-ctx.scale(.9, .9);
+//ctx.scale(.4, .4);
 ctx.beginPath();
 var players = [new Player("Vi", "#a3a", 1, false), new wildExpand("Impostor Vi", "#fa3",2), new wildExpand("ZimNub", "#66f",3), new wildStep("WormNub","#3f3", 4), new wildStep("RagWag", "#600", 5), new wildStep("ShagWag", "#f63", 6)];
 //var players = [new Player("Vi", "#a3a", 1, false), new wildStep("Impostor Vi", "#fa3",2)];

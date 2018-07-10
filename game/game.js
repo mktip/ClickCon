@@ -49,7 +49,7 @@ function setupGame(players, map, spawns){
 	else{
 		boners = genBoners(map.length/7, map.length/9);
 	}
-	console.log(boners);
+	//console.log(boners);
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
@@ -167,6 +167,9 @@ function drawBoners(){
 }
 function checkHit(map){
 	var canvRect = canvas.getBoundingClientRect();
+	console.log(event.clientX);
+	console.log(canvRect.left);
+	console.log(event.clientX - canvRect.left);
 	var x = event.clientX - canvRect.left;
 	var y = event.clientY - canvRect.top;
 	var r;
