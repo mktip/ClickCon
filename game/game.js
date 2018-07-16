@@ -20,6 +20,9 @@ Player.prototype.getColour = function(){
 Player.prototype.getID = function(){
 	return this.id;
 }
+Player.prototype.getScore = function(){
+	return this.score;
+}
 
 var debug = false;
 var currentPlayer;
@@ -167,9 +170,9 @@ function drawBoners(){
 }
 function checkHit(map){
 	var canvRect = canvas.getBoundingClientRect();
-	console.log(event.clientX);
-	console.log(canvRect.left);
-	console.log(event.clientX - canvRect.left);
+	// console.log(event.clientX);
+	// console.log(canvRect.left);
+	// console.log(event.clientX - canvRect.left);
 	var x = event.clientX - canvRect.left;
 	var y = event.clientY - canvRect.top;
 	var r;

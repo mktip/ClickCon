@@ -140,4 +140,6 @@ planeto.prototype.getY = function(){
 planeto.prototype.getLockLife = function(){
 	return this.lockLife;
 }
-//There were some other methods dealing with the planeto locking and such but left them out for simplicity
+planeto.prototype.getPrevOwn = function(){
+	return prevOwner;
+}
