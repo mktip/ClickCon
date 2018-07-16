@@ -15,6 +15,9 @@ v?
 		-Map edges slowly disappear with each turn until turn limit reached
 -formation generation tweaks, no duplicate planetos
 
+v2.0
+ -Fearsome multiplayer
+
 v1.5
  -Better bots
  -Teams mode

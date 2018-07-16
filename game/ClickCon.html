@@ -34,7 +34,7 @@
 </span>
 <script>
 //var w = 1500, h = 1500;
-var mapPick = Math.floor(Math.random()*3);
+var mapPick = Math.floor(Math.random()*7);
 var map = [];
 switch (mapPick){
 	case 0: map = prettySym();
@@ -43,7 +43,15 @@ switch (mapPick){
 			break;
 	case 2: map = praiseJibbers();
 			break;
+	case 3: map = spiralGal();
+			break;
+	case 4: map = ringODeath();
+			break;
+	case 5: map = clusters();
+			break;
+	case 6: map = heartbreak();
 }
+//map = heartbreak();
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 //canvas.width = w;
