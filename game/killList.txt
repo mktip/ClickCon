@@ -29,7 +29,7 @@ X-Shields
 X-Lock life
 X-Formations
  -Maps
- -Bot timer
+X-Bot timer
  -Random roadblocks
  -Random shields
  -Formation lock mode

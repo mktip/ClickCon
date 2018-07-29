@@ -248,6 +248,12 @@ function swapPlayer(){
 	}
 	render(map);
 	if (players[currentPlayer].isBot){
+		var stall = 500;
+		setTimeout(botMove, stall);
+	}
+}
+function botMove(){
+	if (players[currentPlayer].isBot){
 		players[currentPlayer].makeMove();
 	}
 }
