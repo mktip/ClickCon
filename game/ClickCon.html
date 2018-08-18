@@ -22,63 +22,170 @@
 	margin:0 auto;
 	display:inline-block;
 </style>
-<span>
-	<form size="3">
-		<fieldset  id="board" >
-		<legend>Score Box</legend>
-		</fieldset>
-	</form>
-</span>
-<span class="content" id='thingy'>
-	<canvas id='canvas' width='1500' height='1500' onclick="checkHit(map)"></canvas>
-</span>
+<!-- <span> -->
+	<!-- <form size="3"> -->
+		<!-- <fieldset  id="board" > -->
+		<!-- <legend>Score Box</legend> -->
+		<!-- </fieldset> -->
+	<!-- </form> -->
+<!-- </span> -->
+<!-- <span class="content" id='thingy'> -->
+	<!-- <canvas id='canvas' width='1500' height='1500' onclick="checkHit(map)"></canvas> -->
+<!-- </span> -->
+<body>
+</body>
 <script>
-//var w = 1500, h = 1500;
-var mapPick = Math.floor(Math.random()*8);
+//PUBLIC VARS
 var map = [];
-switch (mapPick){
-	case 0: map = prettySym();
-			break;
-	case 1: map = scatterBlob();
-			break;
-	case 2: map = praiseJibbers();
-			break;
-	case 3: map = spiralGal();
-			break;
-	case 4: map = ringODeath();
-			break;
-	case 5: map = clusters();
-			break;
-	case 6: map = heartbreak();
-			break;
-	case 7: map = converge();
-			break;
+var canvas;
+var ctx;
+var players = [];	
+
+var pCount = 1;
+var pID = "playerNode" + pCount;
+var colList = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00cccc", "#e65c00", "#2e5cb8", "#800080","#663300", "#ff8080","#00802b", "#008080","#800000","#666699","#cc9900"];
+
+startMenu();
+
+function startMenu(){
+	var divi = document.createElement("div");
+	var StartBtn = document.createElement("button");
+	var AplyrBtn = document.createElement("button");
+	var hostPlayer = document.createElement("div");
+	var AbtnTxt = document.createTextNode("+ Bot");	
+	var strtbtntxt = document.createTextNode("Start Game");
+	var playerName = document.createTextNode(adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10));
+	
+	var playerColour = Math.floor(Math.random()*colList.length);
+	hostPlayer.style.color = colList[playerColour];
+	colList = removeAtIndex(colList, playerColour);
+	
+	StartBtn.id = "StartBtn";
+	divi.id = "divi";
+	AplyrBtn.id = "AplyrBtn";
+	hostPlayer.id = "hostPlayer";
+	
+	divi.float = "center";	
+	AplyrBtn.float = "left";	
+
+	AplyrBtn.appendChild(AbtnTxt);
+	hostPlayer.appendChild(playerName);
+	StartBtn.appendChild(strtbtntxt);
+	divi.appendChild(hostPlayer);
+	
+	AplyrBtn.addEventListener("click", function(event){event.preventDefault(); addPlyr(divi, document.createElement("div"));});
+	StartBtn.addEventListener("click", function(event){event.preventDefault(); gameStart();});
+	
+	document.body.appendChild(StartBtn);
+	document.body.appendChild(divi);
+	document.body.appendChild(AplyrBtn);
 }
-//map = converge();
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-//canvas.width = w;
-//canvas.height = h;
-//ctx.scale(.4, .4);
-ctx.beginPath();
-var players = [new Player("Vi", "#a3a", 1, false), new wildExpand("Impostor Vi", "#fa3",2), new wildExpand("ZimNub", "#66f",3), new wildStep("WormNub","#3f3", 4), new wildStep("RagWag", "#600", 5), new wildStep("ShagWag", "#f63", 6)];
-//var players = [new Player("Vi", "#a3a", 1, false), new wildStep("Impostor Vi", "#fa3",2)];
-//var players = [new Player("Vi", "#a3a", 1, false), new Player("Impostor Vi", "#fa3",2, false)];
-//var players = [new Player("Vi", "#a3a", 1, false)];	
-var spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
-setupGame(players,map,spawns);
-//setupGame(players,map,map.length);
-render(map);
-var allBots = true;
-for (var y = 0; y<players.length; y++){
-	if(players[y].isBot != true){
-		allBots = false;
-		break;
+function addPlyr(parent, child){
+	if(colList.length > 0){
+		var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
+		var tst = document.createTextNode(name);
+		var killbtn = document.createElement("button");
+		killbtn.id = "pnodekiller" + pCount;
+		var rip = document.createTextNode("X");
+		killbtn.appendChild(rip);
+		killbtn.addEventListener("click", function(event){event.preventDefault(); colList.push(this.parentNode.style.color); var par = this.parentNode; par.parentNode.removeChild(par); pCount -= 1;});
+		pID = "playerNode" + pCount;
+		child.id = pID;
+		child.appendChild(tst);
+		child.appendChild(killbtn);
+		child.style.color = colList[0];
+		colList = removeAtIndex(colList, 0);
+		parent.appendChild(child);
+		pCount += 1;
 	}
 }
-if (allBots){
-	for (var y =0; y<players.length; y++){
-		players[y].move();
+function gameStart(){
+	var pName = document.getElementById("hostPlayer").innerText;
+	var pCol = document.getElementById("hostPlayer").style.color;
+	players.push(new Player(pName, pCol, 1, false));
+	
+	for(var pc = 1; pc < pCount; ++pc){
+		var elNm = "playerNode" + pc;
+		pName = document.getElementById(elNm).innerText;
+		pName = pName.substring(0, pName.length-1);
+		pCol = document.getElementById(elNm).style.color;
+		var botType = Math.floor(Math.random()*2);
+		var bot;
+		switch (botType){
+			case 0:
+				bot = new wildExpand(pName, pCol, pc+1);
+				break;
+			case 1:
+				bot = new wildStep(pName, pCol, pc+1);
+				break;
+		}
+		players.push(bot);
 	}
+
+	document.getElementById("StartBtn").parentNode.removeChild(document.getElementById("StartBtn"));
+	document.getElementById("divi").parentNode.removeChild(document.getElementById("divi"));
+	document.getElementById("AplyrBtn").parentNode.removeChild(document.getElementById("AplyrBtn"));
+		
+	var scoreBoxSpan = document.createElement("span");
+	var canvasSpan = document.createElement("span");
+	
+	var scoreBox = document.createElement("form");
+	var field = document.createElement("fieldset");
+	var lege = document.createElement("legend");
+	scoreBox.size = 3;
+	field.id = "board";
+	lege.innerHTML = "ScoreBox";
+	field.appendChild(lege);
+	scoreBox.appendChild(field);
+	
+	canvas = document.createElement("canvas");
+	canvasSpan.class = "content";
+	canvas.width = 1500;
+	canvas.height = 1500;
+	
+	canvasSpan.appendChild(canvas);
+	scoreBoxSpan.appendChild(scoreBox);
+	
+	document.body.appendChild(scoreBoxSpan);
+	document.body.appendChild(canvasSpan);
+	
+	var mapPick = Math.floor(Math.random()*8);
+	switch (mapPick){
+		case 0: map = prettySym();
+				break;
+		case 1: map = scatterBlob();
+				break;
+		case 2: map = praiseJibbers();
+				break;
+		case 3: map = spiralGal();
+				break;
+		case 4: map = ringODeath();
+				break;
+		case 5: map = clusters();
+				break;
+		case 6: map = heartbreak();
+				break;
+		case 7: map = converge();
+				break;
+	}
+
+	ctx = canvas.getContext('2d');
+	//canvas.width = w;
+	//canvas.height = h;
+	//ctx.scale(.4, .4);
+	ctx.beginPath();
+
+	//players = [new Player("Vi", "#a3a", 1, false)];
+	var spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
+	setupGame(players,map,spawns);
+	render(map);
+	var allBots = true;
+	for (var y = 0; y<players.length; y++){
+		if(players[y].isBot != true){
+			allBots = false;
+			break;
+		}
+	}
+	canvasSpan.onclick = function(){checkHit(map); return false;};
 }
 </script>

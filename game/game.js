@@ -45,14 +45,16 @@ function setupGame(players, map, spawns){
 			}
 		}
 	}
-	//boners = genBoners(1,5);
 	if (map.length >= 68){
 		boners = genBoners(map.length/9,map.length/17);
 	}
 	else{
 		boners = genBoners(map.length/7, map.length/9);
 	}
-	//console.log(boners);
+	//boners = genBoners(1,5);
+	if(debug){
+		console.log(boners);
+	}
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
@@ -77,7 +79,6 @@ function createPlanetLabels(){
 }
 function setupScoreBoard(count){
 	var element = document.getElementById("board");
-	var frag = document.createDocumentFragment();
 	for(var r = 0; r<players.length; r++){
 		var div = document.createElement("div");
 		var id = "player" + r;
@@ -136,6 +137,12 @@ function render(map){
 	updateScoreBox();
 }
 function drawBoners(){
+	for (var w = 0; w<boners.length; w++){
+		var mini = boners[w];
+		for (var t = 0; t<mini.length; t++){
+			map[mini[t]].setShowing(false);
+		}
+	}
 	for (var r = 0; r<boners.length; r++){
 		var up = true;
 		var mini = boners[r];
@@ -162,21 +169,22 @@ function drawBoners(){
 					}
 				}
 			}
-		}
-		for(var a = 0;a<mini.length; a++){
+			for(var a = 0;a<mini.length; a++){
 			map[mini[a]].setShowing(up);
+			}
 		}
 	}
 }
 function checkHit(map){
 	var canvRect = canvas.getBoundingClientRect();
-	// console.log(event.clientX);
-	// console.log(canvRect.left);
+	//console.log(event.clientX);
+	//console.log(canvRect.left);
 	// console.log(event.clientX - canvRect.left);
 	var x = event.clientX - canvRect.left;
 	var y = event.clientY - canvRect.top;
 	var r;
-	for(r=0; r<map.length;r++){
+	if (players[currentPlayer].isBot != true){
+		for(r=0; r<map.length;r++){
 		if (x >= map[r].getX() - map[r].getRadius()*2 && x <= map[r].getX() + map[r].getRadius()*2){
 			if (y >= map[r].getY() - map[r].getRadius()*2 && y <= map[r].getY() + map[r].getRadius()*2){
 				if (map[r].getOwner() == players[currentPlayer].getID()){
@@ -187,6 +195,7 @@ function checkHit(map){
 				}
 				break;
 			}
+		}
 		}
 	}
 }
@@ -226,10 +235,8 @@ function move(targ, map){
 			}
 		}
 		render(map);
-		if(!allBots){
-			if(validMove){
-				swapPlayer();
-			}
+		if(validMove){
+			swapPlayer();
 		}
 	}	
 }
