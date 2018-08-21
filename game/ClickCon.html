@@ -207,9 +207,10 @@ function gameStart(){
 	//players = [new wildExpand("1", "#f00", 1), new wildExpand("2", "#0f0",2), new wildExpand("3","#00f", 3),new wildExpand("4","#f0f", 4),new wildExpand("5","#0ff", 5),new wildExpand("6","#ff0", 6)];
 	var spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
 	setupGame(players,map,spawns);
-	render(map);	
-	canvas.onclick = function(){checkHit(map); return false;};
-
+	render(map);
+	if(botwar == false){
+		canvas.onclick = function(){checkHit(map); return false;};
+	}
 }
 function setCanvasDims(){
 	var maxY = 0;

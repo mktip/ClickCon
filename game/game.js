@@ -58,15 +58,15 @@ function setupGame(players, map, spawns){
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
-	if(botwar == false){
+	//if(botwar == false){
 		//currentPlayer = 0;
 		if (players[currentPlayer].isBot){
 			players[currentPlayer].makeMove();
 		}
-	}
-	else{
-		botWar();
-	}
+	//}
+	//else{
+		//botWar();
+	//}
 }
 function createPlanetLabels(){
 	for (var r = 0; r<map.length; r++){
@@ -249,13 +249,13 @@ function move(targ, mover, map){
 			}
 		}
 		render(map);
-		if(validMove && botwar == false){
+		if(validMove){
 			swapPlayer();
 		}
 	}	
 }
 function swapPlayer(){
-	if(botwar == false){
+	//if(botwar == false){
 		if (currentPlayer == players.length - 1) {
 		currentPlayer = 0;
 		}
@@ -270,10 +270,10 @@ function swapPlayer(){
 		}
 		render(map);
 		if (players[currentPlayer].isBot && players[currentPlayer].getOwned().length > 0){
-			var stall = 250;
+			var stall = 0;
 			setTimeout(botcaller, stall);
 		}
-	}
+	//}
 }
 function botcaller(){
 	botMove(currentPlayer);
@@ -284,7 +284,7 @@ function botMove(bot){
 	}
 }
 function botWar(){
-	for(var x = 0;x<1000;++x){
+	for(var x = 0;x<100;++x){
 		if(currentPlayer == players.length){
 			currentPlayer = 0;
 		}
@@ -293,9 +293,10 @@ function botWar(){
 				decayLockLife();
 			}
 			if(players[currentPlayer].getOwned().length > 0){
-				setTimeout(botcaller, 250);
+				botMove(currentPlayer);
 			}
 		}
 	}
+	currentPlayer = starter;
 	console.log(currentPlayer);
 }
