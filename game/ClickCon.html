@@ -39,7 +39,10 @@
 var map = [];
 var canvas;
 var ctx;
+var zoomScale = 1;
+var zoomChange = 0;
 var players = [];	
+var botwar = false;
 
 var pCount = 1;
 var pID = "playerNode" + pCount;
@@ -51,9 +54,11 @@ function startMenu(){
 	var divi = document.createElement("div");
 	var StartBtn = document.createElement("button");
 	var AplyrBtn = document.createElement("button");
+	var BotWarBtn = document.createElement("button");
 	var hostPlayer = document.createElement("div");
 	var AbtnTxt = document.createTextNode("+ Bot");	
 	var strtbtntxt = document.createTextNode("Start Game");
+	var botWarBtnTxt = document.createTextNode("Bot War");
 	var playerName = document.createTextNode(adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10));
 	
 	var playerColour = Math.floor(Math.random()*colList.length);
@@ -64,6 +69,7 @@ function startMenu(){
 	divi.id = "divi";
 	AplyrBtn.id = "AplyrBtn";
 	hostPlayer.id = "hostPlayer";
+	BotWarBtn.id = "BotWarBtn";
 	
 	divi.float = "center";	
 	AplyrBtn.float = "left";	
@@ -71,12 +77,15 @@ function startMenu(){
 	AplyrBtn.appendChild(AbtnTxt);
 	hostPlayer.appendChild(playerName);
 	StartBtn.appendChild(strtbtntxt);
+	BotWarBtn.appendChild(botWarBtnTxt);
 	divi.appendChild(hostPlayer);
 	
 	AplyrBtn.addEventListener("click", function(event){event.preventDefault(); addPlyr(divi, document.createElement("div"));});
 	StartBtn.addEventListener("click", function(event){event.preventDefault(); gameStart();});
+	BotWarBtn.addEventListener("click", function(event){event.preventDefault(); botwar = true; gameStart();});
 	
 	document.body.appendChild(StartBtn);
+	document.body.appendChild(BotWarBtn);
 	document.body.appendChild(divi);
 	document.body.appendChild(AplyrBtn);
 }
@@ -102,9 +111,26 @@ function addPlyr(parent, child){
 function gameStart(){
 	var pName = document.getElementById("hostPlayer").innerText;
 	var pCol = document.getElementById("hostPlayer").style.color;
-	players.push(new Player(pName, pCol, 1, false));
 	
-	for(var pc = 1; pc < pCount; ++pc){
+	if(botwar){
+		for(var r = 0; r<colList.length; ++r){
+			var botType = Math.floor(Math.random()*2);
+			var bot;
+			var pName = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
+			switch (botType){
+				case 0:
+					bot = new wildExpand(pName, colList[r], r+1);
+					break;
+				case 1:
+					bot = new wildStep(pName, colList[r], r+1);
+					break;
+			}
+			players.push(bot);
+		}
+	}
+	else{
+		players.push(new Player(pName, pCol, 1, false));
+		for(var pc = 1; pc < pCount; ++pc){
 		var elNm = "playerNode" + pc;
 		pName = document.getElementById(elNm).innerText;
 		pName = pName.substring(0, pName.length-1);
@@ -120,9 +146,11 @@ function gameStart(){
 				break;
 		}
 		players.push(bot);
+		}
 	}
 
 	document.getElementById("StartBtn").parentNode.removeChild(document.getElementById("StartBtn"));
+	document.getElementById("BotWarBtn").parentNode.removeChild(document.getElementById("BotWarBtn"));
 	document.getElementById("divi").parentNode.removeChild(document.getElementById("divi"));
 	document.getElementById("AplyrBtn").parentNode.removeChild(document.getElementById("AplyrBtn"));
 		
@@ -168,24 +196,33 @@ function gameStart(){
 		case 7: map = converge();
 				break;
 	}
-
+	
+	map = properSpiral();
 	ctx = canvas.getContext('2d');
-	//canvas.width = w;
-	//canvas.height = h;
-	//ctx.scale(.4, .4);
+	setCanvasDims();
+	ctx.scale(zoomScale, zoomScale);
 	ctx.beginPath();
 
 	//players = [new Player("Vi", "#a3a", 1, false)];
+	//players = [new wildExpand("1", "#f00", 1), new wildExpand("2", "#0f0",2), new wildExpand("3","#00f", 3),new wildExpand("4","#f0f", 4),new wildExpand("5","#0ff", 5),new wildExpand("6","#ff0", 6)];
 	var spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
 	setupGame(players,map,spawns);
-	render(map);
-	var allBots = true;
-	for (var y = 0; y<players.length; y++){
-		if(players[y].isBot != true){
-			allBots = false;
-			break;
+	render(map);	
+	canvas.onclick = function(){checkHit(map); return false;};
+
+}
+function setCanvasDims(){
+	var maxY = 0;
+	var maxX = 0;
+	for(var v = 0; v<map.length; v++){
+		if((map[v].getX()) * zoomScale > maxX){
+			maxX = map[v].getX();
+		}
+		if((map[v].getY()) * zoomScale > maxY){
+			maxY = map[v].getY();
 		}
 	}
-	canvasSpan.onclick = function(){checkHit(map); return false;};
+	canvas.width = maxX + 100;
+	canvas.height = maxY + 100;
 }
 </script>

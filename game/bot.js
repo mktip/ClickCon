@@ -17,7 +17,7 @@ randoBot.prototype.makeMove = function(){
 		var consList = map[pick].getConnections();
 		tar = map[consList[Math.floor(Math.random()*consList.length)]];
 	}
-	move(tar, map);
+	move(tar, this.id, map);
 };
 
 function wildExpand(name, colour, id){
@@ -42,7 +42,7 @@ wildExpand.prototype.makeMove = function(){
 	if(hitList.length > 0){
 		var pick = Math.floor(Math.random()*hitList.length);
 		var tar = hitList[pick];
-		move(tar, map);
+		move(tar, this.id, map);
 	}
 	else{	
 		swapPlayer();
@@ -71,7 +71,7 @@ wildStep.prototype.makeMove = function(){
 	if(hitList.length > 0){
 		var pick = Math.floor(Math.random()*hitList.length);
 		var tar = hitList[pick];
-		move(tar, map);
+		move(tar, this.id, map);
 	}
 	else{
 		swapPlayer()

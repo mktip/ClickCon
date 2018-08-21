@@ -58,9 +58,14 @@ function setupGame(players, map, spawns){
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
-	//currentPlayer = 0;
-	if (players[currentPlayer].isBot){
-		players[currentPlayer].makeMove();
+	if(botwar == false){
+		//currentPlayer = 0;
+		if (players[currentPlayer].isBot){
+			players[currentPlayer].makeMove();
+		}
+	}
+	else{
+		botWar();
 	}
 }
 function createPlanetLabels(){
@@ -103,6 +108,7 @@ function calcScores(){
 			}
 		}
 	}
+	updateScoreBox();
 }
 function updateScoreBox(){
 	for (var r = 0; r<players.length; r++){
@@ -111,6 +117,18 @@ function updateScoreBox(){
 	}
 }
 function render(map){
+	if (zoomChange != 0){
+		console.log("be: "+zoomScale);
+		zoomScale = zoomScale + zoomChange;
+		zoomChange = 0;
+		console.log("af: "+zoomScale);
+		ctx.scale(zoomChange, zoomChange);
+		setCanvasDims();
+	}
+	else{
+		ctx.scale(1,1);
+	}
+	//console.log(zoomScale);
 	ctx.fillStyle = "#000";
 	ctx.fillRect(0,0,canvas.width,canvas.height);
 	var i;
@@ -134,7 +152,6 @@ function render(map){
 		createPlanetLabels();
 	}
 	calcScores();
-	updateScoreBox();
 }
 function drawBoners(){
 	for (var w = 0; w<boners.length; w++){
@@ -177,18 +194,15 @@ function drawBoners(){
 }
 function checkHit(map){
 	var canvRect = canvas.getBoundingClientRect();
-	//console.log(event.clientX);
-	//console.log(canvRect.left);
-	// console.log(event.clientX - canvRect.left);
-	var x = event.clientX - canvRect.left;
-	var y = event.clientY - canvRect.top;
+	var x = (event.clientX - canvRect.left);
+	var y = (event.clientY - canvRect.top);
 	var r;
 	if (players[currentPlayer].isBot != true){
 		for(r=0; r<map.length;r++){
-		if (x >= map[r].getX() - map[r].getRadius()*2 && x <= map[r].getX() + map[r].getRadius()*2){
-			if (y >= map[r].getY() - map[r].getRadius()*2 && y <= map[r].getY() + map[r].getRadius()*2){
+		if (x >= (map[r].getX() - map[r].getRadius()*2) * zoomScale && x <= (map[r].getX() + map[r].getRadius()*2) * zoomScale){
+			if (y >= (map[r].getY() - map[r].getRadius()*2) * zoomScale && y <= (map[r].getY() + map[r].getRadius()*2) * zoomScale){
 				if (map[r].getOwner() == players[currentPlayer].getID()){
-					move(map[r], map);
+					move(map[r], players[currentPlayer].getID(), map);
 				}
 				else{
 					checkProxy(map[r], map);
@@ -204,7 +218,7 @@ function checkProxy(targ, map){
 	var cons = targ.getConnections();
 		for(r=0; r < cons.length; r++){
 			if (map[cons[r]].getOwner() == players[currentPlayer].getID()){
-				move(targ, map);
+				move(targ, players[currentPlayer].getID(), map);
 				break;
 			}
 		}
@@ -215,10 +229,10 @@ function decayLockLife(){
 		map[r].rotLockLife();
 	}
 }
-function move(targ, map){
+function move(targ, mover, map){
 	var validMove = false;
 	if(targ.getLockLife() == 0){
-		if (targ.getOwner() == players[currentPlayer].getID()){
+		if (targ.getOwner() == players[mover-1].getID()){
 			if(targ.getShield() == false){
 			targ.setShield(true);
 			validMove = true;
@@ -230,37 +244,58 @@ function move(targ, map){
 				validMove = true;
 			}
 			else{
-				targ.setOwner(players[currentPlayer].getID(), players[currentPlayer].colour);
+				targ.setOwner(players[mover-1].getID(), players[mover-1].colour);
 				validMove = true;
 			}
 		}
 		render(map);
-		if(validMove){
+		if(validMove && botwar == false){
 			swapPlayer();
 		}
 	}	
 }
 function swapPlayer(){
-	if (currentPlayer == players.length - 1) {
+	if(botwar == false){
+		if (currentPlayer == players.length - 1) {
 		currentPlayer = 0;
-	}
-	else{
-		currentPlayer += 1;
-	}
-	if (currentPlayer == starter){
-		decayLockLife();
-	}
-	if (players[currentPlayer].getOwned().length == 0){
-		swapPlayer()
-	}
-	render(map);
-	if (players[currentPlayer].isBot){
-		var stall = 500;
-		setTimeout(botMove, stall);
+		}
+		else{
+			currentPlayer += 1;
+		}
+		if (currentPlayer == starter){
+			decayLockLife();
+		}
+		if (players[currentPlayer].getOwned().length == 0){
+			swapPlayer()
+		}
+		render(map);
+		if (players[currentPlayer].isBot && players[currentPlayer].getOwned().length > 0){
+			var stall = 250;
+			setTimeout(botcaller, stall);
+		}
 	}
 }
-function botMove(){
-	if (players[currentPlayer].isBot){
-		players[currentPlayer].makeMove();
+function botcaller(){
+	botMove(currentPlayer);
+}
+function botMove(bot){
+	if (players[bot].isBot){
+		players[bot].makeMove();
 	}
+}
+function botWar(){
+	for(var x = 0;x<1000;++x){
+		if(currentPlayer == players.length){
+			currentPlayer = 0;
+		}
+		for(currentPlayer; currentPlayer<players.length; currentPlayer++){
+			if(currentPlayer == starter){
+				decayLockLife();
+			}
+			if(players[currentPlayer].getOwned().length > 0){
+				setTimeout(botcaller, 250);
+			}
+		}
+	}
+	console.log(currentPlayer);
 }
