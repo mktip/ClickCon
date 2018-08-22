@@ -255,7 +255,6 @@ function move(targ, mover, map){
 	}	
 }
 function swapPlayer(){
-	//if(botwar == false){
 		if (currentPlayer == players.length - 1) {
 		currentPlayer = 0;
 		}
@@ -266,14 +265,19 @@ function swapPlayer(){
 			decayLockLife();
 		}
 		if (players[currentPlayer].getOwned().length == 0){
-			swapPlayer()
+			swapPlayer();
 		}
 		render(map);
 		if (players[currentPlayer].isBot && players[currentPlayer].getOwned().length > 0){
-			var stall = 0;
+			var stall;
+			if(botwar){
+				stall = 0;
+			}
+			else{
+				stall = 250;
+			}
 			setTimeout(botcaller, stall);
 		}
-	//}
 }
 function botcaller(){
 	botMove(currentPlayer);
@@ -282,21 +286,4 @@ function botMove(bot){
 	if (players[bot].isBot){
 		players[bot].makeMove();
 	}
-}
-function botWar(){
-	for(var x = 0;x<100;++x){
-		if(currentPlayer == players.length){
-			currentPlayer = 0;
-		}
-		for(currentPlayer; currentPlayer<players.length; currentPlayer++){
-			if(currentPlayer == starter){
-				decayLockLife();
-			}
-			if(players[currentPlayer].getOwned().length > 0){
-				botMove(currentPlayer);
-			}
-		}
-	}
-	currentPlayer = starter;
-	console.log(currentPlayer);
 }
