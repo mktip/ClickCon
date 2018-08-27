@@ -88,6 +88,10 @@ function startMenu(){
 	document.body.appendChild(BotWarBtn);
 	document.body.appendChild(divi);
 	document.body.appendChild(AplyrBtn);
+	
+	addPlyr(divi, document.createElement("div"));
+	addPlyr(divi, document.createElement("div"));
+	addPlyr(divi, document.createElement("div"));
 }
 function addPlyr(parent, child){
 	if(colList.length > 0){
@@ -113,18 +117,38 @@ function gameStart(){
 	var pCol = document.getElementById("hostPlayer").style.color;
 	
 	if(botwar){
+		players.push(new wildExpand(pName, pCol, 1));
+		for(var p = 1; p<pCount; p++){
+			var elNm = "playerNode" + p;
+			pName = document.getElementById(elNm).innerText;
+			pName = pName.substring(0, pName.length-1);
+			pCol = document.getElementById(elNm).style.color;
+			var botType = Math.floor(Math.random()*2);
+			var bot;
+			switch (botType){
+				case 0:
+					bot = new wildExpand(pName, pCol, p+1);
+					break;
+				case 1:
+					bot = new wildStep(pName, pCol, p+1);
+					break;
+			}
+			players.push(bot);
+		}
+		var id = pCount + 1;
 		for(var r = 0; r<colList.length; ++r){
 			var botType = Math.floor(Math.random()*2);
 			var bot;
 			var pName = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
 			switch (botType){
 				case 0:
-					bot = new wildExpand(pName, colList[r], r+1);
+					bot = new wildExpand(pName, colList[r], id);
 					break;
 				case 1:
-					bot = new wildStep(pName, colList[r], r+1);
+					bot = new wildStep(pName, colList[r], id);
 					break;
 			}
+			id++;
 			players.push(bot);
 		}
 	}
@@ -197,7 +221,7 @@ function gameStart(){
 				break;
 	}
 	
-	map = properSpiral();
+	//map = properSpiral();
 	ctx = canvas.getContext('2d');
 	setCanvasDims();
 	ctx.scale(zoomScale, zoomScale);

@@ -100,12 +100,7 @@ function calcScores(){
 		var countList = players[t].getOwned();
 		var r;
 		for (r=0; r<countList.length; r++){
-			if (map[countList[r]].getShowing()){
-				players[t].score += 2;
-			}
-			else{
-				players[t].score += 1;
-			}
+			players[t].score += map[countList[r]].getValue();
 		}
 	}
 	updateScoreBox();
@@ -158,6 +153,7 @@ function drawBoners(){
 		var mini = boners[w];
 		for (var t = 0; t<mini.length; t++){
 			map[mini[t]].setShowing(false);
+			map[mini[t]].setValue(1);
 		}
 	}
 	for (var r = 0; r<boners.length; r++){
@@ -188,6 +184,9 @@ function drawBoners(){
 			}
 			for(var a = 0;a<mini.length; a++){
 			map[mini[a]].setShowing(up);
+				if(up){
+					map[mini[a]].setValue(map[mini[a]].getValue() + 1);
+				}
 			}
 		}
 	}

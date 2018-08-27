@@ -12,6 +12,7 @@ function planeto(own, nx, ny, col, rad, cons){
 	this.heatLife = 0;
 	this.heatCap = Math.floor(Math.random()*5)+4;
 	this.prevOwner = this.ownerID;
+	this.value = 1;
 	}
 
 //render methods to draw the planetos and connections, needs some reworking as drawing duplicate connections is a bit redundant
@@ -113,6 +114,9 @@ planeto.prototype.setX = function (nX){
 planeto.prototype.setY = function (nY){
 	this.y = nY;
 }
+planeto.prototype.setValue = function (val){
+	this.value = val;
+}
 planeto.prototype.getConnections = function(){
 	return this.connections;
 }
@@ -142,4 +146,7 @@ planeto.prototype.getLockLife = function(){
 }
 planeto.prototype.getPrevOwn = function(){
 	return prevOwner;
+}
+planeto.prototype.getValue = function(){
+	return this.value;
 }
