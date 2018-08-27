@@ -2,6 +2,7 @@ kill list (update log)
 
 v?
 -Tombstone planetos
+-Absorb setting
 -gamemodes:
 	-Chaos mode:
 		-Warp planeto, lock planeto, mine planeto
@@ -24,12 +25,15 @@ v2.0
 v1.5
  -Better bots
  -Teams mode
+ 
+v1.2
+ -iFrame bot editor
 
 v1.1
  -Random map generation
+ -Tutorial Page
 
 v1.0
-
 X-Shields
 X-Lock life
 X-Formations
@@ -39,5 +43,5 @@ X-Bot timer
  -Random shields
  -Formation lock mode
  -Hide scores
+ -Scaling
  -Spawn types
- -Tutorial Page

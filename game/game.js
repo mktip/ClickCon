@@ -24,7 +24,7 @@ Player.prototype.getScore = function(){
 	return this.score;
 }
 
-var debug = false;
+var debug = true;
 var currentPlayer;
 var starter;
 var boners;

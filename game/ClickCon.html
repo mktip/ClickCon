@@ -192,8 +192,8 @@ function gameStart(){
 	
 	canvas = document.createElement("canvas");
 	canvasSpan.class = "content";
-	canvas.width = 1500;
-	canvas.height = 1500;
+	//canvas.width = 1500;
+	//canvas.height = 1500;
 	
 	canvasSpan.appendChild(canvas);
 	scoreBoxSpan.appendChild(scoreBox);
@@ -221,7 +221,7 @@ function gameStart(){
 				break;
 	}
 	
-	//map = properSpiral();
+	map = properSpiral();
 	ctx = canvas.getContext('2d');
 	setCanvasDims();
 	ctx.scale(zoomScale, zoomScale);
@@ -242,13 +242,15 @@ function setCanvasDims(){
 	var maxX = 0;
 	for(var v = 0; v<map.length; v++){
 		if((map[v].getX()) * zoomScale > maxX){
-			maxX = map[v].getX();
+			maxX = map[v].getX() * zoomScale;
 		}
 		if((map[v].getY()) * zoomScale > maxY){
-			maxY = map[v].getY();
+			maxY = map[v].getY() * zoomScale;
 		}
 	}
 	canvas.width = maxX + 100;
 	canvas.height = maxY + 100;
+	console.log("wid: " + canvas.width);
+	console.log("hei: " + canvas.height);
 }
 </script>
