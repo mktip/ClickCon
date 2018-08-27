@@ -14,7 +14,7 @@
 	font-size:30px;
 	}
 	span{
-	width:300px;
+	width:400px;
 	float:left;
 	display:inline-block;
 	}
@@ -51,6 +51,7 @@ var colList = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00cccc",
 startMenu();
 
 function startMenu(){
+	var holder = document.createElement("div");
 	var divi = document.createElement("div");
 	var StartBtn = document.createElement("button");
 	var AplyrBtn = document.createElement("button");
@@ -70,9 +71,10 @@ function startMenu(){
 	AplyrBtn.id = "AplyrBtn";
 	hostPlayer.id = "hostPlayer";
 	BotWarBtn.id = "BotWarBtn";
+	holder.id = "holder";
 	
 	divi.float = "center";	
-	AplyrBtn.float = "left";	
+	AplyrBtn.float = "center";	
 
 	AplyrBtn.appendChild(AbtnTxt);
 	hostPlayer.appendChild(playerName);
@@ -84,10 +86,11 @@ function startMenu(){
 	StartBtn.addEventListener("click", function(event){event.preventDefault(); gameStart();});
 	BotWarBtn.addEventListener("click", function(event){event.preventDefault(); botwar = true; gameStart();});
 	
-	document.body.appendChild(StartBtn);
-	document.body.appendChild(BotWarBtn);
-	document.body.appendChild(divi);
-	document.body.appendChild(AplyrBtn);
+	holder.appendChild(StartBtn);
+	holder.appendChild(BotWarBtn);
+	holder.appendChild(divi);
+	holder.appendChild(AplyrBtn);
+	document.body.appendChild(holder);
 	
 	addPlyr(divi, document.createElement("div"));
 	addPlyr(divi, document.createElement("div"));
@@ -173,10 +176,7 @@ function gameStart(){
 		}
 	}
 
-	document.getElementById("StartBtn").parentNode.removeChild(document.getElementById("StartBtn"));
-	document.getElementById("BotWarBtn").parentNode.removeChild(document.getElementById("BotWarBtn"));
-	document.getElementById("divi").parentNode.removeChild(document.getElementById("divi"));
-	document.getElementById("AplyrBtn").parentNode.removeChild(document.getElementById("AplyrBtn"));
+	document.getElementById("holder").parentNode.removeChild(document.getElementById("holder"));
 		
 	var scoreBoxSpan = document.createElement("span");
 	var canvasSpan = document.createElement("span");
