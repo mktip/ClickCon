@@ -31,17 +31,17 @@ v1.2
 
 v1.1
  -Random map generation
+ -Maps
  -Tutorial Page
+ -Scaling
 
 v1.0
 X-Shields
 X-Lock life
 X-Formations
- -Maps
 X-Bot timer
- -Random roadblocks
- -Random shields
- -Formation lock mode
- -Hide scores
- -Scaling
+X-Random roadblocks
+X-Random shields
+X-Formation lock mode
+X-Hide scores
 X-Spawn types
