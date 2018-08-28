@@ -24,11 +24,16 @@ Player.prototype.getScore = function(){
 	return this.score;
 }
 
-var debug = true;
+var debug = false;
+var playing = false;
 var currentPlayer;
+var curRound;
+var maxRound;
+var hiddenScores;
+var lockMode;
 var starter;
 var boners;
-function setupGame(players, map, spawns){
+function setupGame(players, map, spawns, shi, rbk, lck, hSs, roundMax){
 	var r;
 	var left = map;
 	for (r=0; r<players.length; r++){
@@ -45,28 +50,44 @@ function setupGame(players, map, spawns){
 			}
 		}
 	}
+	if(shi){
+		var amt = Math.floor(Math.random()*map.length/2) + 1;
+		var unShi = map;
+		for(var r = 0; r < amt; r++){
+			var pick = Math.floor(Math.random()*unShi.length);
+			unShi[pick].setShield(true);
+			removeAtIndex(unShi, pick);
+		}
+	}
+	if(rbk){
+		var amt = Math.floor(Math.random()*map.length/3) + 1;
+		var unLck = map;
+		for(var r = 0; r < amt; r++){
+			var pick = Math.floor(Math.random()*unLck.length);
+			unLck[pick].setLockLife(Math.floor(Math.random()*10) + 1);
+			removeAtIndex(unLck, pick);
+		}
+	}
 	if (map.length >= 68){
 		boners = genBoners(map.length/9,map.length/17);
 	}
 	else{
 		boners = genBoners(map.length/7, map.length/9);
 	}
-	//boners = genBoners(1,5);
 	if(debug){
 		console.log(boners);
 	}
+	curRound = 1;
+	maxRound = roundMax;
+	hiddenScores = hSs;
+	lockMode = lck;
+	playing = true;
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
-	//if(botwar == false){
-		//currentPlayer = 0;
 		if (players[currentPlayer].isBot){
 			players[currentPlayer].makeMove();
 		}
-	//}
-	//else{
-		//botWar();
-	//}
 }
 function createPlanetLabels(){
 	for (var r = 0; r<map.length; r++){
@@ -88,10 +109,28 @@ function setupScoreBoard(count){
 		var div = document.createElement("div");
 		var id = "player" + r;
 		div.id = id;
-		var txt = document.createTextNode(players[r].name + ": " + 0);
+		var txt;
+		if(hiddenScores){
+			txt = document.createTextNode(players[r].name + ": ???");
+		}
+		else{
+			txt = document.createTextNode(players[r].name + ": " + 0);
+		}
 		div.appendChild(txt);
 		element.appendChild(div);
 		document.getElementById(id).style.color = players[r].getColour();
+	}
+	if(botwar == false){
+		var spaceholder = document.createElement("div");
+		var spacetxt = document.createTextNode("sneaky");
+		spaceholder.style.color = "#000";
+		spaceholder.appendChild(spacetxt);
+		element.appendChild(spaceholder);
+		var roundDiv = document.createElement("div");
+		var roundTxt = document.createTextNode("Round: " + curRound + "/" + maxRound);
+		roundDiv.id = "roundDiv";
+		roundDiv.appendChild(roundTxt);
+		element.appendChild(roundDiv);
 	}
 }
 function calcScores(){
@@ -107,8 +146,18 @@ function calcScores(){
 }
 function updateScoreBox(){
 	for (var r = 0; r<players.length; r++){
+		var str;
+		if(hiddenScores){
+			str = players[r].name + ": ???";
+		}
+		else{
+			str = players[r].name + ": " + players[r].score;
+		}
 		var id = "player" + r;
-		document.getElementById(id).innerHTML = players[r].name + ": " + players[r].score;
+		document.getElementById(id).innerHTML = str;
+	}
+	if(botwar == false){
+		document.getElementById("roundDiv").innerHTML = "Round: " + curRound + "/" + maxRound;
 	}
 }
 function render(map){
@@ -123,9 +172,8 @@ function render(map){
 	else{
 		ctx.scale(1,1);
 	}
-	//console.log(zoomScale);
 	ctx.fillStyle = "#000";
-	ctx.fillRect(0,0,canvas.width,canvas.height);
+	ctx.fillRect(0,0,canvas.width, canvas.height);
 	var i;
 	ctx.fillStyle = "#0ff";
 	for (i = 0; i < map.length; i++){
@@ -186,6 +234,9 @@ function drawBoners(){
 			map[mini[a]].setShowing(up);
 				if(up){
 					map[mini[a]].setValue(map[mini[a]].getValue() + 1);
+					if(lockMode){
+						map[mini[a]].setLockLife(10001);
+					}
 				}
 			}
 		}
@@ -196,7 +247,7 @@ function checkHit(map){
 	var x = (event.clientX - canvRect.left);
 	var y = (event.clientY - canvRect.top);
 	var r;
-	if (players[currentPlayer].isBot != true){
+	if (players[currentPlayer].isBot != true && playing){
 		for(r=0; r<map.length;r++){
 		if (x >= (map[r].getX() - map[r].getRadius()*2) * zoomScale && x <= (map[r].getX() + map[r].getRadius()*2) * zoomScale){
 			if (y >= (map[r].getY() - map[r].getRadius()*2) * zoomScale && y <= (map[r].getY() + map[r].getRadius()*2) * zoomScale){
@@ -255,27 +306,36 @@ function move(targ, mover, map){
 }
 function swapPlayer(){
 		if (currentPlayer == players.length - 1) {
-		currentPlayer = 0;
+			currentPlayer = 0;
 		}
 		else{
 			currentPlayer += 1;
 		}
 		if (currentPlayer == starter){
+			if(botwar == false){
+				curRound += 1;
+				if(curRound > maxRound){
+					playing = false;
+					setTimeout(function(){endGame();}, 5000);
+				}
+			}
 			decayLockLife();
 		}
-		if (players[currentPlayer].getOwned().length == 0){
+		if(playing){
+			if (players[currentPlayer].getOwned().length == 0){
 			swapPlayer();
-		}
-		render(map);
-		if (players[currentPlayer].isBot && players[currentPlayer].getOwned().length > 0){
-			var stall;
-			if(botwar){
-				stall = 0;
 			}
+			render(map);
+			if (players[currentPlayer].isBot && players[currentPlayer].getOwned().length > 0){
+				var stall;
+				if(botwar){
+					stall = 0;
+				}
 			else{
 				stall = 250;
 			}
 			setTimeout(botcaller, stall);
+			}
 		}
 }
 function botcaller(){
@@ -285,4 +345,22 @@ function botMove(bot){
 	if (players[bot].isBot){
 		players[bot].makeMove();
 	}
+}
+function endGame(){
+	calcScores();
+	var max = 0;
+	var maxInd = 0;
+	var tied = false;
+	for(var r = 0; r<players.length; r++){
+		if(players[r].getScore() > max){
+			max = players[r].getScore();
+			maxInd = r;
+		}
+		else{
+			if(players[r].getScore() == max && max > 0){
+				tied = true;
+			}
+		}
+	}
+	endScreen(maxInd, tied);
 }

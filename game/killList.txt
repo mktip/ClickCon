@@ -44,4 +44,4 @@ X-Bot timer
  -Formation lock mode
  -Hide scores
  -Scaling
- -Spawn types
+X-Spawn types
