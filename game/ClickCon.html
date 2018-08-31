@@ -330,11 +330,11 @@ function gameStart(){
 	}
 	else{
 		switch(spawnInd){
-			case 1: if(map.length/players.length < players.length * 1){spawns = Math.floor(map.length/players.length);}else{spawns = 1;}
+			case 1: if(map.length > players.length * 1){spawns = 1;}else{spawns = Math.floor(map.length/players.length);}
 					break;
-			case 2: if(map.length/players.length < players.length * 2){spawns = Math.floor(map.length/players.length);}else{spawns = 2;}
+			case 2: if(map.length > players.length * 2){spawns = 2;}else{spawns = Math.floor(map.length/players.length);}
 					break;
-			case 3: if(map.length/players.length < players.length * 3){spawns = Math.floor(map.length/players.length);}else{spawns = 3;}
+			case 3: if(map.length > players.length * 3){spawns = 3;}else{spawns = Math.floor(map.length/players.length);}
 					break;
 			case 4: spawns = Math.floor(map.length/players.length);
 					break;

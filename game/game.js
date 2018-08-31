@@ -279,7 +279,7 @@ function decayLockLife(){
 		map[r].rotLockLife();
 	}
 }
-function move(targ, mover, map){
+function move(targ, mover){
 	var validMove = false;
 	if(targ.getLockLife() == 0){
 		if (targ.getOwner() == players[mover-1].getID()){
