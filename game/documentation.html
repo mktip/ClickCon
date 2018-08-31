@@ -30,8 +30,8 @@ BotNameHere.<font color="#ff0">prototype</font>.makeMove = <font color="#ff0">fu
 Here you declare the bot code. The bot has access to anything that the Player class has, which can be found below.<br><br>
 
 <b>IMPORTANT</b><br><br>	
-Ensure you add the following line, which returns the move of the bot:<br>
-<font color="#ff0">return</font> move; <font color="#0a0"> //The move variable can be called whatever, as long as it is a <b>planeto</b></font>
+Ensure you add the following line, which actually calls the move of the bot:<br>
+makeMove(targetPlaneto, <font color="#ff0">this</font>.id); <font color="#0a0"> //The targetPlaneto variable can be called whatever, as long as it is a <b>planeto</b></font>
 <br><br>
 }
 </p>
@@ -62,6 +62,7 @@ The Planeto class has the following attributes (relevant ones listed with method
 <li>y  -  Accessed using getY() <font color="#0a0">//Y coordinate of planeto</font>
 <li>connections  -  Accessed using getConnections() <font color="#0a0">//The list of connections, as integers</font>
 <li>hasShield  -  Accessed using getShield() <font color="#0a0">//Boolean tracking the shield on the planeto</font>
+<li>value - Accessed using getValue() <font color="0a0">//Integer holding point value of planeto</font>
 <li>bonerShowing  -  Accessed using getShowing() <font color="#0a0">//The only way to tell if a planeto is part of a formation, boolean (explained below)</font>
 <li>lockLife  -  Accessed using getLockLife() <font color="#0a0">//Number of turns the planeto is locked for, used to tell if planeto is locked</font>
 <li>prevOwner  -  Accessed using getPrevOwn() <font color="#0a0">//Previous owner ID of the planeto</font>
@@ -70,6 +71,6 @@ The Planeto class has the following attributes (relevant ones listed with method
 Further explanation of bonerShowing:<br><br>
 bonerShowing is used for the sake of the bots being able to see formations, but only when they're showing, otherwise the formation is invisible code-wise. Of course, methods/variables can be made for the bot to remember where they are though...
 <p>
-Of course, there are probably many ways this documentation can be improved or elaborated on, feel free to ask any questions and it can be added to. Happy botting.
+There are probably many ways this documentation can be improved or elaborated on, feel free to ask any questions and it can be added to. Happy botting.
 </p>
 </body>

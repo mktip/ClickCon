@@ -34,9 +34,15 @@ v1.1
  -Maps
  -Tutorial Page
  -Scaling
+
+v1.0.3
+ -Update documentation
+
+v1.0.2
+X-Fixed another spawn setting
  
 v1.0.1
- -Mini bug fixes: fill setting and supporter names
+X-Mini bug fixes: fill setting and supporter names
  
 v1.0
 X-Shields
