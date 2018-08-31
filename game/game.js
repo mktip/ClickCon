@@ -37,7 +37,7 @@ function setupGame(players, map, spawns, shi, rbk, lck, hSs, roundMax){
 	var r;
 	var left = map;
 	for (r=0; r<players.length; r++){
-		var reps = spawns;
+		var reps;
 		for (reps =0; reps<spawns; reps++){
 			var pick = Math.floor(Math.random()*left.length);
 			left[pick].setOwner(players[r].getID());

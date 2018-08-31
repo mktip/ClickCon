@@ -330,17 +330,16 @@ function gameStart(){
 	}
 	else{
 		switch(spawnInd){
-			case 1: if(map.length/players.length < players.length * 1){spawns = map.length/players.length;}else{spawns = 1;}
+			case 1: if(map.length/players.length < players.length * 1){spawns = Math.floor(map.length/players.length);}else{spawns = 1;}
 					break;
-			case 2: if(map.length/players.length < players.length * 2){spawns = map.length/players.length;}else{spawns = 2;}
+			case 2: if(map.length/players.length < players.length * 2){spawns = Math.floor(map.length/players.length);}else{spawns = 2;}
 					break;
-			case 3: if(map.length/players.length < players.length * 3){spawns = map.length/players.length;}else{spawns = 3;}
+			case 3: if(map.length/players.length < players.length * 3){spawns = Math.floor(map.length/players.length);}else{spawns = 3;}
 					break;
-			case 4: spawns = map.length/players.length;
+			case 4: spawns = Math.floor(map.length/players.length);
 					break;
 		}
 	}
-	console.log(spawns);
 	setupGame(players,map,spawns, ranShields, ranRoadblocks, formLock, hideMode, maxRounds);
 	render(map);
 	if(botwar == false){
