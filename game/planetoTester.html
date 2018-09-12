@@ -2,7 +2,11 @@
 <head>
 	<title>Planeto Demonstration</title>
 	<script src='planeto.js'></script>
-	<script src='map.js'></script>
+	<script src='utils/map.js'></script>
+	<script src='game.js'></script>
+	<script src='bot.js'></script>
+	<script src='utils/utils.js'></script>
+	<script src='utils/delaunator.js'></script>
 </head>
 <style>
 	body {
@@ -11,22 +15,14 @@
 </style>
 <canvas id='canvas'></canvas>
 <script>
-var w = 1300, h = 1000;
-//maps are hardcoded in the file, but obviously can be tweaked to use the random gen coordinates
-var map = prettySim();
+var zoomScale = 1;
+var zoomChange = 0;
+var boners = [];
+var w = 1500, h = 1500;
+var map = randomGen(w,h);
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = w;
 canvas.height = h;
-ctx.beginPath();
-ctx.rect(0,0,canvas.w,canvas.h);
-ctx.fillStyle = '#fff';
-ctx.fill();//this bit doesn't seem to do anything, was intended to make the canvas black and wipe the previous frame at the same time though
-var i;
-for (i = 0; i < map.length; i++){
-	map[i].drawConnections(ctx, map);
-}			
-for (i = 0; i < map.length; i++){
-	map[i].drawPlaneto(ctx, map);
-}
+render(map);
 </script>

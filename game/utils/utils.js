@@ -11,3 +11,19 @@ function removeAtIndex(arr, index){
 	}
 	return clipped;
 }
+function removeItem(arr, item){
+	var clipped = arr;
+	for (var r=0; r< clipped.length; r++){
+		if(clipped[r] == item){
+			clipped = removeAtIndex(clipped, r);
+			r=0;
+		}
+	}
+	return clipped;
+}
+function removeDupes(arr){
+	var filtered = arr.filter(function(item, pos) {
+			return arr.indexOf(item) == pos;
+		})
+	return filtered;
+}

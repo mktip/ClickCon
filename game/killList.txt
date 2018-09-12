@@ -25,21 +25,21 @@ v2.0
 v1.5
  -Better bots
  -Teams mode
+ -Tutorial Page
  
 v1.2
  -iFrame bot editor
 
 v1.1
- -Random map generation
+X-Random map generation
  -Maps
- -Tutorial Page
- -Scaling
+ -Formations Bug
 
 v1.0.3
 X-Update documentation
 
 v1.0.2
-X-Fixed another spawn setting
+X-Fixed another spawn setting bug
  
 v1.0.1
 X-Mini bug fixes: fill setting and supporter names

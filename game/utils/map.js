@@ -1,4 +1,3 @@
-//Simple map file to keep the runner thing less messy.
 function testMap(){
 	var map = [new planeto(0, 50, 50, '#fff', 10, [1,2,3]),
 			new planeto(0, 200, 50, '#fff', 10, [0,3]),
@@ -894,6 +893,14 @@ function properSpiral(){
 			new planeto(0, 1490, 1087.25, '#fff', 10, [0, 2, 4, 9, 193, 235])];
 	return map;
 }
+function triSpiral(){
+	var map = [];
+	return map;
+}
+function superSpiral(){
+	var map = [];
+	return map;
+}
 function genBoners(count, length){
 	var list = [];
 	for (var t = 0; t<count;t++){
@@ -927,4 +934,106 @@ function genBoners(count, length){
 		list.push(mini);
 	}
 	return list;
+}
+function randomGen(w, h){
+	var map = [];
+	var coords = [];
+	var count;
+	var padding = 60;
+	var density = .45;
+	var r = 50;
+	var maxEdge = 200;
+	var minAng = Math.PI/8;
+	var cons = [];
+	
+	function len(p0,p1){
+		var x = coords[p0][0] - coords[p1][0];
+		var y = coords[p0][1] - coords[p1][1];
+		return Math.sqrt(x*x + y*y);
+	}
+	function ang(p0,p1,p2){
+		var x1 = coords[p1][0]- coords[p0][0];
+		var y1 = coords[p1][0]- coords[p0][0];
+		var x2 = coords[p2][0]- coords[p0][0];
+		var y2 = coords[p2][0]- coords[p0][0];
+		return Math.acos((x1*x2+y1*y2)/(len(p0,p1)*len(p0,p2)));
+	}
+	
+	count = Math.floor(density*(w-2*r)*(h-2*r)/(r*r*Math.PI));
+	for(var r=0; r<count;r++){
+		var safe = false;
+		while (!safe) {
+			var x = Math.floor((Math.random()*(w-2*padding))+ padding);
+			var y = Math.floor((Math.random()*(h-2*padding))+ padding);
+			var p = [x,y];
+			safe = true;
+			for (var j=0; j<coords.length; j+=1) {
+				var q = coords[j];
+				if ((p[0]-q[0])*(p[0]-q[0])+(p[1]-q[1])*(p[1]-q[1])<r*r) {
+					safe = false;
+					break;
+				}
+			}
+		}
+		coords.push(p);
+		cons[r] = [-1];
+	}
+	var delaunator = Delaunator.from(coords);
+	var tris = delaunator.triangles;
+	var triChunks = [];
+	var rep = 0;
+	for(var r=0;r<tris.length;r+=3){
+		var host = r;
+		var mini = [];
+		mini.push(tris[r]);
+		for(var t=r+1;t<r+3;t++){
+			mini.push(tris[t]);
+		}
+		triChunks[rep] = mini;
+		rep++;
+	}
+	for(var r=0; r<triChunks.length; r++){
+		var work = triChunks[r];
+		for(var t=0; t<work.length; t++){
+			var mini = removeAtIndex(work, t);
+			for(var y=0; y<mini.length; y++){
+				cons[work[t]].push(mini[y]);
+			}
+		}
+	}
+	for(var r=0; r<cons.length; r++){
+		cons[r] = removeAtIndex(cons[r], 0);
+		cons[r] = removeDupes(cons[r]);
+	}
+	for(var r=0; r<cons.length; r++){
+		//var prevSide = cons[r][1];
+		//console.log(r);
+		for(var t=0; t<cons[r].length; t++){
+			var remTar1 = r;
+			var remTar2 = cons[r][t];
+			//if(len(remTar1, remTar2) > maxEdge || ang(remTar1, remTar2, prevSide) < minAng){
+			if(len(remTar1, remTar2) > maxEdge){
+				cons[remTar1] = removeItem(cons[remTar1], remTar2);
+				cons[remTar2] = removeItem(cons[remTar2], remTar1);
+				t=0;
+				//prevSide = cons[r][1];
+			}
+			// else{
+				// if(ang(remTar1, remTar2, prevSide) > minAng){
+					// prevSide = cons[r][t];
+				// }
+			// } 
+		}
+	}
+	for(var r=0; r<coords.length; r++){
+		var con;
+		if(cons[r] != undefined){
+			con = cons[r];
+		}
+		else{
+			con = [];
+		}
+		map.push(new planeto(0,coords[r][0], coords[r][1], '#fff', 10, con));
+	}
+	return map;
 }

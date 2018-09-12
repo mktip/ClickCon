@@ -24,7 +24,7 @@ Player.prototype.getScore = function(){
 	return this.score;
 }
 
-var debug = false;
+var debug = true;
 var playing = false;
 var currentPlayer;
 var curRound;
@@ -100,7 +100,8 @@ function createPlanetLabels(){
 			ctx.strokeStyle = "#fff";
 		}
 		ctx.font = "20px Arial";
-		ctx.fillText(r, map[r].getX()-20, map[r].getY() - 20);
+		ctx.fillText(r, map[r].getX()-20, map[r].getY() - 20); //NO COORDS
+		//ctx.fillText(r + " (" + map[r].getX() + "," + map[r].getY() + ")", map[r].getX()-20, map[r].getY() - 20); //SHOWS COORDS
 	}
 }
 function setupScoreBoard(count){

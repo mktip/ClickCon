@@ -2,10 +2,11 @@
 <head>
 	<title>ClickCon!</title>
 	<script src='planeto.js'></script>
-	<script src='map.js'></script>
+	<script src='utils/map.js'></script>
 	<script src='game.js'></script>
 	<script src='bot.js'></script>
-	<script src='utils.js'></script>
+	<script src='utils/utils.js'></script>
+	<script src='utils/delaunator.js'></script>
 </head>
 <style>
 	body {
@@ -78,7 +79,7 @@ function startMenu(){
 	hostPlayer.style.color = colList[playerColour];
 	colList = removeAtIndex(colList, playerColour);
 	
-	var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral"];	
+	var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral", "Random Gen"];	
 	for(var x = 0; x<mapArr.length;x++){
 		var opt = document.createElement("option");
 		opt.innerHTML = mapArr[x];
@@ -294,7 +295,7 @@ function gameStart(){
 	fillControlBox();
 	
 	if(mapInd == 0){
-		mapInd = Math.floor(Math.random()*9) + 1;
+		mapInd = Math.floor(Math.random()*10) + 1;
 	}
 	switch (mapInd){
 			case 1: map = praiseJibbers();
@@ -314,6 +315,9 @@ function gameStart(){
 			case 8: map = converge();
 					break;
 			case 9: map = properSpiral();
+					break;
+			case 10: map = randomGen(1500,1500);
+					break;
 		}
 	
 	//map = properSpiral();
