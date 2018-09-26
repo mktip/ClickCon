@@ -32,8 +32,8 @@ v1.2
 
 v1.1
 X-Random map generation
- -Maps
- -Formations Bug
+X-Maps
+X-Formations Bug
 
 v1.0.3
 X-Update documentation

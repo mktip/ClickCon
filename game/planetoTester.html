@@ -18,8 +18,8 @@
 var zoomScale = 1;
 var zoomChange = 0;
 var boners = [];
-var w = 1500, h = 1500;
-var map = randomGen(w,h);
+var w = 3000, h = 3000;
+var map = superSpiral();
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = w;

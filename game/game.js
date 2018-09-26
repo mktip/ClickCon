@@ -24,7 +24,7 @@ Player.prototype.getScore = function(){
 	return this.score;
 }
 
-var debug = true;
+var debug = false;
 var playing = false;
 var currentPlayer;
 var curRound;
@@ -215,28 +215,29 @@ function drawBoners(){
 			}
 		}
 		if(up){
-			for(var x = 0;x<mini.length;x++){
-				var tempCons = map[mini[x]].getConnections();
-				for (var y =0;y<tempCons.length;y++){
-					for (var z =0;z<tempCons.length;z++){
-						if (tempCons[y] == mini[z]){
-							ctx.strokeStyle = "#fff";
-							ctx.fillStyle = "#fff";
-							ctx.lineWidth = 9;
-							ctx.beginPath();
-							ctx.moveTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
-							ctx.lineTo(map[mini[x]].getX(), map[mini[x]].getY());
-							ctx.stroke();
-						}
-					}
-				}
-			}
 			for(var a = 0;a<mini.length; a++){
 			map[mini[a]].setShowing(up);
 				if(up){
 					map[mini[a]].setValue(map[mini[a]].getValue() + 1);
 					if(lockMode){
 						map[mini[a]].setLockLife(10001);
+					}
+				}
+			}
+			for(var x = 0;x<mini.length;x++){
+				var base = map[mini[x]];
+				var tempCons = map[mini[x]].getConnections();
+				for(var y=0; y<tempCons.length; y++){
+					for(var t=0; t<tempCons.length; t++){
+						if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t]){
+							ctx.strokeStyle = "#fff";
+							ctx.fillStyle = "#fff";
+							ctx.lineWidth = 9;
+							ctx.beginPath();
+							ctx.moveTo(base.getX(), base.getY());
+							ctx.lineTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
+							ctx.stroke();
+						}
 					}
 				}
 			}
