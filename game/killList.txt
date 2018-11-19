@@ -15,7 +15,7 @@ v?
 	-Crumble:
 		-Map edges slowly disappear with each turn until turn limit reached
 -formation generation tweaks, no duplicate planetos
--map editor
+-colourblind mode
 -Sound effects
 -prettier art? (Option)
 
@@ -27,9 +27,13 @@ v1.5
  -Teams mode
  -Tutorial Page
  
-v1.2
+v1.2(The creators update)
  -iFrame bot editor
+ -map editor
 
+v1.1.1
+X-Formations graphics fixes(linked formations)
+ 
 v1.1
 X-Random map generation
 X-Maps

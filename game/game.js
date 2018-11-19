@@ -229,7 +229,7 @@ function drawBoners(){
 				var tempCons = map[mini[x]].getConnections();
 				for(var y=0; y<tempCons.length; y++){
 					for(var t=0; t<tempCons.length; t++){
-						if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t]){
+						if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t] && base.getOwner() == map[tempCons[y]].getOwner()){
 							ctx.strokeStyle = "#fff";
 							ctx.fillStyle = "#fff";
 							ctx.lineWidth = 9;
