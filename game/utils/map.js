@@ -1343,7 +1343,7 @@ function genBoners(count, length){
 }
 function randomGen(w, h){
 	var map = [];
-	var coords = [];
+		var coords = [];
 	var count;
 	var padding = 60;
 	var density = .45;
