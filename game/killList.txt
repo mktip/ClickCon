@@ -14,6 +14,8 @@ v?
 		-Max players, big map, goes until someone owns too much or everyone gives up
 	-Crumble:
 		-Map edges slowly disappear with each turn until turn limit reached
+	-Scenario:
+		-Custom made map with a certain setup
 -formation generation tweaks, no duplicate planetos
 -colourblind mode
 -Sound effects
@@ -27,10 +29,16 @@ v1.5
  -Teams mode
  -Tutorial Page
  
+v1.4
+ -Beautify!
+	-Menu Formatting
+	-Username entry
+	-Player list bugs
+ 
 v1.3
  -Random Gen Additions
 	-Cluster type
-	-Sector type
+	-Chunk type
 	-Spiral type
 	-Customisable Settings
  

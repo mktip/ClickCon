@@ -10,5 +10,19 @@
 </style>
 </head>
 <body>
-
+ye
 </body>
+<script>
+var canvas;
+var canX = 750;
+var canY = 750;
+
+canvas = document.createElement("canvas");
+canvas.width = canX;
+canvas.height = canY;
+document.body.appendChild(canvas);
+var ctx = canvas.getContext("2d");
+ctx.beginPath();
+ctx.fillStyle = "#ff0066";
+ctx.fillRect(0,0,canX,canY);
+</script>
