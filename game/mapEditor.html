@@ -15,7 +15,7 @@
 </div>
 <div id="menuDiv" style="border:1px solid gray">
 	<h2>Tools</h2>
-	<button>Planeto Mode</button><br>
+	<button id="planBtn" onclick="toggleEditMode(0)">Planeto Mode</button><br>
 	<select id="placeModeSel">
 		<option>Single</option>
 		<option>Two-way Horizontal</option>
@@ -23,7 +23,7 @@
 		<option>Two-way Diagonal</option>
 		<option>Four-way mirror</option>
 	</select><br>
-	<button>Connections Mode</button><br>
+	<button id="conBtn" onclick="toggleEditMode(1)">Connections Mode</button><br>
 	<label>Width: <input value="1000"></label><br>
 	<label>Height: <input value="750"></label><br>
 	<button>Save</button>
@@ -36,7 +36,12 @@
 	var zoomScale = 1;
 	var ctx;
 	var editMode = 0;
+	var planBtn = document.getElementById("planBtn");
+	var conBtn = document.getElementById("conBtn");
 	var placeModeSel = document.getElementById("placeModeSel");
+	var selected = -1;
+	var edges = [];
+	planBtn.style.background = "red";
 	initPage();
 	ctx = canvas.getContext('2d');
 </script>
