@@ -2,6 +2,8 @@
 <head>
 <title>ClickCon Map Editor!</title>
 <link rel="stylesheet" href="mapEditor.css">
+<script src="mapEditor.js"></script>
+<script src="planeto.js"></script>
 <style>
 
 </style>
@@ -21,19 +23,17 @@
 		<option>Four-way mirror</option>
 	</select><br>
 	<button>Connections Mode</button><br>
-	<label>Width: <input></label><br>
-	<label>Height: <input></label><br>
+	<label>Width: <input value="1000"></label><br>
+	<label>Height: <input value="750"></label><br>
 	<button>Save</button>
 </div>
 </body>
 <script>
-var canvas;
-var canX = 1000;
-var canY = 750;
-
-canvas = document.getElementById("can");
-canvas.width = canX;
-canvas.height = canY;
-document.body.appendChild(canvas);
-var ctx = canvas.getContext("2d");
+	var map = [];
+	var mapInd = 0;
+	var canvas;
+	var zoomScale = 1;
+	var ctx;
+	initPage();
+	ctx = canvas.getContext('2d');
 </script>

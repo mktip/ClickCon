@@ -17,7 +17,6 @@ v?
 	-Scenario:
 		-Custom made map with a certain setup
 -formation generation tweaks, no duplicate planetos
--colourblind mode
 -Sound effects
 -prettier art? (Option)
 
@@ -34,6 +33,7 @@ v1.4
 	-Menu Formatting
 	-Username entry
 	-Player list bugs
+	-colourblind mode
  
 v1.3
  -Random Gen Additions
