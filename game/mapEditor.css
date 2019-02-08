@@ -1,0 +1,11 @@
+body {
+	background-color:#000;
+	color:#fff;
+	}
+#menuDiv{
+	width: 30%;
+	float: right;
+}
+#canDiv{
+	float: left;
+}

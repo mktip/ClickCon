@@ -1,28 +1,39 @@
 <!DOCTYPE HTML>
 <head>
 <title>ClickCon Map Editor!</title>
+<link rel="stylesheet" href="mapEditor.css">
 <style>
-	body {
-	background-color:#000;
-	color:#fff;
-	display:inline-block;
-	}
+
 </style>
 </head>
 <body>
-ye
+<div id="canDiv">
+	<canvas id="can" style="border:3px solid gray">Canvas</canvas>
+</div>
+<div id="menuDiv" style="border:1px solid gray">
+	<h2>Tools</h2>
+	<button>Planeto Mode</button><br>
+	<select>
+		<option>Single</option>
+		<option>Two-way Horizontal</option>
+		<option>Two-way Vertical</option>
+		<option>Two-way Diagonal</option>
+		<option>Four-way mirror</option>
+	</select><br>
+	<button>Connections Mode</button><br>
+	<label>Width: <input></label><br>
+	<label>Height: <input></label><br>
+	<button>Save</button>
+</div>
 </body>
 <script>
 var canvas;
-var canX = 750;
+var canX = 1000;
 var canY = 750;
 
-canvas = document.createElement("canvas");
+canvas = document.getElementById("can");
 canvas.width = canX;
 canvas.height = canY;
 document.body.appendChild(canvas);
 var ctx = canvas.getContext("2d");
-ctx.beginPath();
-ctx.fillStyle = "#ff0066";
-ctx.fillRect(0,0,canX,canY);
 </script>
