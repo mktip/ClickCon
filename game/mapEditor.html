@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="mapEditor.css">
 <script src="mapEditor.js"></script>
 <script src="planeto.js"></script>
+<script src="utils/utils.js"></script>
 <style>
 
 </style>
@@ -15,7 +16,7 @@
 <div id="menuDiv" style="border:1px solid gray">
 	<h2>Tools</h2>
 	<button>Planeto Mode</button><br>
-	<select>
+	<select id="placeModeSel">
 		<option>Single</option>
 		<option>Two-way Horizontal</option>
 		<option>Two-way Vertical</option>
@@ -34,6 +35,8 @@
 	var canvas;
 	var zoomScale = 1;
 	var ctx;
+	var editMode = 0;
+	var placeModeSel = document.getElementById("placeModeSel");
 	initPage();
 	ctx = canvas.getContext('2d');
 </script>
