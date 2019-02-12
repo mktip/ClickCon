@@ -16,12 +16,12 @@ function planeto(own, nx, ny, col, rad, cons){
 	}
 
 //render methods to draw the planetos and connections, needs some reworking as drawing duplicate connections is a bit redundant
-planeto.prototype.drawConnections = function (G, gameMap){
+planeto.prototype.drawConnections = function (G, gameMap, fog){
 	var i;
 	for (i = 0; i < this.connections.length; i++){
 		G.beginPath();
 		var connectee = this.connections[i]; //just to simplify things because i get sick of looking at it
-		if (this.ownerID == gameMap[connectee].ownerID && this.ownerID != 0){ //id of 0 used for neuts
+		if (this.ownerID == gameMap[connectee].ownerID && this.ownerID != 0 && fog == false){ //id of 0 used for neuts
 			G.strokeStyle = this.colour;
 			G.fillStyle = this.colour;
 		}
@@ -36,21 +36,27 @@ planeto.prototype.drawConnections = function (G, gameMap){
 		G.stroke();
 	}
 }
-planeto.prototype.drawPlaneto = function (G){
+planeto.prototype.drawPlaneto = function (G, fog){
 	G.lineWidth = .5;
-	G.fillStyle = this.colour;
-	G.strokeStyle = this.colour;
+	if(fog == true){
+		G.fillStyle = "#666";
+		G.strokeStyle = "#666";
+	}
+	else{
+		G.fillStyle = this.colour;
+		G.strokeStyle = this.colour;
+	}	
 	G.beginPath();
 	G.arc(this.x, this.y, this.radius*2, 0, 2*Math.PI);
 	G.fill();
-	if(this.lockLife > 0){
+	if(this.lockLife > 0 && fog == false){
 		G.fillStyle = "#000";
 		G.strokeStyle = "#000";
 		G.beginPath();
 		G.arc(this.x, this.y, (this.radius*2) - 5, 0, 2*Math.PI);
 		G.fill();
 	}
-	if (this.hasShield){
+	if (this.hasShield && fog == false){
 		G.lineWidth = 2;
 		G.strokeStyle = "#0ff";
 		G.beginPath();

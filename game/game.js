@@ -162,6 +162,7 @@ function updateScoreBox(){
 	}
 }
 function render(map){
+	var fg = false;
 	if (zoomChange != 0){
 		console.log("be: "+zoomScale);
 		zoomScale = zoomScale + zoomChange;
@@ -177,20 +178,61 @@ function render(map){
 	ctx.fillRect(0,0,canvas.width, canvas.height);
 	var i;
 	ctx.fillStyle = "#0ff";
-	for (i = 0; i < map.length; i++){
-		if (map[i].getOwner() == currentPlayer + 1 && players[currentPlayer].isBot != true){
-			var x = map[i].getX();
-			var y = map[i].getY();
-			var rad = map[i].getRadius();
-			ctx.fillRect(x-rad*2, y-rad*2, rad*4, rad*4);
+	if(players[currentPlayer].isBot != true){
+		for (i = 0; i < map.length; i++){
+			if (map[i].getOwner() == currentPlayer + 1){
+				var x = map[i].getX();
+				var y = map[i].getY();
+				var rad = map[i].getRadius();
+				ctx.fillRect(x-rad*2, y-rad*2, rad*4, rad*4);
+			}
 		}
-	}	
-	for (i = 0; i < map.length; i++){
-		map[i].drawConnections(ctx, map);
 	}
-	drawBoners();
+	
 	for (i = 0; i < map.length; i++){
-		map[i].drawPlaneto(ctx, map);
+		if(fog && players[currentPlayer].isBot != true){
+			if(checkProxy(map[i], map, 1) || map[i].getOwner() == players[currentPlayer].getID()){
+				fg = false;
+			}
+			else{
+				fg = true;
+			}
+		}
+		else if(fog){
+			if(map[i].getOwner() == 1 || checkProxy(map[i], map, 1)){
+				fg = false;
+			}
+			else{
+				fg = true;
+			}
+		}
+		else{
+			fg = false;
+		}
+		map[i].drawConnections(ctx, map, fg);
+	}	
+		drawBoners();
+	for (i = 0; i < map.length; i++){
+		if(fog && players[currentPlayer].isBot != true){
+			if(checkProxy(map[i], map, 1) || map[i].getOwner() == players[currentPlayer].getID()){
+				fg = false;
+			}
+			else{
+				fg = true;
+			}
+		}
+		else if(fog){
+			if(map[i].getOwner() == 1 || checkProxy(map[i], map, 1)){
+				fg = false;
+			}
+			else{
+				fg = true;
+			}
+		}
+		else{
+			fg = false;
+		}
+		map[i].drawPlaneto(ctx, fg);
 	}
 	if (debug){
 		createPlanetLabels();
@@ -229,15 +271,28 @@ function drawBoners(){
 				var tempCons = map[mini[x]].getConnections();
 				for(var y=0; y<tempCons.length; y++){
 					for(var t=0; t<tempCons.length; t++){
-						if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t] && base.getOwner() == map[tempCons[y]].getOwner()){
-							ctx.strokeStyle = "#fff";
-							ctx.fillStyle = "#fff";
-							ctx.lineWidth = 9;
-							ctx.beginPath();
-							ctx.moveTo(base.getX(), base.getY());
-							ctx.lineTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
-							ctx.stroke();
+						if(base.getOwner() == 1 && fog){
+							if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t] && base.getOwner() == map[tempCons[y]].getOwner()){
+								ctx.strokeStyle = "#fff";
+								ctx.fillStyle = "#fff";
+								ctx.lineWidth = 9;
+								ctx.beginPath();
+								ctx.moveTo(base.getX(), base.getY());
+								ctx.lineTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
+								ctx.stroke();
+							}
 						}
+						else if(!fog){
+							if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t] && base.getOwner() == map[tempCons[y]].getOwner()){
+								ctx.strokeStyle = "#fff";
+								ctx.fillStyle = "#fff";
+								ctx.lineWidth = 9;
+								ctx.beginPath();
+								ctx.moveTo(base.getX(), base.getY());
+								ctx.lineTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
+								ctx.stroke();
+							}
+						}						
 					}
 				}
 			}
@@ -257,7 +312,9 @@ function checkHit(map){
 					move(map[r], players[currentPlayer].getID(), map);
 				}
 				else{
-					checkProxy(map[r], map);
+					if(checkProxy(map[r], map, players[currentPlayer].getID())){
+						move(map[r], players[currentPlayer].getID(), map);
+					}
 				}
 				break;
 			}
@@ -265,15 +322,15 @@ function checkHit(map){
 		}
 	}
 }
-function checkProxy(targ, map){
+function checkProxy(targ, map, id){
 	var r;
 	var cons = targ.getConnections();
 		for(r=0; r < cons.length; r++){
-			if (map[cons[r]].getOwner() == players[currentPlayer].getID()){
-				move(targ, players[currentPlayer].getID(), map);
-				break;
+			if (map[cons[r]].getOwner() == id){
+				return true;
 			}
 		}
+	return false;
 }
 function decayLockLife(){
 	var r;

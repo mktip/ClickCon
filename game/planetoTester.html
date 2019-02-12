@@ -19,10 +19,11 @@ var zoomScale = 1;
 var zoomChange = 0;
 var boners = [];
 var w = 3000, h = 3000;
-var map = superSpiral();
+var map = randomGen(1500,1500);
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = w;
 canvas.height = h;
+var fog = true;
 render(map);
 </script>

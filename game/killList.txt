@@ -34,6 +34,7 @@ v1.4
 	-Username entry
 	-Player list bugs
 	-colourblind mode
+	-fog mode
  
 v1.3
  -Random Gen Additions
