@@ -26,6 +26,7 @@ Player.prototype.getScore = function(){
 
 var debug = false;
 var playing = false;
+var fog = false;
 var currentPlayer;
 var curRound;
 var maxRound;
