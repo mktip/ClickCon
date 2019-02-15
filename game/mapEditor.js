@@ -151,24 +151,24 @@ function toggleEditMode(which){
 }
 function removePlaneto(targ, ind){
     //console.log(targ);
-    console.log(edges);
+    //console.log(edges);
     var removeList = [];
     for(var w = 0; w < edges.length; w++){
         if(edges[w][0] == targ || edges[w][1] == targ){
-            console.log("attempting remove");
-            console.log(targ);           
-            console.log(edges[w][0]);
-            console.log(edges[w][1]); 
+            //console.log("attempting remove");
+            //console.log(targ);           
+            //console.log(edges[w][0]);
+            //console.log(edges[w][1]); 
             removeList.push(w);
         }
     }
     for(var w = 0; w < removeList.length; w++){
             //console.log(edges);
-            console.log(removeList[w]);
+            //console.log(removeList[w]);
             edges = removeAtIndex(edges, (removeList[w])-w);
     }
     map = removeAtIndex(map, ind);
-    console.log(edges);
-    console.log(map);
+    //console.log(edges);
+    //console.log(map);
     mapInd -= 1;
 }
