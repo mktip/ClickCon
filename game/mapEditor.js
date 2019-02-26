@@ -36,6 +36,7 @@ function checkHit(){
 	var y = (event.clientY - canvRect.top);
     var r;
     var hit = false;
+    var edgeTolerance = 15;
 	for(r=0; r<map.length;r++){
 		if (x >= (map[r].getX() - map[r].getRadius()*2) * zoomScale && x <= (map[r].getX() + map[r].getRadius()*2) * zoomScale){
 			if (y >= (map[r].getY() - map[r].getRadius()*2) * zoomScale && y <= (map[r].getY() + map[r].getRadius()*2) * zoomScale){
@@ -98,7 +99,17 @@ function checkHit(){
             }
         }
         else if(editMode == 1){
-            selected = -1;
+            for(r=0; r<edges.length; r++){
+                var res = checkEdge(x, y, edges[r][0].getX(), edges[r][0].getY(), edges[r][1].getX(), edges[r][1].getY());
+                if(res < edgeTolerance){
+                    edges = removeAtIndex(edges, r);
+                    hit = true;
+                    break;
+                }
+            }
+            if(!hit){
+                selected = -1;
+            }
         }       
     }
     render();
@@ -171,4 +182,35 @@ function removePlaneto(targ, ind){
     //console.log(edges);
     //console.log(map);
     mapInd -= 1;
+}
+function checkEdge(x, y, x1, y1, x2, y2){
+    var A = x - x1;
+    var B = y - y1;
+    var C = x2 - x1;
+    var D = y2 - y1;
+
+    var dot = A * C + B * D;
+    var len_sq = C * C + D * D;
+    var param = -1;
+    if (len_sq != 0) {
+        param = dot / len_sq;
+    }
+    var xx, yy;
+
+    if (param < 0) {
+        xx = x1;
+        yy = y1;
+    }
+    else if (param > 1) {
+        xx = x2;
+        yy = y2;
+    }
+    else {
+        xx = x1 + param * C;
+        yy = y1 + param * D;
+    }
+
+    var dx = x - xx;
+    var dy = y - yy;
+    return Math.sqrt(dx * dx + dy * dy);
 }
