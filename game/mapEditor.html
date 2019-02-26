@@ -24,8 +24,9 @@
 		<option>Four-way mirror</option>
 	</select><br>
 	<button id="conBtn" onclick="toggleEditMode(1)">Connections Mode</button><br>
-	<label>Width: <input value="1000"></label><br>
-	<label>Height: <input value="750"></label><br>
+	<label>Width: <input id="widTxt" type="number" value="1000"></label><br>
+	<label>Height: <input id="heiTxt" type="number" value="750"></label><br>
+	<button onclick="updateCanvas(true)">Update Dimensions</button><br>
 	<button>Save</button>
 </div>
 </body>

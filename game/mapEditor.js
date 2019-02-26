@@ -1,4 +1,4 @@
-var debug = false;
+var debug = true;
 function printMap(){
     for(var r=0; r<map.length; r++){
         console.log("index " + r + map[r]);
@@ -16,19 +16,25 @@ function createPlanetLabels(){
 		}
 		ctx.font = "20px Arial";
 		ctx.fillText(r, map[r].getX()-20, map[r].getY() - 20); //NO COORDS
-		ctx.fillText(r + " (" + map[r].getX() + "," + map[r].getY() + ")", map[r].getX()-20, map[r].getY() - 20); //SHOWS COORDS
+		//ctx.fillText(r + " (" + map[r].getX() + "," + map[r].getY() + ")", map[r].getX()-20, map[r].getY() - 20); //SHOWS COORDS
 	}
 }
 function initPage(){
-    var canX = 1000;
-    var canY = 750;
+    updateCanvas(false);
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+    canvas.onclick = function(){checkHit(map); return false;};
+}
+function updateCanvas(loaded){
+    var canX = document.getElementById("widTxt").value;
+    var canY = document.getElementById("heiTxt").value;
 
     canvas = document.getElementById("can");
     canvas.width = canX;
     canvas.height = canY;
-    document.body.appendChild(canvas);
-    var ctx = canvas.getContext("2d");
-    canvas.onclick = function(){checkHit(map); return false;};
+    if(loaded){
+        render();
+    }
 }
 function checkHit(){
     var canvRect = canvas.getBoundingClientRect();
@@ -116,23 +122,23 @@ function checkHit(){
 }
 function render(){
     ctx.fillStyle = "#000";
-    ctx.fillRect(0,0,canvas.width, canvas.height);
+    ctx.fillRect(0,0,1920, 1080);
     
     for (var r = 0; r < edges.length; r++){
-        var prev = ctx.strokeStyle;
         var startX = edges[r][0].getX();
         var startY = edges[r][0].getY();
         var targX = edges[r][1].getX();
         var targY = edges[r][1].getY();
-        ctx.strokeStyle = "#999"
+        ctx.strokeStyle = "#999";
         ctx.lineWidth = 3;
+        ctx.beginPath();
         ctx.moveTo(startX, startY);
         ctx.lineTo(targX, targY);
         ctx.stroke();
-        ctx.strokeStyle = prev;
     }
+
     for (var r = 0; r < map.length; r++){
-        map[r].drawPlaneto(ctx, map);
+        map[r].drawPlaneto(ctx, false);
     }
     if(selected != -1){
         var x = map[selected].getX();
