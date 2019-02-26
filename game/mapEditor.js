@@ -1,4 +1,4 @@
-var debug = true;
+var debug = false;
 function printMap(){
     for(var r=0; r<map.length; r++){
         console.log("index " + r + map[r]);
