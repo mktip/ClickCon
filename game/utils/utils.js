@@ -27,3 +27,15 @@ function removeDupes(arr){
 		})
 	return filtered;
 }
+function findLength(p0,p1, coords){
+	var x = coords[p0][0] - coords[p1][0];
+	var y = coords[p0][1] - coords[p1][1];
+	return Math.sqrt(x*x + y*y);
+}
+function findAngle(p0,p1,p2, coords){
+	var x1 = coords[p1][0]- coords[p0][0];
+	var y1 = coords[p1][1]- coords[p0][1];
+	var x2 = coords[p2][0]- coords[p0][0];
+	var y2 = coords[p2][1]- coords[p0][1];
+	return Math.acos((x1*x2+y1*y2)/(findLength(p0,p1, coords)*findLength(p0,p2, coords)));
+}
