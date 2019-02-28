@@ -10,6 +10,7 @@
 	<script src='utils/delaunator.js'></script>
 	<script src='utils/randMapBuilder.js'></script>
 	
+	
 </head>
 <style>
 	body {
@@ -278,6 +279,7 @@ function gameStart(){
 	controlBox.appendChild(conField);
 	
 	canvas = document.createElement("canvas");
+	canvas.id = "canvas";
 	canvasSpan.class = "content";
 	
 	canvasSpan.appendChild(canvas);

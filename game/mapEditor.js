@@ -22,8 +22,8 @@ function createPlanetLabels(){
 function initPage(){
     updateCanvas(false);
     document.body.appendChild(canvas);
-    var ctx = canvas.getContext("2d");
-    canvas.onclick = function(){checkHit(map); return false;};
+    ctx = canvas.getContext("2d");
+    canvas.onclick = function(e){checkHit(e, map); return false;};
 }
 function updateCanvas(loaded){
     var canX = document.getElementById("widTxt").value;
@@ -36,7 +36,7 @@ function updateCanvas(loaded){
         render();
     }
 }
-function checkHit(){
+function checkHit(e, map){
     var canvRect = canvas.getBoundingClientRect();
 	var x = (event.clientX - canvRect.left);
 	var y = (event.clientY - canvRect.top);
@@ -122,7 +122,7 @@ function checkHit(){
 }
 function render(){
     ctx.fillStyle = "#000";
-    ctx.fillRect(0,0,1920, 1080);
+    ctx.fillRect(0,0,canvas.width, canvas.height);
     
     for (var r = 0; r < edges.length; r++){
         var startX = edges[r][0].getX();
