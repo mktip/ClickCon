@@ -300,7 +300,7 @@ function drawBoners(){
 		}
 	}
 }
-function checkHit(map){
+function checkHit(event, map){
 	var canvRect = canvas.getBoundingClientRect();
 	var x = (event.clientX - canvRect.left);
 	var y = (event.clientY - canvRect.top);

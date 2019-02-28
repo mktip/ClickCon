@@ -347,7 +347,7 @@ function gameStart(){
 	setupGame(players,map,spawns, ranShields, ranRoadblocks, formLock, hideMode, maxRounds);
 	render(map);
 	if(botwar == false){
-		canvas.onclick = function(){checkHit(map); return false;};
+		canvas.onclick = function(e){checkHit(e, map); return false;};
 	}
 }
 function fillControlBox(){
