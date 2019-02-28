@@ -212,7 +212,7 @@ function render(map){
 		}
 		map[i].drawConnections(ctx, map, fg);
 	}	
-		drawBoners();
+	drawBoners();
 	for (i = 0; i < map.length; i++){
 		if(fog && players[currentPlayer].isBot != true){
 			if(checkProxy(map[i], map, 1) || map[i].getOwner() == players[currentPlayer].getID()){

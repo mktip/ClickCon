@@ -13,7 +13,7 @@ function generateTriangles(coords){
 		triChunks[rep] = mini;
 		rep++;
 	}
-	console.log(coords.length);
+	//console.log(coords.length);
     return triChunks;
 }
 
@@ -38,7 +38,7 @@ function filterEdges(minAng, maxEdge, coords, triangles){
 }
 
 function convertEdges(edges){ 
-	console.log(edges);
+	//console.log(edges);
 	var cons = [];
 	for(var r = 0; r<edges.length; r++){
 		if (!(cons[edges[r][0]])) cons[edges[r][0]] = [];
@@ -47,9 +47,11 @@ function convertEdges(edges){
 		cons[edges[r][1]].push(edges[r][0]);
 	}
 	for(var w = 0; w<cons.length; w++){
-		cons[w] = removeDupes(cons[w]);
+		if(cons[w]){
+			cons[w] = removeDupes(cons[w]);
+		}
 	}
-	console.log(cons);
+	//console.log(cons);
 	return cons;
 }
 

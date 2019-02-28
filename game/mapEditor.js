@@ -220,3 +220,24 @@ function checkEdge(x, y, x1, y1, x2, y2){
     var dy = y - yy;
     return Math.sqrt(dx * dx + dy * dy);
 }
+function generatePlanetos(){
+
+}
+function generateEdges(){
+    var coords = [];
+    for(var r = 0; r<map.length; r++){
+        coords[r] = [map[r].getX(), map[r].getY()];
+    }
+    if (coords.length != 0){
+        edges = convertEdgeToReference(filterEdges(Math.PI/8, 200, coords, generateTriangles(coords)));
+    }
+    edges = removeDupes(edges);
+    render();
+}
+function convertEdgeToReference(inp){
+    var converted = [];
+    for(var r= 0; r<inp.length; r++){
+        converted[r] = [map[inp[r][0]], map[inp[r][1]]];
+    }
+    return converted;
+}

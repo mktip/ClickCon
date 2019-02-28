@@ -5,6 +5,8 @@
 <script src="mapEditor.js"></script>
 <script src="planeto.js"></script>
 <script src="utils/utils.js"></script>
+<script src="utils/randMapBuilder.js"></script>
+<script src="utils/delaunator.js"></script>
 <style>
 
 </style>
@@ -27,6 +29,8 @@
 	<label>Width: <input id="widTxt" type="number" value="1000"></label><br>
 	<label>Height: <input id="heiTxt" type="number" value="750"></label><br>
 	<button onclick="updateCanvas(true)">Update Dimensions</button><br>
+	<button onclick="generateMap()">Generate Planetos</button><br>
+	<button onclick="generateEdges()">Generate Connections</button><br>
 	<button>Save</button>
 </div>
 </body>
