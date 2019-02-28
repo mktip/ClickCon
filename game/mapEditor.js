@@ -221,7 +221,7 @@ function checkEdge(x, y, x1, y1, x2, y2){
     return Math.sqrt(dx * dx + dy * dy);
 }
 function generatePlanetos(){
-
+    
 }
 function generateEdges(){
     var coords = [];
