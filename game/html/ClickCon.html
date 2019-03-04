@@ -5,6 +5,8 @@
 	<script src='../js/game.js'></script>
 	<script src='../js/bot.js'></script>
 
+	<script src='../js/graphics/ui.js'></script>
+
 	<script src='../js/utils/map.js'></script>
 	<script src='../js/utils/utils.js'></script>
 	<script src='../js/utils/delaunator.js'></script>
@@ -149,7 +151,7 @@ function startMenu(){
 	othersHolder.appendChild(hsDiv);
 
 	
-	AplyrBtn.addEventListener("click", function(event){event.preventDefault(); addPlyr(divi, document.createElement("div"));});
+	AplyrBtn.addEventListener("click", function(event){event.preventDefault(); addPlayer(divi, document.createElement("div"));});
 	StartBtn.addEventListener("click", function(event){event.preventDefault(); gameStart();});
 	BotWarBtn.addEventListener("click", function(event){event.preventDefault(); botwar = true; gameStart();});
 	
