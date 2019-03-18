@@ -19,6 +19,7 @@ function addPlayer(parent, pNum, colour){
 	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
 	var nodeId = "playerNode" + pNum;
 	var btnId = "killer" + pNum;
+
 	addElement(nodeId, "div", parent, name);
 	var node = document.getElementById(nodeId);
 	node.innerHTML = name;
@@ -159,39 +160,16 @@ function startMenu(colList){
 }
 
 function fillControlBox(){
-	var box = document.getElementById("controlBox");
-	var zoomButt = document.createElement("button");
-	var zoomDiv = document.createElement("div");
-	var skipButt = document.createElement("button");
-	var skipDiv = document.createElement("div");
-	var surrButt = document.createElement("button");
-	var surrDiv = document.createElement("div");
-	var lobButt = document.createElement("button");
-	var lobDiv = document.createElement("div");
-	var zoomButText = document.createTextNode("Zoom +");
-	var skipButText = document.createTextNode("Skip Turn");
-	var surrButText = document.createTextNode("Surrender");
-	var lobButText = document.createTextNode("Back to Lobby");
-	
-	zoomButt.addEventListener("click", function(event){event.preventDefault(); zoomChange += 1; render(map);});
-	zoomButt.appendChild(zoomButText);
-	zoomDiv.appendChild(zoomButt);
-	
-	skipButt.addEventListener("click", function(event){event.preventDefault(); if(players[currentPlayer].isBot == false){swapPlayer();}});
-	skipButt.appendChild(skipButText);
-	skipDiv.appendChild(skipButt);
-	
-	surrButt.addEventListener("click", function(event){event.preventDefault(); if(players[currentPlayer].isBot == false){var owned = players[currentPlayer].getOwned(); for(var z=0;z<owned.length; z++){map[owned[z]].setOwner(0,"#fff"); map[owned[z]].setLockLife(Math.floor(Math.random()*4));}render(map); swapPlayer();}});
-	surrButt.appendChild(surrButText);
-	surrDiv.appendChild(surrButt);
-	
-	lobButt.appendChild(lobButText);
-	lobDiv.appendChild(lobButt);
-	
-	box.appendChild(skipDiv);
-	box.appendChild(surrDiv);
-	box.appendChild(lobDiv);
-	
+	addElement("skipDiv", "div", document.getElementById("controlBox"));
+	addElement("skipBtn", "button", document.getElementById("skipDiv"),"Skip Turn");
+	document.getElementById("skipBtn").addEventListener("click", function(event){event.preventDefault(); if(players[currentPlayer].isBot == false){swapPlayer();}});
+
+	addElement("surrDiv", "div", document.getElementById("controlBox"));
+	addElement("surrBtn", "button", document.getElementById("surrDiv"), "Surrender");
+	document.getElementById("surrBtn").addEventListener("click", function(event){event.preventDefault(); if(players[currentPlayer].isBot == false){var owned = players[currentPlayer].getOwned(); for(var z=0;z<owned.length; z++){map[owned[z]].setOwner(0,"#fff"); map[owned[z]].setLockLife(Math.floor(Math.random()*4));}render(map); swapPlayer();}});
+
+	addElement("lobbDiv", "div", document.getElementById("controlBox"));
+	addElement("lobbBtn", "button", document.getElementById("lobbDiv"), "Back to Lobby");
 }
 
 function endScreen(highest, tied){
