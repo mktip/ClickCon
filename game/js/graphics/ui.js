@@ -19,15 +19,13 @@ function addPlayer(parent, pNum, colour){
 	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
 	var nodeId = "playerNode" + pNum;
 	var btnId = "killer" + pNum;
-	addElement(nodeId, "div", parent);
+	addElement(nodeId, "div", parent, name);
 	var node = document.getElementById(nodeId);
 	node.innerHTML = name;
 	node.style.color = colour;
 
-	addElement(btnId, "button", node);
+	addElement(btnId, "button", node, "X");
 	var btn = document.getElementById(btnId);
-	btn.innerHTML = "X";
-
 	btn.onclick = remPlayer;
 }
 function remPlayer(event){
@@ -241,8 +239,11 @@ function endScreen(highest, tied){
 	document.body.appendChild(box);
 }
 
-function addElement(id, type, parent){
+function addElement(id, type, parent, innards){
 	var child = document.createElement(type);
 	child.id = id;
 	parent.appendChild(child);
+	if(innards){
+		child.innerHTML = innards;
+	}
 }
