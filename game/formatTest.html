@@ -2,6 +2,7 @@
 <head>
 	<title>ClickCon!</title>
 	<script src='./js/graphics/ui.js'></script>
+	<script src='./js/utils/utils.js'></script>
 </head>
 <style>
 	body {
@@ -28,5 +29,7 @@
 	tst.innerHTML = "???";
 	addElement("bleh", "div", document.body);
 	tst = document.getElementById("bleh");
-	tst.innerHTML = "<i>TestText</i>";
+	tst.innerHTML = "TestText";
+
+	addPlayer(document.body, 22, "#f298c5");
 </script>

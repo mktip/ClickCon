@@ -1,21 +1,34 @@
-function addPlayer(parent, child, colList){
-    if(colList.length > 0){
-		var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
-		var tst = document.createTextNode(name);
-		var killbtn = document.createElement("button");
-		killbtn.id = "pnodekiller" + pCount;
-		var rip = document.createTextNode("X");
-		killbtn.appendChild(rip);
-		killbtn.onclick = remPlayer;
-		pID = "playerNode" + pCount;
-		child.id = pID;
-		child.appendChild(tst);
-		child.appendChild(killbtn);
-		child.style.color = colList[0];
-		colList = removeAtIndex(colList, 0);
-		parent.appendChild(child);
-		pCount += 1;
-	}
+function addPlayer(parent, pNum, colour){
+    // if(colList.length > 0){
+	// 	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
+	// 	var tst = document.createTextNode(name);
+	// 	var killbtn = document.createElement("button");
+	// 	killbtn.id = "pnodekiller" + pCount;
+	// 	var rip = document.createTextNode("X");
+	// 	killbtn.appendChild(rip);
+	// 	killbtn.onclick = remPlayer;
+	// 	pID = "playerNode" + pCount;
+	// 	child.id = pID;
+	// 	child.appendChild(tst);
+	// 	child.appendChild(killbtn);
+	// 	child.style.color = colList[0];
+	// 	colList = removeAtIndex(colList, 0);
+	// 	parent.appendChild(child);
+	// 	pCount += 1;
+	// }
+	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
+	var nodeId = "playerNode" + pNum;
+	var btnId = "killer" + pNum;
+	addElement(nodeId, "div", parent);
+	var node = document.getElementById(nodeId);
+	node.innerHTML = name;
+	node.style.color = colour;
+
+	addElement(btnId, "button", node);
+	var btn = document.getElementById(btnId);
+	btn.innerHTML = "X";
+
+	btn.onclick = remPlayer;
 }
 function remPlayer(event){
     event.preventDefault(); 
