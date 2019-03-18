@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<title>ClickCon!</title>
-	<script src='planeto.js'></script>
-	<script src='utils/map.js'></script>
-	<script src='game.js'></script>
-	<script src='bot.js'></script>
-	<script src='utils/utils.js'></script>
-	<script src='utils/delaunator.js'></script>
+	<script src='./js/graphics/ui.js'></script>
 </head>
 <style>
 	body {
@@ -22,23 +17,16 @@
 	.content{
 	margin:0 auto;
 	display:inline-block;
+	}
 </style>
-<!-- <span> -->
-	<!-- <form size="3"> -->
-		<!-- <fieldset  id="board" > -->
-		<!-- <legend>Score Box</legend> -->
-		<!-- </fieldset> -->
-	<!-- </form> -->
-<!-- </span> -->
-<!-- <span class="content" id='thingy'> -->
-	<!-- <canvas id='canvas' width='1500' height='1500' onclick="checkHit(map)"></canvas> -->
-<!-- </span> -->
+
 <body>
 </body>
 <script>
-
-console.log("started");
-var map = randomGen();
-//var dely = Delaunator.from(map);
-render(map);
+	addElement("ye", "button", document.body);
+	var tst = document.getElementById("ye");
+	tst.innerHTML = "???";
+	addElement("bleh", "div", document.body);
+	tst = document.getElementById("bleh");
+	tst.innerHTML = "<i>TestText</i>";
 </script>

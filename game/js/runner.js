@@ -1,4 +1,4 @@
-(function(){
+
    //PUBLIC VARS
     var map = [];
     var canvas;
@@ -197,4 +197,3 @@
 	//console.log("wid: " + canvas.width);
 	//console.log("hei: " + canvas.height);
     }
-})();

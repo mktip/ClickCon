@@ -227,3 +227,9 @@ function endScreen(highest, tied){
 	field.appendChild(newGamebtn);
 	document.body.appendChild(box);
 }
+
+function addElement(id, type, parent){
+	var child = document.createElement(type);
+	child.id = id;
+	parent.appendChild(child);
+}
