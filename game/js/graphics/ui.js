@@ -1,21 +1,4 @@
 function addPlayer(parent, pNum, colour){
-    // if(colList.length > 0){
-	// 	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
-	// 	var tst = document.createTextNode(name);
-	// 	var killbtn = document.createElement("button");
-	// 	killbtn.id = "pnodekiller" + pCount;
-	// 	var rip = document.createTextNode("X");
-	// 	killbtn.appendChild(rip);
-	// 	killbtn.onclick = remPlayer;
-	// 	pID = "playerNode" + pCount;
-	// 	child.id = pID;
-	// 	child.appendChild(tst);
-	// 	child.appendChild(killbtn);
-	// 	child.style.color = colList[0];
-	// 	colList = removeAtIndex(colList, 0);
-	// 	parent.appendChild(child);
-	// 	pCount += 1;
-	// }
 	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
 	var nodeId = "playerNode" + pNum;
 	var btnId = "killer" + pNum;
@@ -173,34 +156,24 @@ function fillControlBox(){
 }
 
 function endScreen(highest, tied){
-	canvas.parentNode.removeChild(canvas);
-	document.getElementById("board").parentNode.removeChild(document.getElementById("board"));
-	document.getElementById("controlBox").parentNode.removeChild(document.getElementById("controlBox"));
-	var box = document.createElement("form");
-	var field = document.createElement("fieldset");
-	var lege = document.createElement("legend");
+	//canvas.parentNode.removeChild(canvas);
+	//document.getElementById("board").parentNode.removeChild(document.getElementById("board"));
+	//document.getElementById("controlBox").parentNode.removeChild(document.getElementById("controlBox"));
+
+	addElement("box", "form", document.body);
+	addElement("lege", "legend", document.getElementById("box"));
+	addElement("results", "fieldset", document.getElementById("lege"), "Results");
 	
-	box.size = 3;
-	field.id = "results";
-	lege.innerHTML = "Results";
-	field.appendChild(lege);
-	box.appendChild(field);
+	document.getElementById("box").size = 3;
 	
 	for(var r = 0; r<players.length; r++){
-		var div = document.createElement("div");
 		var id = "player" + r;
-		div.id = id;
-		var txt = document.createTextNode(players[r].name + ": " + players[r].getScore());
-		div.appendChild(txt);
-		field.appendChild(div);
-		div.style.color = players[r].getColour();
+		var txt = players[r].name + ": " + players[r].getScore();
+		addElement(id, "div", document, document.getElementById("results"), txt)
+		document.getElementById(id).style.color = players[r].getColour();
 	}
-	var spaceholder = document.createElement("div");
-	var spacetxt = document.createTextNode("sneaky");
-	spaceholder.style.color = "#000";
-	spaceholder.appendChild(spacetxt);
-	field.appendChild(spaceholder);
-	var weener = document.createElement("div");
+	addElement("spaceholder", "div", document.getElementById("results"), "sneaky");
+	document.getElementById("spaceholder").style.color = "#000";
 	var weenertxt;
 	if(tied){
 		weenertxt = document.createTextNode("It's a tie!");
@@ -208,13 +181,8 @@ function endScreen(highest, tied){
 	else{
 		weenertxt = document.createTextNode(players[highest].name + " is the winner!");
 	}
-	weener.appendChild(weenertxt);
-	field.appendChild(weener);
-	var newGamebtn = document.createElement("button");
-	var btnTxt = document.createTextNode("New Game");
-	newGamebtn.appendChild(btnTxt);
-	field.appendChild(newGamebtn);
-	document.body.appendChild(box);
+	addElement("weener", "div", document.getElementById("results"), weenertxt);
+	addElement("newGamebtn", "button", document.getElementById("results"), "New Game");
 }
 
 function addElement(id, type, parent, innards){
