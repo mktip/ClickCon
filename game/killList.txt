@@ -19,6 +19,7 @@ v?
 -formation generation tweaks, no duplicate planetos
 -Sound effects
 -prettier art? (Option)
+-Bigger shields (numerical)
 
 v2.0
  -Fearsome multiplayer
@@ -29,21 +30,29 @@ v1.5
  -Tutorial Page
  
 v1.4
- -Beautify!
-	-Menu Formatting
-	-Username entry
-	-Player list bugs
-	-colourblind mode
-	-fog mode
+ -Random Gen Additions
+	 -Cluster type
+	 -Chunk type
+	 -Spiral type
+	 -Customisable Settings
  
 v1.3
- -Random Gen Additions
-	-Cluster type
-	-Chunk type
-	-Spiral type
-	-Customisable Settings
+ -Beautify!
+ -colourblind mode
+ -fog mode
  
-v1.2(The creators update)
+v1.2(The overhaul update)
+X-gut files into proper folders by type
+ -Rework UI
+	 -Menu Formatting
+	 -Username entry
+	 -Player list bugs
+
+ -Rework game code
+	 -Make anonymous method (no more changing game settings in console)
+	 -Edge list instead of connections per planet
+	 -Investigate better bot system
+	 -
  -iFrame bot editor
  -map editor
 
