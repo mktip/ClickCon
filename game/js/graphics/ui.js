@@ -52,6 +52,7 @@ function startMenu(){
 	addElement("rndLbl", "label", spawnDiv, "<br>Round Count: ");
 	addElement("roundCount", "input", spawnDiv);
 	roundCount.type = "number";
+	roundCount.value = 50;
 	rndLbl.htmlFor = 'roundCount';
 
 	//Checkboxes
@@ -99,127 +100,18 @@ function startMenu(){
 	colList = removeAtIndex(colList, 0);
 
 	addElement("AplyrBtn", "button", holderDiv, "+ Bot");
-	AplyrBtn.onclick = function(event){event.preventDefault(); pCount += 1;  addPlayer(playerlistDiv, pCount, colList[0]); colList = removeAtIndex(colList, 0);};
+	AplyrBtn.onclick = function(event){event.preventDefault(); if (pCount < 16){pCount += 1;  addPlayer(playerlistDiv, pCount, colList[0]); colList = removeAtIndex(colList, 0);}};
+}
 
-	// var holder = document.createElement("div");
-	// var divi = document.createElement("div");
-	// var mapDiv = document.createElement("div");
-	// var spawnDiv = document.createElement("div");
-	// var othersHolder = document.createElement("div");
-	// var hostPlayer = document.createElement("div");
-	// var StartBtn = document.createElement("button");
-	// var AplyrBtn = document.createElement("button");
-	// var BotWarBtn = document.createElement("button");
-	// var hideScores = document.createElement("input");
-	// var shields = document.createElement("input");
-	// var roadblocks = document.createElement("input");
-	// var lockMode = document.createElement("input");
-	// var roundCount = document.createElement("input");
-	// var mapList = document.createElement("select");
-	// var spawnList = document.createElement("select");
-	// var AbtnTxt = document.createTextNode("+ Bot");	
-	// var strtbtntxt = document.createTextNode("Start Game");
-	// var botWarBtnTxt = document.createTextNode("Bot War");
-	// var mapTxt = document.createTextNode("Map: ");
-	// var spawnTxt = document.createTextNode("Spawn Count: ");
-	// var playerName = document.createTextNode(adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10));
-	
-	// var playerColour = Math.floor(Math.random()*colList.length);
-	// hostPlayer.style.color = colList[playerColour];
-	// colList = removeAtIndex(colList, playerColour);
-	
-	// var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral", "Tri Spiral", "Super Spiral", "Random Gen"];	
-	// for(var x = 0; x<mapArr.length;x++){
-	// 	var opt = document.createElement("option");
-	// 	opt.innerHTML = mapArr[x];
-	// 	mapList.appendChild(opt);
-	// }
-	
-	// var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "Fill"];
-	// for(var x = 0; x<spawnArr.length; x++){
-	// 	var opt = document.createElement("option");
-	// 	opt.innerHTML = spawnArr[x];
-	// 	spawnList.appendChild(opt);
-	// }
-	
-	// StartBtn.id = "StartBtn";
-	// mapList.id = "mapList";
-	// spawnList.id = "spawnList";
-	// divi.id = "divi";
-	// AplyrBtn.id = "AplyrBtn";
-	// hostPlayer.id = "hostPlayer";
-	// BotWarBtn.id = "BotWarBtn";
-	// holder.id = "holder";
-	// hideScores.id = "hideScores";
-	// shields.id = "shields";
-	// roadblocks.id = "roadblocks";
-	// lockMode.id = "lockMode";
-	// roundCount.id = "roundCount";
-	
-	// hideScores.type = "checkbox";
-	// shields.type = "checkbox";
-	// roadblocks.type = "checkbox";
-	// lockMode.type = "checkbox";
-	// roundCount.type = "number";
-	// roundCount.min = 10;
-	// roundCount.max = 10000;
-	// roundCount.value = 50;
-	
-	// var hSTxt = document.createTextNode("Hide Scores");
-	// var shieTxt = document.createTextNode("Random Shields");
-	// var rbTxt = document.createTextNode("Random Roadblocks");
-	// var forTxt = document.createTextNode("Formation Lock Mode");
-	// var rdCntTxt = document.createTextNode("Round Count: ");
-	
-	// var hsDiv = document.createElement("div");
-	// var shiDiv = document.createElement("div");
-	// var rbDiv = document.createElement("div");
-	// var forDiv = document.createElement("div");
-	// var rndDiv = document.createElement("div");
-	
-	// hsDiv.appendChild(hSTxt);
-	// hsDiv.appendChild(hideScores);
-	// shiDiv.appendChild(shieTxt);
-	// shiDiv.appendChild(shields);
-	// rbDiv.appendChild(rbTxt);
-	// rbDiv.appendChild(roadblocks);
-	// forDiv.appendChild(forTxt);
-	// forDiv.appendChild(lockMode);
-	// rndDiv.appendChild(rdCntTxt);
-	// rndDiv.appendChild(roundCount);
-	
-	// AplyrBtn.appendChild(AbtnTxt);
-	// hostPlayer.appendChild(playerName);
-	// StartBtn.appendChild(strtbtntxt);
-	// BotWarBtn.appendChild(botWarBtnTxt);
-	// divi.appendChild(hostPlayer);
-	// mapDiv.appendChild(mapTxt);
-	// mapDiv.appendChild(mapList);
-	// spawnDiv.appendChild(spawnTxt);
-	// spawnDiv.appendChild(spawnList);
-	// othersHolder.appendChild(shiDiv);
-	// othersHolder.appendChild(rbDiv);
-	// othersHolder.appendChild(forDiv);
-	// othersHolder.appendChild(hsDiv);
-
-	
-	// AplyrBtn.addEventListener("click", function(event){event.preventDefault(); addPlayer(divi, document.createElement("div"));});
-	// StartBtn.addEventListener("click", function(event){event.preventDefault(); gameStart();});
-	// BotWarBtn.addEventListener("click", function(event){event.preventDefault(); botwar = true; gameStart();});
-	
-	// holder.appendChild(StartBtn);
-	// holder.appendChild(BotWarBtn);
-	// holder.appendChild(mapDiv);
-	// holder.appendChild(spawnDiv);
-	// holder.appendChild(rndDiv);
-	// holder.appendChild(othersHolder);
-	// holder.appendChild(divi);
-	// holder.appendChild(AplyrBtn);
-	// document.body.appendChild(holder);
-	
-	// addPlayer(divi, document.createElement("div"), colList);
-	// addPlayer(divi, document.createElement("div"), colList);
-	// addPlayer(divi, document.createElement("div"), colList);
+function ColourPicker(parent){
+	addElement("colShell", "div", parent);
+	for(var r = 0; r < colList.length; r++){
+		var n = "col" + r;
+		addElement(n, "div", colShell, "Sample");
+		document.getElementById(n).style.backgroundColor = colList[r];
+		document.getElementById(n).width = 50;
+		document.getElementById(n).height = 50; //Investigate Height and width
+	}
 }
 
 function fillControlBox(){
