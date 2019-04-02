@@ -20,14 +20,21 @@ function remPlayer(event){
     pCount -= 1;
 }
 
-function startMenu(colList){
+function startMenu(){
 	//Containers
 	addElement("holderDiv", "div", document.body);
+	addElement("btnsDiv", "div", holderDiv);
 	addElement("settingsDiv", "div", holderDiv);
 	addElement("mapDiv", "div", settingsDiv, "Map: ");
 	addElement("spawnDiv", "div", settingsDiv, "Spawn Type: ");
 	addElement("checksDiv", "div", settingsDiv);
-	addElement("playerlistDiv", "div", holderDiv, "players");
+	addElement("playerlistDiv", "div", holderDiv);
+
+	//Btns
+	addElement("startBtn", "button", btnsDiv, "Start Game");
+	addElement("botWarBtn", "button", btnsDiv, "Start Bot War");
+	startBtn.onclick = function(event){event.preventDefault(); gameStart();};
+	botWarBtn.onclick = function(event){event.preventDefault(); botwar = true; gameStart();};
 
 	//MapList
 	addElement("mapList", "select", mapDiv);
@@ -42,6 +49,10 @@ function startMenu(colList){
 	for(var x = 0; x<spawnArr.length; x++){
 		addElement("opt"+ x, "option", spawnsList, spawnArr[x]);
 	}
+	addElement("rndLbl", "label", spawnDiv, "<br>Round Count: ");
+	addElement("roundCount", "input", spawnDiv);
+	roundCount.type = "number";
+	rndLbl.htmlFor = 'roundCount';
 
 	//Checkboxes
 	addElement("shiTxt", "label", checksDiv, "Random Shields");
@@ -70,7 +81,25 @@ function startMenu(colList){
 	fogTxt.htmlFor = 'fogMode';
 
 	//Players
-	
+	var name = adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*10) + Math.floor(Math.random()*10);
+	addElement("hostPlayer", "input", playerlistDiv);
+	hostPlayer.value = name;
+	var playerColour = Math.floor(Math.random()*colList.length);
+	hostPlayer.style.color = colList[playerColour];
+	hostPlayer.style.background = "#000"; //TEMPORARY ***********************************
+	hostPlayer.style.fontSize = "30px"; //TEMPORARY *******************************************
+	hostPlayer.maxLength = 24;
+	colList = removeAtIndex(colList, playerColour);
+
+	addPlayer(playerlistDiv, 2, colList[0]);
+	colList = removeAtIndex(colList, 0);
+	addPlayer(playerlistDiv, 3, colList[0]);
+	colList = removeAtIndex(colList, 0);
+	addPlayer(playerlistDiv, 4, colList[0]);
+	colList = removeAtIndex(colList, 0);
+
+	addElement("AplyrBtn", "button", holderDiv, "+ Bot");
+	AplyrBtn.onclick = function(event){event.preventDefault(); pCount += 1;  addPlayer(playerlistDiv, pCount, colList[0]); colList = removeAtIndex(colList, 0);};
 
 	// var holder = document.createElement("div");
 	// var divi = document.createElement("div");
