@@ -45,6 +45,7 @@ v1.2(The overhaul update)
 X-gut files into proper folders by type
  -Rework UI
 	 -Menu Formatting
+	 -Color picker!
 	 -Username entry
 	 -Player list bugs
 
@@ -52,7 +53,7 @@ X-gut files into proper folders by type
 	 -Make anonymous method (no more changing game settings in console)
 	 -Edge list instead of connections per planet
 	 -Investigate better bot system
-	 -
+	
  -iFrame bot editor
  -map editor
 

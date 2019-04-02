@@ -25,8 +25,8 @@ function startMenu(colList){
 	addElement("holderDiv", "div", document.body);
 	addElement("settingsDiv", "div", holderDiv);
 	addElement("mapDiv", "div", settingsDiv, "Map: ");
-	addElement("spawnDiv", "div", settingsDiv, "spawn");
-	addElement("checksDiv", "div", settingsDiv, "checks");
+	addElement("spawnDiv", "div", settingsDiv, "Spawn Type: ");
+	addElement("checksDiv", "div", settingsDiv);
 	addElement("playerlistDiv", "div", holderDiv, "players");
 
 	//MapList
@@ -36,6 +36,41 @@ function startMenu(colList){
 		addElement("opt" + x, "option", mapList, mapArr[x]);
 	}
 
+	//Spawns
+	addElement("spawnsList", "select", spawnDiv);
+	var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "Fill"];
+	for(var x = 0; x<spawnArr.length; x++){
+		addElement("opt"+ x, "option", spawnsList, spawnArr[x]);
+	}
+
+	//Checkboxes
+	addElement("shiTxt", "label", checksDiv, "Random Shields");
+	addElement("shields", "input", checksDiv);
+	shields.type = "checkbox";
+	shiTxt.htmlFor = 'shields';
+
+	addElement("roaTxt", "label", checksDiv, "<br>Random Roadblocks");
+	addElement("roadblocks", "input", checksDiv);
+	roadblocks.type = "checkbox";
+	roaTxt.htmlFor = 'roadblocks';
+
+	addElement("locTxt", "label", checksDiv, "<br>Formation Lock Mode");
+	addElement("lockMode", "input", checksDiv);
+	lockMode.type = "checkbox";
+	locTxt.htmlFor = 'lockMode';
+
+	addElement("scoTxt", "label", checksDiv, "<br>Hide Scores");
+	addElement("hideScores", "input", checksDiv);
+	hideScores.type = "checkbox";
+	scoTxt.htmlFor = 'hideScores';
+
+	addElement("fogTxt", "label", checksDiv, "<br>Fog Mode");
+	addElement("fogMode", "input", checksDiv);
+	fogMode.type = "checkbox";
+	fogTxt.htmlFor = 'fogMode';
+
+	//Players
+	
 
 	// var holder = document.createElement("div");
 	// var divi = document.createElement("div");
