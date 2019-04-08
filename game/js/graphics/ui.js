@@ -161,7 +161,5 @@ function addElement(id, type, parent, innards){
 	var child = document.createElement(type);
 	child.id = id;
 	parent.appendChild(child);
-	if(innards){
-		child.innerHTML = innards;
-	}
+	child.innerHTML = innards || "";
 }
