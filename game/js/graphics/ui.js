@@ -103,14 +103,20 @@ function startMenu(){
 	AplyrBtn.onclick = function(event){event.preventDefault(); if (pCount < 16){pCount += 1;  addPlayer(playerlistDiv, pCount, colList[0]); colList = removeAtIndex(colList, 0);}};
 }
 
-function ColourPicker(parent){
+function ColourPicker(parent, targ){
+	var scale = 50;
 	addElement("colShell", "div", parent);
+	colShell.style.width = ((scale * 4) + 20) + "px";
+	colShell.style.lineHeight = "0px";
 	for(var r = 0; r < colList.length; r++){
 		var n = "col" + r;
-		addElement(n, "div", colShell, "Sample");
+		addElement(n, "div", colShell);
 		document.getElementById(n).style.backgroundColor = colList[r];
-		document.getElementById(n).width = 50;
-		document.getElementById(n).height = 50; //Investigate Height and width
+		document.getElementById(n).style.width = scale + "px";
+		document.getElementById(n).style.height = scale + "px";
+		document.getElementById(n).style.display = "inline-block";
+		document.getElementById(n).style.margin = "2px 2px 2px 2px";
+		document.getElementById(n).onclick = function(e) {event.preventDefault; targ.style.color = this.style.backgroundColor; colShell.parentElement.removeChild(document.getElementById("colShell"));}
 	}
 }
 
