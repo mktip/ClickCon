@@ -48,6 +48,7 @@ X-gut files into proper folders by type
 	 -Color picker!
 	 -Username entry
 	 -Player list bugs
+	 -Update log
 
  -Rework game code
 	 -Make anonymous method (no more changing game settings in console)
