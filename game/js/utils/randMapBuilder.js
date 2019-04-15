@@ -65,7 +65,7 @@ function getCoords(w, h, density, padding, r){
 function generateChunk(w, h, density, padding, r){
     var cords = [];
     count = Math.floor(density*(w-2*r)*(h-2*r)/(r*r*Math.PI));
-	for(var r=0; r<count;r++){
+	for(var t=0; t<count;t++){
 		var safe = false;
 		while (!safe) {
 			var x = Math.floor((Math.random()*(w-2*padding))+ padding);

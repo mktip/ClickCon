@@ -90,7 +90,7 @@ function startMenu(){
 	hostPlayer.style.background = "#000"; //TEMPORARY ***********************************
 	hostPlayer.style.fontSize = "30px"; //TEMPORARY *******************************************
 	hostPlayer.maxLength = 24;
-	addElement("colPickBtn", "button", playerlistDiv);
+	addElement("colPickBtn", "button", playerlistDiv, "Pick");
 	colPickBtn.onclick = function(e){event.preventDefault(); ColourPicker(playerlistDiv, hostPlayer);};
 	colList = removeAtIndex(colList, playerColour);
 

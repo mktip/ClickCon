@@ -210,7 +210,7 @@ function render(map){
 		else{
 			fg = false;
 		}
-		map[i].drawConnections(ctx, map, fg);
+		map[i].drawConnections(ctx, map, fg, i);
 	}	
 	drawBoners();
 	for (i = 0; i < map.length; i++){

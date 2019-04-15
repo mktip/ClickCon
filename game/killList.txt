@@ -52,11 +52,13 @@ X-gut files into proper folders by type
 
  -Rework game code
 	 -Make anonymous method (no more changing game settings in console)
-	 -Edge list instead of connections per planet
 	 -Investigate better bot system
 	
  -iFrame bot editor
  -map editor
+
+v1.1.2
+X-Mini patch to fix random Maps
 
 v1.1.1
 X-Formations graphics fixes(linked formations)

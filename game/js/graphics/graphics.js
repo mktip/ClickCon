@@ -15,7 +15,7 @@ function renderEdges(playing, graphics, map){
         if(playing){
 
         }
-        map[r].drawConnections(graphics, map, false);
+        map[r].drawConnections(graphics, map, false, r);
     }   
 }
 
