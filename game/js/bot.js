@@ -77,3 +77,33 @@ wildStep.prototype.makeMove = function(){
 		swapPlayer()
 	}
 };
+
+// class WildStepBot extends Player {
+// 	constructor() {
+// 		super();
+// 		this.name = name;
+// 		this.colour = colour;
+// 		this.id = id;
+// 	}
+
+// 	makeMove() {
+// 		var hitList = [];
+// 		var owned = this.getOwned();
+// 		for (var r = 0; r<owned.length; r++){
+// 			var cons = map[owned[r]].getConnections();
+// 			for (var t = 0; t<cons.length; t++){
+// 				if((map[cons[t]].getOwner() != this.id || map[cons[t]].getShield() !== true) && map[cons[t]].getLockLife() == 0){
+// 					hitList.push(map[cons[t]]);
+// 				}
+// 			}
+// 		}
+// 		if(hitList.length > 0){
+// 			var pick = Math.floor(Math.random()*hitList.length);
+// 			var tar = hitList[pick];
+// 			move(tar, this.id, map);
+// 		}
+// 		else{
+// 			swapPlayer()
+// 		}
+// 	}
+// }

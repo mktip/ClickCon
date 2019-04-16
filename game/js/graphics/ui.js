@@ -91,7 +91,7 @@ function startMenu(){
 	hostPlayer.style.fontSize = "30px"; //TEMPORARY *******************************************
 	hostPlayer.maxLength = 24;
 	addElement("colPickBtn", "button", playerlistDiv, "Pick");
-	colPickBtn.onclick = function(e){event.preventDefault(); ColourPicker(playerlistDiv, hostPlayer);};
+	colPickBtn.onclick = function(e){event.preventDefault(); if(!document.getElementById("colShell")){ColourPicker(playerlistDiv, hostPlayer);}else{colShell.parentElement.removeChild(document.getElementById("colShell"));}};
 	colList = removeAtIndex(colList, playerColour);
 
 	addPlayer(playerlistDiv, 2, colList[0]);
@@ -113,12 +113,13 @@ function ColourPicker(parent, targ){
 	for(var r = 0; r < colList.length; r++){
 		var n = "col" + r;
 		addElement(n, "div", colShell);
+		document.getElementById(n).value = colList[r];
 		document.getElementById(n).style.backgroundColor = colList[r];
 		document.getElementById(n).style.width = scale + "px";
 		document.getElementById(n).style.height = scale + "px";
 		document.getElementById(n).style.display = "inline-block";
 		document.getElementById(n).style.margin = "2px 2px 2px 2px";
-		document.getElementById(n).onclick = function(e) {event.preventDefault; targ.style.color = this.style.backgroundColor; colShell.parentElement.removeChild(document.getElementById("colShell"));}
+		document.getElementById(n).onclick = function(e) {event.preventDefault; colList.push(targ.style.color); targ.style.color = this.style.backgroundColor; colList = removeItem(colList, this.value); colShell.parentElement.removeChild(document.getElementById("colShell"));}
 	}
 }
 

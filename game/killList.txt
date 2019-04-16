@@ -39,7 +39,6 @@ v1.4
 v1.3
  -Beautify!
  -colourblind mode
- -fog mode
  
 v1.2(The overhaul update)
 X-gut files into proper folders by type
@@ -48,11 +47,13 @@ X-gut files into proper folders by type
 	 -Color picker!
 	 -Username entry
 	 -Player list bugs
+	 -fog mode
 	 -Update log
 
  -Rework game code
 	 -Make anonymous method (no more changing game settings in console)
 	 -Investigate better bot system
+	X-optimise edge rendering
 	
  -iFrame bot editor
  -map editor
