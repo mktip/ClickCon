@@ -48,7 +48,7 @@ X-gut files into proper folders by type
 	 -Username entry
 	 -Player list bugs
 	 -fog mode
-	 -Update log
+	X-Update log
 
  -Rework game code
 	 -Make anonymous method (no more changing game settings in console)
