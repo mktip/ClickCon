@@ -44,7 +44,7 @@ v1.2(The overhaul update)
 X-gut files into proper folders by type
  -Rework UI
 	 -Menu Formatting
-	 -Color picker!
+	X-Color picker!
 	 -Username entry
 	 -Player list bugs
 	 -fog mode

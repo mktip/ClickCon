@@ -394,8 +394,13 @@ function swapPlayer(){
 			else{
 				stall = 250;
 			}
-			setTimeout(botcaller, stall);
+			sleep(stall/1000);
+			botcaller();
+			// setTimeout(botcaller, stall);
 			}
+			// var k = performance.now();
+			// while (performance.now() - k <= millisecondsToDelayBy) { }
+			// doSomething();
 		}
 }
 function botcaller(){
