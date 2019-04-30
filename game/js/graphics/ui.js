@@ -68,7 +68,7 @@ function startMenu(){
 
 	addElement("locTxt", "label", checksDiv, "<br>Formation Lock Mode");
 	addElement("lockMode", "input", checksDiv);
-	lockMode.type = "checkbox";
+	document.getElementById("lockMode").type = "checkbox";
 	locTxt.htmlFor = 'lockMode';
 
 	addElement("scoTxt", "label", checksDiv, "<br>Hide Scores");
