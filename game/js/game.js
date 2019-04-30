@@ -8,7 +8,10 @@ var hiddenScores;
 var lockMode;
 var starter;
 var boners;
-function setupGame(players, map, spawns, shi, rbk, lck, hSs, roundMax){
+var data;
+
+function setupGame(pack, map, spawns){
+	data = pack;
 	var r;
 	var left = map;
 	for (r=0; r<players.length; r++){
@@ -25,7 +28,7 @@ function setupGame(players, map, spawns, shi, rbk, lck, hSs, roundMax){
 			}
 		}
 	}
-	if(shi){
+	if(pack.formSettings.ranShields){
 		var amt = Math.floor(Math.random()*map.length/2) + 1;
 		var unShi = map;
 		for(var r = 0; r < amt; r++){
@@ -34,7 +37,7 @@ function setupGame(players, map, spawns, shi, rbk, lck, hSs, roundMax){
 			removeAtIndex(unShi, pick);
 		}
 	}
-	if(rbk){
+	if(pack.formSettings.ranRoadblocks){
 		var amt = Math.floor(Math.random()*map.length/3) + 1;
 		var unLck = map;
 		for(var r = 0; r < amt; r++){
@@ -53,15 +56,15 @@ function setupGame(players, map, spawns, shi, rbk, lck, hSs, roundMax){
 		console.log(boners);
 	}
 	curRound = 1;
-	maxRound = roundMax;
-	hiddenScores = hSs;
-	lockMode = lck;
+	maxRound = pack.formSettings.maxRounds;
+	hiddenScores = pack.formSettings.hideMode;
+	lockMode = pack.formSettings.formLock;
 	playing = true;
 	setupScoreBoard(players.length);
 	currentPlayer = Math.floor(Math.random()*players.length);
 	starter = currentPlayer;
-		if (players[currentPlayer].isBot){
-			players[currentPlayer].makeMove();
+		if (data.playerData.players[currentPlayer].isBot){
+			data.playerData.players[currentPlayer].makeMove();
 		}
 }
 function createPlanetLabels(){
@@ -153,7 +156,7 @@ function render(map){
 	ctx.fillRect(0,0,canvas.width, canvas.height);
 	var i;
 	ctx.fillStyle = "#0ff";
-	if(players[currentPlayer].isBot != true){
+	if(data.playerData.players[currentPlayer].isBot != true){
 		for (i = 0; i < map.length; i++){
 			if (map[i].getOwner() == currentPlayer + 1){
 				var x = map[i].getX();
@@ -165,8 +168,8 @@ function render(map){
 	}
 	
 	for (i = 0; i < map.length; i++){
-		if(fog && players[currentPlayer].isBot != true){
-			if(checkProxy(map[i], map, 1) || map[i].getOwner() == players[currentPlayer].getID()){
+		if(fog && data.playerData.players[currentPlayer].isBot != true){
+			if(checkProxy(map[i], map, 1) || map[i].getOwner() == data.playerData.players[currentPlayer].getID()){
 				fg = false;
 			}
 			else{
@@ -188,8 +191,8 @@ function render(map){
 	}	
 	drawBoners();
 	for (i = 0; i < map.length; i++){
-		if(fog && players[currentPlayer].isBot != true){
-			if(checkProxy(map[i], map, 1) || map[i].getOwner() == players[currentPlayer].getID()){
+		if(fog && data.playerData.players[currentPlayer].isBot != true){
+			if(checkProxy(map[i], map, 1) || map[i].getOwner() == data.playerData.players[currentPlayer].getID()){
 				fg = false;
 			}
 			else{

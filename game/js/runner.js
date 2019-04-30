@@ -107,10 +107,10 @@
 	// var hideMode = document.getElementById("hideScores").checked;
 	// var maxRounds = document.getElementById("roundCount").value;
 
-	var dat = scrape();
-	console.log(dat);
+	var dataPack = scrape();
+	console.log(dataPack);
 
-	document.getElementById("holder").parentNode.removeChild(document.getElementById("holder"));
+	document.getElementById("holderDiv").parentNode.removeChild(document.getElementById("holderDiv"));
 		
 	var scoreBoxSpan = document.createElement("span");
 	var canvasSpan = document.createElement("span");
@@ -146,10 +146,10 @@
 	document.body.appendChild(canvasSpan);
 	fillControlBox();
 	
-	if(mapInd == 0){
-		mapInd = Math.floor(Math.random()*11) + 1;
+	if(dataPack.formSettings.mapInd == 0){
+		dataPack.formSettings.mapInd = Math.floor(Math.random()*11) + 1;
 	}
-	switch (mapInd){
+	switch (dataPack.formSettings.mapInd){
 			case 1: map = praiseJibbers();
 					break;
 			case 2: map = prettySym();
@@ -185,11 +185,11 @@
 	//players = [new Player("Vi", "#a3a", 1, false)];
 	//players = [new wildExpand("1", "#f00", 1), new wildExpand("2", "#0f0",2), new wildExpand("3","#00f", 3),new wildExpand("4","#f0f", 4),new wildExpand("5","#0ff", 5),new wildExpand("6","#ff0", 6)];
 	var spawns;
-	if(spawnInd == 0){
+	if(dataPack.formSettings.spawnInd == 0){
 		spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
 	}
 	else{
-		switch(spawnInd){
+		switch(dataPack.formSettings.spawnInd){
 			case 1: if(map.length > players.length * 1){spawns = 1;}else{spawns = Math.floor(map.length/players.length);}
 					break;
 			case 2: if(map.length > players.length * 2){spawns = 2;}else{spawns = Math.floor(map.length/players.length);}
@@ -200,7 +200,7 @@
 					break;
 		}
 	}
-	setupGame(players,map,spawns, ranShields, ranRoadblocks, formLock, hideMode, maxRounds);
+	setupGame(dataPack, map, spawns);
 	render(map);
 	if(botwar == false){
 		canvas.onclick = function(e){checkHit(e, map); return false;};
