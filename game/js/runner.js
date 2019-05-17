@@ -22,6 +22,7 @@
 				ranRoadblocks : document.getElementById("roadblocks").checked,
 				formLock : document.getElementById("lockMode").checked,
 				hideMode : document.getElementById("hideScores").checked,
+				fogmode : document.getElementById("fogMode").checked,
 				maxRounds : document.getElementById("roundCount").value
 			},
 			playerData : {
@@ -108,7 +109,7 @@
 	// var maxRounds = document.getElementById("roundCount").value;
 
 	var dataPack = scrape();
-	console.log(dataPack);
+	//console.log(dataPack);
 
 	document.getElementById("holderDiv").parentNode.removeChild(document.getElementById("holderDiv"));
 		
