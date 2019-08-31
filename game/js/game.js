@@ -10,47 +10,47 @@ var starter;
 var boners;
 var data;
 
-function setupGame(pack, map, spawns){
+function setupGame(pack){
 	data = pack;
 	var r;
-	var left = map;
-	for (r=0; r<players.length; r++){
+	var left = data.map;
+	for (r=0; r<data.playerData.players.length; r++){
 		var reps;
-		for (reps =0; reps<spawns; reps++){
+		for (reps =0; reps<data.spawnCnt; reps++){
 			var pick = Math.floor(Math.random()*left.length);
-			left[pick].setOwner(players[r].getID());
-			left[pick].setColour(players[r].getColour());
+			left[pick].setOwner(data.playerData.players[r].getID());
+			left[pick].setColour(data.playerData.players[r].getColour());
 			left = [];
-			for (var w = 0; w<map.length; w++){
-				if (map[w].getOwner() == 0){
-					left.push(map[w]);
+			for (var w = 0; w<data.map.length; w++){
+				if (data.map[w].getOwner() == 0){
+					left.push(data.map[w]);
 				}
 			}
 		}
 	}
-	if(pack.formSettings.ranShields){
-		var amt = Math.floor(Math.random()*map.length/2) + 1;
-		var unShi = map;
+	if(data.formSettings.ranShields){
+		var amt = Math.floor(Math.random()*data.map.length/2) + 1;
+		var unShi = data.map;
 		for(var r = 0; r < amt; r++){
 			var pick = Math.floor(Math.random()*unShi.length);
 			unShi[pick].setShield(true);
 			removeAtIndex(unShi, pick);
 		}
 	}
-	if(pack.formSettings.ranRoadblocks){
-		var amt = Math.floor(Math.random()*map.length/3) + 1;
-		var unLck = map;
+	if(data.formSettings.ranRoadblocks){
+		var amt = Math.floor(Math.random()*data.map.length/3) + 1;
+		var unLck = data.map;
 		for(var r = 0; r < amt; r++){
 			var pick = Math.floor(Math.random()*unLck.length);
 			unLck[pick].setLockLife(Math.floor(Math.random()*10) + 1);
 			removeAtIndex(unLck, pick);
 		}
 	}
-	if (map.length >= 68){
-		boners = genBoners(map.length/9,map.length/17);
+	if (data.map.length >= 68){
+		boners = genBoners(data.map, data.map.length/9,data.map.length/17);
 	}
 	else{
-		boners = genBoners(map.length/7, map.length/9);
+		boners = genBoners(data.map.length/7, data.map.length/9);
 	}
 	if(debug){
 		console.log(boners);
@@ -60,8 +60,8 @@ function setupGame(pack, map, spawns){
 	hiddenScores = pack.formSettings.hideMode;
 	lockMode = pack.formSettings.formLock;
 	playing = true;
-	setupScoreBoard(players.length);
-	currentPlayer = Math.floor(Math.random()*players.length);
+	setupScoreBoard(data.playerData.players.length);
+	currentPlayer = Math.floor(Math.random()*data.playerData.players.length);
 	starter = currentPlayer;
 		if (data.playerData.players[currentPlayer].isBot){
 			data.playerData.players[currentPlayer].makeMove();
@@ -84,7 +84,7 @@ function createPlanetLabels(){
 }
 function setupScoreBoard(count){
 	var element = document.getElementById("board");
-	for(var r = 0; r<players.length; r++){
+	for(var r = 0; r<data.playerData.players.length; r++){
 		var div = document.createElement("div");
 		var id = "player" + r;
 		div.id = id;
@@ -241,36 +241,6 @@ function drawBoners(){
 					map[mini[a]].setValue(map[mini[a]].getValue() + 1);
 					if(lockMode){
 						map[mini[a]].setLockLife(10001);
-					}
-				}
-			}
-			for(var x = 0;x<mini.length;x++){
-				var base = map[mini[x]];
-				var tempCons = map[mini[x]].getConnections();
-				for(var y=0; y<tempCons.length; y++){
-					for(var t=0; t<tempCons.length; t++){
-						if(base.getOwner() == 1 && fog){
-							if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t] && base.getOwner() == map[tempCons[y]].getOwner()){
-								ctx.strokeStyle = "#fff";
-								ctx.fillStyle = "#fff";
-								ctx.lineWidth = 9;
-								ctx.beginPath();
-								ctx.moveTo(base.getX(), base.getY());
-								ctx.lineTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
-								ctx.stroke();
-							}
-						}
-						else if(!fog){
-							if(map[tempCons[y]].getShowing() && tempCons[y] == tempCons[t] && base.getOwner() == map[tempCons[y]].getOwner()){
-								ctx.strokeStyle = "#fff";
-								ctx.fillStyle = "#fff";
-								ctx.lineWidth = 9;
-								ctx.beginPath();
-								ctx.moveTo(base.getX(), base.getY());
-								ctx.lineTo(map[tempCons[y]].getX(), map[tempCons[y]].getY());
-								ctx.stroke();
-							}
-						}						
 					}
 				}
 			}

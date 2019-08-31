@@ -26,8 +26,10 @@
 				maxRounds : document.getElementById("roundCount").value
 			},
 			playerData : {
-				players: []
-			}
+				players : []
+			},
+			spawnCnt : 0,
+			map : []
 		}
 
 		var hName = document.getElementById("hostPlayer").value;
@@ -151,32 +153,31 @@
 		dataPack.formSettings.mapInd = Math.floor(Math.random()*11) + 1;
 	}
 	switch (dataPack.formSettings.mapInd){
-			case 1: map = praiseJibbers();
+			case 1: dataPack.map = praiseJibbers();
 					break;
-			case 2: map = prettySym();
+			case 2: dataPack.map = prettySym();
 					break;
-			case 3: map = scatterBlob();
+			case 3: dataPack.map = scatterBlob();
 					break;
-			case 4: map = spiralGal();
+			case 4: dataPack.map = spiralGal();
 					break;
-			case 5: map = ringODeath();
+			case 5: dataPack.map = ringODeath();
 					break;
-			case 6: map = clusters();
+			case 6: dataPack.map = clusters();
 					break;
-			case 7: map = heartbreak();
+			case 7: dataPack.map = heartbreak();
 					break;
-			case 8: map = converge();
+			case 8: dataPack.map = converge();
 					break;
-			case 9: map = properSpiral();
+			case 9: dataPack.map = properSpiral();
 					break;
-			case 10: map = triSpiral();
+			case 10: dataPack.map = triSpiral();
 					break;
-			case 11: map = superSpiral();
+			case 11: dataPack.map = superSpiral();
 					break;
-			case 12: map = randomGen(1500,1500);
+			case 12: dataPack.map = randomGen(1500,1500);
 					break;
 		}
-	
 	//map = triSpiral();
 	ctx = canvas.getContext('2d');
 	setCanvasDims();
@@ -185,30 +186,26 @@
 
 	//players = [new Player("Vi", "#a3a", 1, false)];
 	//players = [new wildExpand("1", "#f00", 1), new wildExpand("2", "#0f0",2), new wildExpand("3","#00f", 3),new wildExpand("4","#f0f", 4),new wildExpand("5","#0ff", 5),new wildExpand("6","#ff0", 6)];
-	var spawns;
+	//var spawns;
 	if(dataPack.formSettings.spawnInd == 0){
-		spawns = Math.floor(Math.random()*(Math.floor((map.length/players.length))))+1;
+		dataPack.spawnCnt = Math.floor(Math.random()*(Math.floor((dataPack.map.length/dataPack.playerData.players.length))))+1;
 	}
 	else{
 		switch(dataPack.formSettings.spawnInd){
-			case 1: if(map.length > players.length * 1){spawns = 1;}else{spawns = Math.floor(map.length/players.length);}
+			case 1: if(dataPack.map.length > dataPack.playerData.players.length * 1){dataPack.spawnCnt = 1;}else{dataPack.spawnCnt = Math.floor(dataPack.map.length/dataPack.playerData.players.length);}
 					break;
-			case 2: if(map.length > players.length * 2){spawns = 2;}else{spawns = Math.floor(map.length/players.length);}
+			case 2: if(dataPack.map.length > dataPack.playerData.players.length * 2){dataPack.spawnCnt = 2;}else{dataPack.spawnCnt = Math.floor(dataPack.map.length/dataPack.playerData.players.length);}
 					break;
-			case 3: if(map.length > players.length * 3){spawns = 3;}else{spawns = Math.floor(map.length/players.length);}
+			case 3: if(dataPack.map.length > dataPack.playerData.players.length * 3){dataPack.spawnCnt = 3;}else{dataPack.spawnCnt = Math.floor(dataPack.map.length/dataPack.playerData.players.length);}
 					break;
-			case 4: spawns = Math.floor(map.length/players.length);
+			case 4: dataPack.spawnCnt = Math.floor(dataPack.map.length/dataPack.playerData.players.length);
 					break;
 		}
 	}
-	setupGame(dataPack, map, spawns);
-	render(map);
-	if(botwar == false){
-		canvas.onclick = function(e){checkHit(e, map); return false;};
-	}
+	setupGame(dataPack);
+	//render(map);
     }
     function setCanvasDims(){
-	console.log("Called");
 	var maxY = 0;
 	var maxX = 0;
 	for(var v = 0; v<map.length; v++){

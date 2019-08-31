@@ -1307,7 +1307,7 @@ new planeto(0, 549.45, 405.46, "#fff", 10, [64, 66]),
 new planeto(0, 405.46, 123.09, "#fff", 10, [69, 70])];
 	return map;
 }
-function genBoners(count, length){
+function genBoners(map, count, length){
 	var list = [];
 	for (var t = 0; t<count;t++){
 		var mini = [];
