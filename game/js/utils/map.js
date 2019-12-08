@@ -455,7 +455,7 @@ function clusters(){
 			new planeto(0, 761.8, 829.4, '#fff', 10, [67, 68, 70]), 
 			new planeto(0, 794.3, 760.5, '#fff', 10, [33, 67, 69])];
 
-return map;
+			return map;
 }
 function heartbreak(){
 	var map = [new planeto(0, 252, 90, '#fff', 10, [2, 3, 8]),

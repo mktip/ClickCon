@@ -1,7 +1,7 @@
 var debug = false;
 function printMap(){
     for(var r=0; r<map.length; r++){
-        console.log("index " + r + map[r]);
+        console.log(map[r]);
     }
 }
 function createPlanetLabels(){
@@ -173,7 +173,7 @@ function removePlaneto(targ, ind){
     for(var w = 0; w < edges.length; w++){
         if(edges[w][0] == targ || edges[w][1] == targ){
             //console.log("attempting remove");
-            //console.log(targ);           
+            //console.log(targ);    
             //console.log(edges[w][0]);
             //console.log(edges[w][1]); 
             removeList.push(w);
@@ -240,4 +240,30 @@ function convertEdgeToReference(inp){
         converted[r] = [map[inp[r][0]], map[inp[r][1]]];
     }
     return converted;
+}
+function exportMap(){
+    var output = [];
+    var txtOut = "";
+    for(var t = 0; t < map.length; t++){
+        output[t] = [map[t].x, map[t].y, []];
+    }
+
+    for (var x = 0; x < edges.length; x++){
+        var temp1, temp2;
+        temp1 = map.indexOf(edges[x][0]);
+        temp2 = map.indexOf(edges[x][1]);
+
+        output[temp1][2].push(temp2);
+        output[temp2][2].push(temp1);
+    }
+
+    for (var y = 0; y < output.length; y++){
+        txtOut += "[(" + output[y][0] + ", " + output[y][1] + ")";
+        var mini = "";
+        for(var r = 0; r < output[y][2].length; r++){
+            mini += output[y][2][r] + ",";
+        }
+        txtOut += "(" + mini + ")],";
+    }
+    document.getElementById("exportTxt").innerHTML = txtOut;
 }

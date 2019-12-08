@@ -59,8 +59,8 @@ function getCoords(w, h, density, padding, r){
     var plans = [];
 
 	//plans = generateChunk(w,h, density, padding, r);
-	//plans = circle(w,h,density,padding,r);
-	plans = clusters(w,h,density, padding, r, -1, 500);
+	//plans = ring(w,h,density,padding,r);
+	//plans = clusters(w,h,density, padding, r, -1, 500);
 	// var type = Math.floor(Math.random() * 5);
 	// switch(type){
 	// 	case 0:
@@ -84,7 +84,7 @@ function getCoords(w, h, density, padding, r){
 	// 		plans = ring(h,h,density,padding,r);
 	// 		break;
 	// }
-	//console.log(plans.length);
+	console.log(plans.length);
     return plans;
 }
 

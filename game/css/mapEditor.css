@@ -6,6 +6,10 @@ body{
 	width: 30%;
 	float: right;
 }
+#exportDiv{
+	width: 30%;
+	float: right;	
+}
 #canDiv{
 	float: left;
 }
