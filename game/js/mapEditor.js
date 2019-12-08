@@ -260,6 +260,7 @@ function exportMap(){
     for (var y = 0; y < output.length; y++){
         txtOut += "[(" + output[y][0] + ", " + output[y][1] + ")";
         var mini = "";
+        output[y][2] = removeDupes(output[y][2]);
         for(var r = 0; r < output[y][2].length; r++){
             mini += output[y][2][r] + ",";
         }
