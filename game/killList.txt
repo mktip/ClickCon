@@ -56,6 +56,7 @@ X-gut files into proper folders by type
 	 -Scoring bugs ("tied")
 	X-optimise edge rendering
 	
+ -Toggle for local multiplayer
  -iFrame bot editor
  -map editor
 
