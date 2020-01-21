@@ -55,6 +55,7 @@ X-gut files into proper folders by type
 	 -Investigate better bot system
 	 -Scoring bugs ("tied")
 	X-optimise edge rendering
+	 -BFS FOR RANDOM GEN
 	
  -Toggle for local multiplayer
  -iFrame bot editor
