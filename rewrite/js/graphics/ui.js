@@ -36,21 +36,21 @@ function startMenu(cols){
 
         colors = removeAtIndex(colors, 0);
     }
-    toggleBlobType(blob0, true, 0);
+    toggleBlobType(blob0, true, 0); //Toggle first blob as a player
 
     //Settings Holder
-    addElement("mapDrp", "select", settingsMaster);
-    var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral", "Tri Spiral", "Super Spiral", "Random Gen"];	
-	for(var x = 0; x<mapArr.length;x++){
-		addElement("opt" + x, "option", mapDrp, mapArr[x]);
-    }
-    
-    addElement("spawnDrp", "select", settingsMaster);
+    addElement("drpHolder", "div", settingsMaster);
+    addElement("rdbHolder", "div", settingsMaster);
+
+    //Spawn Dropdown
+    addElement("spawnHolder", "div", settingsMaster, "Spawn Count: ");
+    addElement("spawnDrp", "select", spawnHolder);
 	var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "Fill"];
 	for(var x = 0; x<spawnArr.length; x++){
 		addElement("opt"+ x, "option", spawnDrp, spawnArr[x]);
     }
     
+    //Round count
     addElement("rndLbl", "label", settingsMaster, "<br>Round Count: ");
 	addElement("roundCount", "input", settingsMaster);
 	roundCount.type = "number";
@@ -58,7 +58,15 @@ function startMenu(cols){
     rndLbl.htmlFor = 'roundCount';
     
     //Map preview Holder
+    addElement("mPreviewHolder", "div", settingsMaster);
 
+    //Map Dropdown
+    addElement("mapDrp", "select", mPreviewHolder);
+    var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral", "Tri Spiral", "Super Spiral", "Random Gen"];	
+	for(var x = 0; x<mapArr.length;x++){
+		addElement("opt" + x, "option", mapDrp, mapArr[x]);
+    }
+    addElement("mPreview", "canvas", mPreviewHolder);
 }
 
 function addPlayerBlob(blobNum, pType, cols, side){
