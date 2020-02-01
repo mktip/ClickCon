@@ -43,16 +43,42 @@ function startMenu(cols){
     addElement("rdbHolder", "div", settingsMaster);
 
     //Spawn Dropdown
-    addElement("spawnHolder", "div", settingsMaster, "Spawn Count: ");
+    addElement("spawnHolder", "div", drpHolder, "Spawn Count: ");
     addElement("spawnDrp", "select", spawnHolder);
 	var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "Fill"];
 	for(var x = 0; x<spawnArr.length; x++){
 		addElement("opt"+ x, "option", spawnDrp, spawnArr[x]);
     }
     
+    //Radio Buttons
+    addElement("shiTxt", "label", rdbHolder, "Random Shields");
+	addElement("shields", "input", rdbHolder);
+	shields.type = "checkbox";
+	shiTxt.htmlFor = 'shields';
+
+	addElement("roaTxt", "label", rdbHolder, "<br>Random Roadblocks");
+	addElement("roadblocks", "input", rdbHolder);
+	roadblocks.type = "checkbox";
+	roaTxt.htmlFor = 'roadblocks';
+
+	addElement("locTxt", "label", rdbHolder, "<br>Formation Lock Mode");
+	addElement("lockMode", "input", rdbHolder);
+	document.getElementById("lockMode").type = "checkbox";
+	locTxt.htmlFor = 'lockMode';
+
+	addElement("scoTxt", "label", rdbHolder, "<br>Hide Scores");
+	addElement("hideScores", "input", rdbHolder);
+	hideScores.type = "checkbox";
+	scoTxt.htmlFor = 'hideScores';
+
+	addElement("fogTxt", "label", rdbHolder, "<br>Fog Mode");
+	addElement("fogMode", "input", rdbHolder);
+	fogMode.type = "checkbox";
+	fogTxt.htmlFor = 'fogMode';
+    
     //Round count
-    addElement("rndLbl", "label", settingsMaster, "<br>Round Count: ");
-	addElement("roundCount", "input", settingsMaster);
+    addElement("rndLbl", "label", drpHolder, "<br>Round Count: ");
+	addElement("roundCount", "input", drpHolder);
 	roundCount.type = "number";
 	roundCount.value = 150;
     rndLbl.htmlFor = 'roundCount';
@@ -61,7 +87,8 @@ function startMenu(cols){
     addElement("mPreviewHolder", "div", settingsMaster);
 
     //Map Dropdown
-    addElement("mapDrp", "select", mPreviewHolder);
+    addElement("mDrpHolder", "div", mPreviewHolder, "Select Map: ")
+    addElement("mapDrp", "select", mDrpHolder);
     var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral", "Tri Spiral", "Super Spiral", "Random Gen"];	
 	for(var x = 0; x<mapArr.length;x++){
 		addElement("opt" + x, "option", mapDrp, mapArr[x]);
