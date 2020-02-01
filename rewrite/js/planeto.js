@@ -6,7 +6,7 @@ function planeto(id, nx, ny, cons){
     this.y = ny;
     this.radius = 10;
     this.colour = "#fff";
-    this.teamCol = "#fff";
+    this.teamColour = "#fff";
     this.connections = cons;
     this.hasShield = false;
     this.bonerShowing = false;
@@ -17,6 +17,8 @@ function planeto(id, nx, ny, cons){
     this.maxHeat = (Math.floor(Math.random()*5)) + 4;
     this.prevOwner = 0;
 }
+
+planeto.prototype.spew = function(){console.log("Spew!");}//Just for testing scopes
 
 planeto.prototype.setUp = function(settings){
     //initial settings, default what we dont recieve
@@ -40,5 +42,34 @@ planeto.prototype.setUp = function(settings){
 //G.stroke(); ***************************************************
 
 planeto.prototype.drawConnections = function(G, map, settings){
-    
+    var reps = this.connections.length;
+    for(var r = 0; r < reps; r++){
+        var connectee = map[this.connections[r]].id;
+        if(connectee > this.id){
+            G.beginPath();
+            G.lineWidth = 3;
+            if(this.teamId != 0 && this.teamId == map[connectee].teamId && settings.fog == false){
+                if(this.bonerShowing == true && map[connectee].bonerShowing == true){
+                    G.fillStyle = "#fff";
+                    G.strokeStyle = "#fff";
+                    G.lineWidth = 9;
+                }
+                else{
+                    G.fillStyle = this.teamColour;
+                    G.strokeStyle = this.teamColour;
+                }
+            }
+            else{
+              G.fillStyle = "#999";
+              G.strokeStyle = "#999";  
+            }
+            G.moveTo(this.x, this.y);
+            G.lineTo(map[connectee].x, map[connectee].y);
+            G.stroke();
+        }
+    }
+}
+
+planeto.prototype.drawPlaneto = function(G, map, settings){
+
 }

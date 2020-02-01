@@ -1,3 +1,5 @@
-function doThing(dat){
-    dat = "Ari is the cutest girl ever in the world!";
+function render(G, map, settings){
+    for (var r = 0; r < map.length; r++){
+        map[r].drawConnections(G, map, settings);
+    }
 }
