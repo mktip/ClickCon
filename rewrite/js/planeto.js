@@ -36,7 +36,7 @@ planeto.prototype.setUp = function(settings){
 //G.strokeStyle = "#fff";
 //G.lineWidth = 9;
 //G.moveTo(x,y);
-//G.lineTO(x,y);
+//G.lineTo(x,y);
 //G.arc(this.x, this.y, (this.radius*2) - 5, 0, 2*Math.PI);
 //G.fill();
 //G.stroke(); ***************************************************
@@ -71,5 +71,46 @@ planeto.prototype.drawConnections = function(G, map, settings){
 }
 
 planeto.prototype.drawPlaneto = function(G, map, settings){
+    G.beginPath();
+    if(settings.fog){
+        G.fillStyle = "#666";
+        G.strokeStyle = "#666";
+    }
+    else{
+        G.fillStyle = this.teamColour;
+        G.strokeStyle = this.teamColour;
+    }
+    G.arc(this.x, this.y, (this.radius*2), 0, 2*Math.PI);
+    G.fill();
+    G.stroke();
+    
+    if(settings.fog == false){
+        G.beginPath();
+        if(this.lockLife > 0){
+            G.fillStyle = "#000";
+            G.strokeStyle = "#000";
+        }
+        else{
+            G.fillStyle = this.colour;
+            G.strokeStyle = this.colour;
+        }
+        G.arc(this.x, this.y, (this.radius*2) - 5, 0, 2*Math.PI);
+        G.fill();
+        G.stroke();
+    }
 
+    if(this.hasShield && settings.fog == false){
+        G.lineWidth = 2;
+        G.strokeStyle = "#0ff";
+        G.beginPath();
+        G.arc(this.x, this.y, this.radius*2 + 8, 0, 2*Math.PI);
+        G.stroke();
+    }
+}
+
+planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
+    this.teamId = tId;
+    this.teamColour = tCol;
+    this.ownerId = oId || tId;
+    this.colour = oCol || tCol;
 }
