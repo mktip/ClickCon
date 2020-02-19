@@ -109,6 +109,18 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
 }
 
 planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
+    if(this.prevOwner = tId){
+        this.heat += 1;
+        if(this.heat == this.maxHeat){
+            this.lockLife = Math.floor(Math.random() * 7) + 2;
+            this.teamId = 0;
+            this.ownerId = 0;
+            this.colour = "#fff";
+            this.teamColour = "#fff";
+            this.heat = 0;
+            this.prevOwner = 0;
+        }
+    }
     this.teamId = tId;
     this.teamColour = tCol;
     this.ownerId = oId || tId;

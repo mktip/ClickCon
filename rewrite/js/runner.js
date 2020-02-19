@@ -9,7 +9,7 @@
      gameMap[0].setUp({teamId: 1, ownerId: 1, colour:"#f00", teamColour:"#f00"});
      gameMap[1].setUp({teamId: 1, ownerId: 2, colour:"#0f0", teamColour:"#f00"});
      gameMap[2].setUp({teamId: 2, ownerId: 3, colour:"#00f", teamColour:"#00f"});
-     gameMap[3].setUp({teamId: 2, ownerId: 4, colour:"#ff0", teamColour:"#00f"});
+     gameMap[3].setUp({teamId: 2, ownerId: 4, colour:"#ff0", teamColour:"#00f", hasShield: true});
 
     var g = mPreview.getContext("2d");
     render(g, gameMap, {fog: false});
