@@ -60,8 +60,10 @@ planeto.prototype.drawConnections = function(G, map, settings){
                 }
             }
             else{
-              G.fillStyle = "#999";
-              G.strokeStyle = "#999";  
+            G.fillStyle = "#999";
+            G.strokeStyle = "#999";
+            //G.fillStyle = "#f0f";
+            //G.strokeStyle = "#f0f"; //FOR TESTING    
             }
             G.moveTo(this.x, this.y);
             G.lineTo(map[connectee].x, map[connectee].y);
@@ -77,8 +79,10 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
         G.strokeStyle = "#666";
     }
     else{
+        console.log("hit?");
         G.fillStyle = this.teamColour;
         G.strokeStyle = this.teamColour;
+        console.log(G.fillStyle + " / " + G.strokeStyle);
     }
     G.arc(this.x, this.y, (this.radius*2), 0, 2*Math.PI);
     G.fill();
@@ -120,9 +124,22 @@ planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
             this.heat = 0;
             this.prevOwner = 0;
         }
+        else{
+            this.prevOwner = this.teamId;
+            this.teamId = tId;
+            this.teamColour = tCol;
+            this.ownerId = oId || tId;
+            this.colour = oCol || tCol;
+        }
     }
-    this.teamId = tId;
-    this.teamColour = tCol;
-    this.ownerId = oId || tId;
-    this.colour = oCol || tCol;
+    else{
+        this.prevOwner = this.teamId;
+        this.teamId = tId;
+        this.teamColour = tCol;
+        this.ownerId = oId || tId;
+        this.colour = oCol || tCol;
+        if(this.heat > 1){
+            this.heat -= 1;
+        }
+    }
 }
