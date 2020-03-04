@@ -1,8 +1,6 @@
 kill list (update log)
 
 v?
--Tombstone planetos
--Absorb setting
 -gamemodes:
 	-Chaos mode:
 		-Warp planeto, lock planeto, mine planeto
@@ -18,45 +16,63 @@ v?
 		-Custom made map with a certain setup
 -formation generation tweaks, no duplicate planetos
 -Sound effects
--prettier art? (Option)
 -Bigger shields (numerical)
+-Skins and themes
 
 v2.0
  -Fearsome multiplayer
-
-v1.5
- -Better bots
- -Teams mode
- -Tutorial Page
  
-v1.4
+v1.5
  -Random Gen Additions
 	 -Cluster type
 	 -Chunk type
 	 -Spiral type
 	 -Customisable Settings
  
+v1.4
+ -Better bots
+ -Teams mode
+ -Borg mode
+ -Tombstone planetos
+ -Tutorial Page
+
 v1.3
  -Beautify!
+ -Toggle Graphics
  -colourblind mode
  
 v1.2(The overhaul update)
-X-gut files into proper folders by type
- -Rework UI
-	 -Menu Formatting
-	X-Color picker!
-	X-Username entry
-	 -Player list bugs
-	 -fog mode
-	X-Update log
+X-planeto
+    X-shield
+	X-lock
+	X-teams graphics
+	X-render method to include formations
 
- -Rework game code
-	 -Make anonymous method (no more changing game settings in console)
-	 -Investigate better bot system
-	 -Scoring bugs ("tied")
-	X-optimise edge rendering
-	 -BFS FOR RANDOM GEN
-	
+ -player
+	 -isBot
+	 -teamID
+
+ -gameloop
+	 -while loop to cycle through players
+	 -formation rendering
+	 -support for teams mode in scoreboard render
+	 -UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
+	 -lighter formation checker
+
+ -map generation
+	 -BFS
+	 -set to box maps only until random gen update
+
+ -bot
+	 -one bot class, prototype methods
+	 -memory var
+
+ -interface
+	 -colour Toggle
+	 -name input
+	 -bot or player Toggle
+
+ -BFS FOR RANDOM MAPS	
  -Toggle for local multiplayer
  -iFrame bot editor
  -map editor
