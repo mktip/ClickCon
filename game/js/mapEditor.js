@@ -220,6 +220,22 @@ function checkEdge(x, y, x1, y1, x2, y2){
     var dy = y - yy;
     return Math.sqrt(dx * dx + dy * dy);
 }
+function shiftY(amt){
+    for(var r = 0; r < map.length; r++){
+        map[r].y += amt;
+    }
+}
+function shiftX(amt){
+    for(var r = 0; r < map.length; r++){
+        map[r].x += amt;
+    }
+}
+function scale(per){
+    for(var r = 0; r<map.length; r++){
+        map[r].x = map[r].x * per;
+        map[r].y = map[r].y * per;
+    }
+}
 function generatePlanetos(){
     
 }
