@@ -61,7 +61,7 @@ X-planeto
 
  -map generation
 	 -BFS
-	 -set to box maps only until random gen update
+	X-set to box maps only until random gen update
 
  -bot
 	 -one bot class, prototype methods
