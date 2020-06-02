@@ -94,6 +94,8 @@ function startMenu(cols){
 		addElement("opt" + x, "option", mapDrp, mapArr[x]);
     }
     addElement("mPreview", "canvas", mPreviewHolder);
+    mPreviewHolder.style.width = "45%";
+    mPreviewHolder.style.height = "45%";
 }
 
 function addPlayerBlob(blobNum, pType, cols, side){

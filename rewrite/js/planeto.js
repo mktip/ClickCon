@@ -79,10 +79,10 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
         G.strokeStyle = "#666";
     }
     else{
-        console.log("hit?");
+        //console.log("hit?");
         G.fillStyle = this.teamColour;
         G.strokeStyle = this.teamColour;
-        console.log(G.fillStyle + " / " + G.strokeStyle);
+        //console.log(G.fillStyle + " / " + G.strokeStyle);
     }
     G.arc(this.x, this.y, (this.radius*2), 0, 2*Math.PI);
     G.fill();
