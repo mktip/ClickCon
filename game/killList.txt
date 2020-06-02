@@ -70,7 +70,8 @@ X-planeto
  -interface
 	 -colour Toggle
 	 -name input
-	 -bot or player Toggle
+	 -two buttons to add bot or player
+	 -bot button pull up menu to select type
 
  -BFS FOR RANDOM MAPS	
  -Toggle for local multiplayer

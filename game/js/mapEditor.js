@@ -224,17 +224,20 @@ function shiftY(amt){
     for(var r = 0; r < map.length; r++){
         map[r].y += amt;
     }
+    render();
 }
 function shiftX(amt){
     for(var r = 0; r < map.length; r++){
         map[r].x += amt;
     }
+    render();
 }
 function scale(per){
     for(var r = 0; r<map.length; r++){
         map[r].x = map[r].x * per;
         map[r].y = map[r].y * per;
     }
+    render();
 }
 function generatePlanetos(){
     
