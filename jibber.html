@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <title>jibber</title>
+</head>
+<body>
+    <script>
+        function makeMat(nme, dur, hrd, wght){
+            var obj = {
+                name: nme,
+                durability: dur,
+                hardness: hrd,
+                weight: wght
+            };
+            return obj;
+        }
+        function makeTool(hed, te, han, nme, lvl){
+            var obj = {
+                head : mats[hed],
+                tie : mats[te],
+                handle : mats[han],
+                name : "Tool",
+                durability : 0,
+                weight : 0,
+                damage : 0,
+                level : lvl
+            };
+            var lvlScale = 1 + (lvl * .1);
+            obj.name = obj.head.name + " " + nme;
+            obj.durability = ((obj.head.durability + obj.tie.durability + obj.handle.durability) * .80) * lvlScale;
+            obj.weight = obj.head.weight + obj.tie.weight + obj.handle.weight;
+            //obj.damage = (obj.weight / ((obj.head.hardness + obj.tie.hardness + obj.handle.hardness )/3)) * lvlScale;
+            obj.damage = (obj.weight * .2) + (((obj.head.hardness + obj.tie.hardness + obj.handle.hardness )/3)*.3) * lvlScale;
+            return obj;
+        }
+
+        var mats = [];
+
+        mats[0] = makeMat("Stone", 15, 10, 10);
+        mats[1] = makeMat("Wood", 5, 7, 5);
+        mats[2] = makeMat("Grass", 2, 1, 1);
+        mats[3] = makeMat("Leather", 10, 3, 4);
+        mats[4] = makeMat("Iron", 25, 25, 15);
+
+        var tool = makeTool(0, 2, 1, "Axe", 0);
+        var tool1 = makeTool(0, 2, 1, "Axe", 5);
+        var tool2 = makeTool(4, 4, 4, "Axe", 0);
+        var tool3 = makeTool(2,2,2, "Axe", 0);
+        var tool4 = makeTool(4, 2, 1, "Axe", 0);
+
+        console.log(tool);
+        console.log(tool1);
+        console.log(tool2);
+        console.log(tool3);
+        console.log(tool4);
+
+    </script>
+</body>

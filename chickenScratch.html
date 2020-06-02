@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <head>
     <title>ChickenScratching</title>
+    <img id="basicPlan" src="./rewrite/res/planeto/basic.png"></a>
 </head>
 <body>
+    <canvas id= "yes"></canvas>
     <script>
-        fetch('http://www.galcon.com/g2/logs/GALAXY.txt', {mode: 'no-cors'})
-        .then((response) => {
-            return response.body;
-        })
-        .then((myText) => {
-            console.log(myText);
-        });
+        var yes = document.getElementById("yes");
+        yes.width = 300;
+        yes.height = 300;
+
+        var g = yes.getContext("2d");
+        var img = document.getElementById("basicPlan").src;
+        g.drawImage(document.getElementById("basicPlan").src, 10, 10);
+
+    </script>
+
+    <script>
+function move(targ, mover){
+	var validMove = false;
+	if(targ.getLockLife() == 0){
+		if (targ.getOwner() == players[mover-1].getID()){
+			if(targ.getShield() == false){
+			targ.setShield(true);
+			validMove = true;
+			}
+		}
+		else{
+			if (targ.getShield()){
+				targ.setShield(false);
+				validMove = true;
+			}
+			else{
+                if(players[targ.getOwner()-1].getScore() == 1){
+                    console.log(players[targ.getOwner()].getID());
+                    players[targ.getOwner()].id = players[mover-1].getID();
+                }
+				targ.setOwner(players[mover-1].getID(), players[mover-1].colour);
+				validMove = true;
+			}
+		}
+		render(map);
+		if(validMove){
+			swapPlayer();
+		}
+	}	
+}
     </script>
 </body>

@@ -109,8 +109,8 @@ function addPlayerBlob(blobNum, pType, cols, side){
     addElement(("pDiv" + blobNum), "div", curr, "Player!");
     toggleBlobType(curr, pType, blobNum);
     curr.className = "playerBlob";
-    curr.style.background = cols[0];
-    curr.style.border = cols[0];
+    curr.style.background = cols[0][0];
+    curr.style.border = cols[0][0];
 }
 
 function toggleBlobType(blob, pType, num){
