@@ -25,11 +25,11 @@ function testerMap(){
     [4, 210, 30, [2, 5]],
     [5, 210, 120, [3, 4]]];
 
-    var scenario = [[0, {teamId: 1, ownerId: 1, colour:"#f00", teamColour:"#f00"}],
-                    [1, {teamId: 1, ownerId: 2, colour:"#0f0", teamColour:"#f00"}],
-                    [2, {teamId: 2, ownerId: 3, colour:"#00f", teamColour:"#00f"}],
-                    [3, {teamId: 2, ownerId: 4, colour:"#ff0", teamColour:"#00f", hasShield: true}],
-                    [4, {teamId: 3, ownerId: 5, colour:"#f0f", teamColour:"#0f0"}]];
+    var scenario = [[0, {teamId: 1, ownerId: 1, colour:"#f00", teamColour:"#f00", tChar: "A", pChar: "A", cInverse: "#0ff"}],
+                    [1, {teamId: 1, ownerId: 2, colour:"#0f0", teamColour:"#f00", tChar: "A", pChar: "B", cInverse: "#f0f"}],
+                    [2, {teamId: 2, ownerId: 3, colour:"#00f", teamColour:"#00f", tChar: "B", pChar: "C", cInverse: "#ff0"}],
+                    [3, {teamId: 2, ownerId: 4, colour:"#ff0", teamColour:"#00f", tChar: "B", pChar: "D", cInverse: "#00f", hasShield: true}],
+                    [4, {teamId: 3, ownerId: 5, colour:"#f0f", teamColour:"#0f0", tChar: "C", pChar: "E", cInverse: "#0f0"}]];
 
     return [mapData, scenario];
 }

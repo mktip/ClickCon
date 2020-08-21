@@ -14,6 +14,8 @@ v?
 		-Map edges slowly disappear with each turn until turn limit reached
 	-Scenario:
 		-Custom made map with a certain setup
+	-Mission:
+		-Each player/team has a set of planets to take on the map, first to do so wins
 -formation generation tweaks, no duplicate planetos
 -Sound effects
 -Bigger shields (numerical)
@@ -33,13 +35,14 @@ v1.4
  -Better bots
  -Teams mode
  -Borg mode
+ -Fog mode: "Soft" and "Hard" fog
+	-"Frog" mode
  -Tombstone planetos
  -Tutorial Page
 
 v1.3
  -Beautify!
  -Toggle Graphics
- -colourblind mode
  
 v1.2(The overhaul update)
 X-planeto
@@ -69,6 +72,7 @@ X-planeto
 
  -interface
 	 -colour Toggle
+	 -colourblind mode
 	 -name input
 	 -two buttons to add bot or player
 	 -bot button pull up menu to select type

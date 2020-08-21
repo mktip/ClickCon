@@ -6,6 +6,9 @@ function planeto(id, nx, ny, cons){
     this.y = ny;
     this.radius = 10;
     this.colour = "#fff";
+    this.cInverse = "#000";
+    this.pChar = "Z";
+    this.tChar = "Z";
     this.teamColour = "#fff";
     this.connections = cons;
     this.hasShield = false;
@@ -29,6 +32,9 @@ planeto.prototype.setUp = function(settings){
     this.teamColour = settings.teamColour || "#fff";
     this.hasShield = settings.hasShield || false;
     this.type = settings.type || 0;
+    this.cInverse = settings.cInverse || "#000";
+    this.tChar = settings.tChar || "Z";
+    this.pChar = settings.pChar || "Z";
 }
 
 //G.beginPath()****************************************************
@@ -79,10 +85,8 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
         G.strokeStyle = "#666";
     }
     else{
-        //console.log("hit?");
         G.fillStyle = this.teamColour;
         G.strokeStyle = this.teamColour;
-        //console.log(G.fillStyle + " / " + G.strokeStyle);
     }
     G.arc(this.x, this.y, (this.radius*2), 0, 2*Math.PI);
     G.fill();
@@ -101,6 +105,14 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
         G.arc(this.x, this.y, (this.radius*2) - 5, 0, 2*Math.PI);
         G.fill();
         G.stroke();
+        if(settings.colourblind){
+            if(this.ownerId != 0){
+                G.fillStyle = this.cInverse;
+                G.strokeStyle = this.cInverse;
+                G.font = "bold 20px Arial";
+                G.fillText((this.tChar + this.pChar), this.x-14, this.y + 7);
+            }
+        }
     }
 
     if(this.hasShield && settings.fog == false){
@@ -109,6 +121,13 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
         G.beginPath();
         G.arc(this.x, this.y, this.radius*2 + 8, 0, 2*Math.PI);
         G.stroke();
+    }
+
+    if(settings.debug){
+        G.fillStyle = "#fff";
+        G.strokeStyle = "#fff";
+        G.font = "20px Arial";
+        G.fillText(this.id, this.x-20, this.y-20);
     }
 }
 

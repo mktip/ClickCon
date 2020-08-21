@@ -4,7 +4,9 @@
     var gameMap = mapConverter(testerMap());
 
      gameMap[5].lockLife = 5;
+     gameMap[3].cInverse = "#fff";
+     gameMap[3].lockLife = 5;
 
     var g = mPreview.getContext("2d");
-    render(g, gameMap, {fog: false});
+    render(g, gameMap, {fog: false, colourblind: true, debug: false});
 })();
