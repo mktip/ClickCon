@@ -45,7 +45,7 @@ function startMenu(cols){
     //Spawn Dropdown
     addElement("spawnHolder", "div", drpHolder, "Spawn Count: ");
     addElement("spawnDrp", "select", spawnHolder);
-	var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "Fill"];
+	var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "5 spawns", "7 spawns", "Fill"];
 	for(var x = 0; x<spawnArr.length; x++){
 		addElement("opt"+ x, "option", spawnDrp, spawnArr[x]);
     }
@@ -71,10 +71,10 @@ function startMenu(cols){
 	hideScores.type = "checkbox";
 	scoTxt.htmlFor = 'hideScores';
 
-	addElement("fogTxt", "label", rdbHolder, "<br>Fog Mode");
-	addElement("fogMode", "input", rdbHolder);
-	fogMode.type = "checkbox";
-	fogTxt.htmlFor = 'fogMode';
+	//addElement("fogTxt", "label", rdbHolder, "<br>Fog Mode");
+	//addElement("fogMode", "input", rdbHolder);
+	//fogMode.type = "checkbox";
+	//fogTxt.htmlFor = 'fogMode';
     
     //Round count
     addElement("rndLbl", "label", drpHolder, "<br>Round Count: ");
