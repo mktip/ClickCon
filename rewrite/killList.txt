@@ -43,6 +43,7 @@ v1.4
 v1.3
  -Beautify!
  -Toggle Graphics
+ -Scale / zoom features
  
 v1.2(The overhaul update)
 X-planeto
@@ -50,6 +51,7 @@ X-planeto
 	X-lock
 	X-teams graphics
 	X-render method to include formations
+	X-colourblind compatibility
 
  -player
 	 -isBot
@@ -77,6 +79,7 @@ X-planeto
 	 -two buttons to add bot or player
 	 -bot button pull up menu to select type
 
+ -Roadmap
  -BFS FOR RANDOM MAPS	
  -Toggle for local multiplayer
  -iFrame bot editor

@@ -131,7 +131,7 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
     }
 }
 
-planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
+planeto.prototype.setOwner = function(tId, tCol, oId, oCol, iCol, oChar, tChar){
     if(this.prevOwner = tId){
         this.heat += 1;
         if(this.heat == this.maxHeat){
@@ -140,6 +140,9 @@ planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
             this.ownerId = 0;
             this.colour = "#fff";
             this.teamColour = "#fff";
+            this.cInverse = "#000";
+            this.tChar = "";
+            this.pChar = "";
             this.heat = 0;
             this.prevOwner = 0;
         }
@@ -149,6 +152,9 @@ planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
             this.teamColour = tCol;
             this.ownerId = oId || tId;
             this.colour = oCol || tCol;
+            this.cInverse = iCol;
+            this.tChar = tChar;
+            this.pChar = oChar;
         }
     }
     else{
@@ -157,6 +163,9 @@ planeto.prototype.setOwner = function(tId, tCol, oId, oCol){
         this.teamColour = tCol;
         this.ownerId = oId || tId;
         this.colour = oCol || tCol;
+        this.cInverse = iCol;
+        this.tChar = tChar;
+        this.pChar = oChar;
         if(this.heat > 1){
             this.heat -= 1;
         }
