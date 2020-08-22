@@ -1,17 +1,17 @@
-function planeto(id, nx, ny, cons){
+function planeto(id, nx, ny, cons, oId, tId, vPack){
     this.id = id;
-    this.ownerId = 0;
-    this.teamId = 0;
+    this.ownerId = oId;
+    this.teamId = tId;
     this.x = nx;
     this.y = ny;
-    this.radius = 10;
-    this.colour = "#fff";
-    this.cInverse = "#000";
-    this.pChar = "Z";
-    this.tChar = "Z";
-    this.teamColour = "#fff";
+    this.radius = vPack.radius || 10;
+    this.colour = vPack.colour || "#fff";
+    this.cInverse = vPack.iCol || "#000";
+    this.pChar = vPack.pChar || "Z";
+    this.tChar = vPack.tChar || "Z";
+    this.teamColour = vPack.tColour || "#fff";
     this.connections = cons;
-    this.hasShield = false;
+    this.hasShield = vPack.shield || false;
     this.bonerShowing = false;
     this.value = 1;
     this.type = 0;
@@ -22,20 +22,6 @@ function planeto(id, nx, ny, cons){
 }
 
 planeto.prototype.spew = function(){console.log("Spew!");}//Just for testing scopes
-
-planeto.prototype.setUp = function(settings){
-    //initial settings, default what we dont recieve
-    this.ownerId = settings.ownerId || 0;
-    this.teamId = settings.teamId || this.ownerId;
-    this.colour = settings.colour || "#fff";
-    this.radius = settings.radius || 10;
-    this.teamColour = settings.teamColour || "#fff";
-    this.hasShield = settings.hasShield || false;
-    this.type = settings.type || 0;
-    this.cInverse = settings.cInverse || "#000";
-    this.tChar = settings.tChar || "Z";
-    this.pChar = settings.pChar || "Z";
-}
 
 //G.beginPath()****************************************************
 //G.fillStyle = "#fff";
