@@ -54,12 +54,11 @@ X-planeto
 	X-colourblind compatibility
 
  -player
-	 -isBot
-	 -teamID
+	X-isBot
+	X-teamID
 
  -gameloop
 	 -while loop to cycle through players
-	 -formation rendering
 	 -support for teams mode in scoreboard render
 	 -UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
 	 -lighter formation checker
@@ -69,8 +68,8 @@ X-planeto
 	X-set to box maps only until random gen update
 
  -bot
-	 -one bot class, prototype methods
-	 -memory var
+	X-one bot class, prototype methods
+	X-memory var
 
  -interface
 	 -colour Toggle
@@ -82,7 +81,7 @@ X-planeto
  -Roadmap
  -BFS FOR RANDOM MAPS	
  -Toggle for local multiplayer
- -iFrame bot editor
+ -Update documentation for bots
  -map editor
 
 v1.1.2

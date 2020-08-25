@@ -178,6 +178,10 @@ planeto.prototype.getLockLife = function(){
     return this.lockLife;
 }
 
+planeto.prototype.setShield = function(shi){
+    this.hasShield = shi;
+}
+
 planeto.prototype.getShield = function(){
     return this.hasShield;
 }
