@@ -12,13 +12,13 @@ function player(id, tId, name, colour, tColour, cInverse, tChar, pChar, isBot){
 
 }
 
-player.prototype.getOwned = function(){
+player.prototype.getOwned = function(map){
     var list = [];
 	for(var r = 0; r<map.length; r++){
 		if (map[r].getOwner() == this.id){
 			list.push(r);
 		}
-	}
+    }
 	return list;
 }
 

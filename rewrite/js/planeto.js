@@ -157,3 +157,27 @@ planeto.prototype.setOwner = function(tId, tCol, oId, oCol, iCol, oChar, tChar){
         }
     }
 }
+
+planeto.prototype.getId = function(){
+    return this.id;
+}
+
+planeto.prototype.getOwner = function(){
+    return this.ownerId;
+}
+
+planeto.prototype.getTeam = function(){
+    return this.teamId;
+}
+
+planeto.prototype.getConnections = function(){
+    return this.connections;
+}
+
+planeto.prototype.getLockLife = function(){
+    return this.lockLife;
+}
+
+planeto.prototype.getShield = function(){
+    return this.hasShield;
+}
