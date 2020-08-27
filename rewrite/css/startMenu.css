@@ -1,0 +1,46 @@
+.bigBox{
+    border: 5px solid rgb(175, 174, 174);
+    border-radius: 5px;
+    width: 45%;
+}
+
+.playerBlob{
+    border: 3px solid rgb(175, 174, 174);
+    border-radius: 3px;
+    width: 90%;
+    margin: 1%;
+    padding: 1%;
+    background-color: rgb(175, 174, 174);
+}
+
+#playerHolder{
+    text-align: center;
+    display: inline-block;
+}
+
+#settingsMaster{
+    display: inline-block;
+}
+
+#rightHolder{
+    text-align: center;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid rgb(247, 6, 6);
+}
+
+#leftHolder{
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    width: 45%;
+    display: inline-block;
+    margin: 1%;
+    border: 1px solid rgb(47, 0, 255);
+}
+#mPreview{
+    border: 3px solid rgb(175, 174, 174);
+}

@@ -21,3 +21,11 @@ function move(tar, pla, map){
         }
     }
 }
+
+function setUp(map){
+    startBtn.onclick = function(event){event.preventDefault(); tstScope(map);};
+}
+
+function tstScope(map){
+    console.log(map);
+}

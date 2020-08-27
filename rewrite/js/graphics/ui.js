@@ -98,6 +98,14 @@ function startMenu(cols){
     mPreviewHolder.style.height = "45%";
 }
 
+function inGame(){
+    var master = document.getElementById("masterDiv");
+    addElement("holder", "div", master, "Mins");
+    addElement("scores", "div", holder, "Scores");
+    addElement("map", "div", holder, "Map");
+    addElement("mapCan", "canvas", map, "Mins");
+}
+
 function addPlayerBlob(blobNum, pType, cols, side){
     if(side){
         addElement(("blob"+blobNum), "div", leftHolder);
