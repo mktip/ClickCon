@@ -1,9 +1,9 @@
-function render(G, map, settings){
+function render(G, map, settings, active){
     G.fillStyle = "#000";
-	G.fillRect(0,0,mapCan.width, mapCan.height);
+    G.fillRect(0,0,mapCan.width, mapCan.height);
     for (var r = 0; r < map.length; r++){
         map[r].drawConnections(G, map, settings);
-        map[r].drawPlaneto(G, map, settings);
+        map[r].drawPlaneto(G, map, settings, active);
     }
 }
 
@@ -24,10 +24,15 @@ function move(tar, pla, map){
     }
 }
 
-function setUp(map){
-    startBtn.onclick = function(event){event.preventDefault(); tstScope(map);};
+function swapPlayer(G, map, settings, players, actPla){
+    while(players[actPla-1].getisBot()){
+        players[actPla-1].makeMove(map);
+        actPla += 1;
+    }
+    render(G, map, settings, actPla);
+    return actPla;
 }
 
-function tstScope(map){
-    console.log(map);
+function tstScope(){
+    console.log(activePlayer);
 }

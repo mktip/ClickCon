@@ -113,7 +113,7 @@ function inGame(){
     colourblindToggle.type = "checkbox";
     colTogTxt.htmlFor = 'colourblindToggle';
 
-    addElement("map", "div", holder, "Map");
+    addElement("map", "div", holder);
     addElement("mapCan", "canvas", map, "Mins");
     mapCan.width = 750;
     mapCan.height = 750;
@@ -136,9 +136,9 @@ function setCanvasDims(map){
 	//console.log("hei: " + canvas.height);
 }
 
-function setUpControls(map, players, sets, grSets){
-    colourblindToggle.onchange = function(event){event.preventDefault(); scoreboard(players, sets.hideScores); render(sets.graphics, map, grSets)};
-    
+function setUpControls(map, players, sets, grSets, activePlayer){
+    colourblindToggle.onchange = function(event){event.preventDefault(); scoreboard(players, sets.hideScores); render(sets.graphics, map, grSets, activePlayer)};
+    mapCan.onclick = function(){activePlayer = swapPlayer(sets.graphics, map, sets, players, activePlayer);};
 }
 
 function scoreboard(players, hideScores){

@@ -22,6 +22,10 @@ player.prototype.getOwned = function(map){
 	return list;
 }
 
+player.prototype.getisBot = function(){
+    return this.isBot;
+}
+
 player.prototype.getScore = function(){
     return this.score;
 }

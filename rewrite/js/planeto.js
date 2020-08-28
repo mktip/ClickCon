@@ -64,12 +64,26 @@ planeto.prototype.drawConnections = function(G, map, settings){
     }
 }
 
-planeto.prototype.drawPlaneto = function(G, map, settings){
+planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer){
+    if(this.teamId == currentPlayer){
+        G.beginPath();
+        var halfRad = this.radius*2;
+        G.fillStyle = this.cInverse;
+        G.fillRect(this.x-halfRad, this.y-halfRad, halfRad*2, halfRad*2);
+        G.beginPath();
+        G.fillStyle = this.cInverse;
+        G.moveTo(this.x, this.y-halfRad*1.4);
+        G.lineTo(this.x-halfRad*1.4, this.y);
+        G.lineTo(this.x, this.y+halfRad*1.4);
+        G.lineTo(this.x+halfRad*1.4, this.y);
+        G.fill();
+    }
+
     G.beginPath();
     if(settings.fog){
         G.fillStyle = "#666";
         G.strokeStyle = "#666";
-    }
+    }   
     else{
         G.fillStyle = this.teamColour;
         G.strokeStyle = this.teamColour;
