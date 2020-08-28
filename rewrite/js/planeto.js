@@ -107,8 +107,14 @@ planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer){
         G.stroke();
         if(colourblindToggle.checked){
             if(this.ownerId != 0){
-                G.fillStyle = this.cInverse;
-                G.strokeStyle = this.cInverse;
+                if(this.lockLife > 0){
+                    G.fillStyle = "#fff";
+                    G.strokeStyle = "#fff";
+                }
+                else{
+                    G.fillStyle = this.cInverse;
+                    G.strokeStyle = this.cInverse;
+                }
                 G.font = "bold 20px Arial";
                 G.fillText((this.tChar + this.pChar), this.x-14, this.y + 7);
             }
@@ -190,6 +196,10 @@ planeto.prototype.getTeam = function(){
 
 planeto.prototype.getConnections = function(){
     return this.connections;
+}
+
+planeto.prototype.setLockLife = function(amt){
+    this.lockLife = amt;
 }
 
 planeto.prototype.getLockLife = function(){

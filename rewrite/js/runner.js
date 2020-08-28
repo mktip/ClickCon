@@ -5,7 +5,7 @@
     var gameMap = mapConverter(praiseJibbers());
 
     var activePlayer = 1;
-    var settings = {hideScores: false, fog: false, debug: false};
+    var settings = {hideScores: false, spawnCount: 35, randShields: true, randBlocks: true, fog: false, debug: false};
 
     var players = [];
 
@@ -13,10 +13,9 @@
         players.push(new player((r+1), (r+1), "Knob-"+r, colList[r][0], colList[r][0], colList[r][2], colList[r][1],colList[r][1], false));
     }
 
-    players[0] = new bot(1, 1, "KnobBot", colList[0][0], colList[0][0], colList[0][2], colList[0][1], colList[0][1], true, 1);
+    players[1] = new bot(2, 2, "KnobBot", colList[1][0], colList[1][0], colList[1][2], colList[1][1], colList[1][1], true, 1);
 
-    initMap(gameMap, players, {spawnCount:35});
-    console.log(gameMap.length);
+    initMap(gameMap, players, settings);
 
     var g = mapCan.getContext("2d");
     setCanvasDims(gameMap);

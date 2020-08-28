@@ -25,6 +25,23 @@ function initMap(map, players, settings){
             }
         }
     }
+
+    if(settings.randShields){
+        var count = Math.floor(Math.random()* (map.length*.5) + (map.length*.15));
+        for(var r = 0; r<count; r++){
+            var pick = Math.floor(Math.random()*map.length);
+            map[pick].setShield(true);
+        }
+    }
+
+    if(settings.randBlocks){
+        var count = Math.floor(Math.random()* (map.length*.35) + 3);
+        console.log(count);
+        for(var r = 0; r<count; r++){
+            var pick = Math.floor(Math.random()*map.length);
+            map[pick].setLockLife(Math.floor(Math.random()*5)+1);
+        }
+    }
 }
 function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
