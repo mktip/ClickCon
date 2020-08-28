@@ -5,6 +5,7 @@
     var gameMap = mapConverter(praiseJibbers());
 
     var activePlayer = 1;
+    var settings = {hideScores: false, fog: false, debug: false};
 
     var players = [];
 
@@ -21,7 +22,7 @@
     var g = mapCan.getContext("2d");
     setCanvasDims(gameMap);
     scoreboard(players,false);
-    setUpControls(gameMap, players, {graphics: g, hideScores: false}, {fog:false, debug:false}, activePlayer);
+    setUpControls(gameMap, players, g, settings, activePlayer);
     //g.scale(.15, .15);
-    render(g, gameMap, {fog: false, debug: false}, activePlayer);
+    render(g, gameMap, settings, activePlayer);
 })();
