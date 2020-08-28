@@ -36,7 +36,6 @@ function initMap(map, players, settings){
 
     if(settings.randBlocks){
         var count = Math.floor(Math.random()* (map.length*.35) + 3);
-        console.log(count);
         for(var r = 0; r<count; r++){
             var pick = Math.floor(Math.random()*map.length);
             map[pick].setLockLife(Math.floor(Math.random()*5)+1);

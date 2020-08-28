@@ -53,7 +53,7 @@ X-planeto
 	X-render method to include formations
 	X-colourblind compatibility
 
- -player
+X-player
 	X-isBot
 	X-teamID
 
@@ -67,22 +67,26 @@ X-planeto
 	 -BFS
 	X-set to box maps only until random gen update
 
- -bot
+X-bot
 	X-one bot class, prototype methods
 	X-memory var
 
  -interface
 	 -colour Toggle
-	 -colourblind mode
+	X-colourblind mode
 	 -name input
 	 -two buttons to add bot or player
 	 -bot button pull up menu to select type
+
+ -Map Editor
+	 -generate random planets
+	 -shift and scale buttons
 
  -Roadmap
  -BFS FOR RANDOM MAPS	
  -Toggle for local multiplayer
  -Update documentation for bots
- -map editor
+
 
 v1.1.2
 X-Mini patch to fix random Maps
