@@ -9,15 +9,14 @@
 
     var players = [];
 
-    for(var r = 0; r < colList.length; r++){
+    for(var r = 0; r < 16; r++){
         players.push(new player((r+1), (r+1), "Knob-"+r, colList[r][0], colList[r][0], colList[r][2], colList[r][1],colList[r][1], false));
     }
 
     players[0] = new bot(1, 1, "KnobBot", colList[0][0], colList[0][0], colList[0][2], colList[0][1], colList[0][1], true, 1);
 
-    //tId, tCol, oId, oCol, iCol, oChar, tChar
-    gameMap[22].setOwner(players[0].getTeamId(), players[0].getTeamColour(), players[0].getId(), players[0].getColour(), players[0].getInverse(), players[0].getChars()[1], players[0].getChars()[0]);
-    gameMap[42].setOwner(players[1].getTeamId(), players[1].getTeamColour(), players[1].getId(), players[1].getColour(), players[1].getInverse(), players[1].getChars()[1], players[1].getChars()[0]);
+    initMap(gameMap, players, {spawnCount:35});
+    console.log(gameMap.length);
 
     var g = mapCan.getContext("2d");
     setCanvasDims(gameMap);

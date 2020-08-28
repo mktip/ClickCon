@@ -138,7 +138,7 @@ function setCanvasDims(map){
 
 function setUpControls(map, players, gra, sets, activePlayer){
     colourblindToggle.onchange = function(event){event.preventDefault(); scoreboard(players, sets.hideScores);render(gra, map, sets, activePlayer)};
-    mapCan.onclick = function(event){event.preventDefault(); activePlayer = swapPlayer(gra, map, sets, players, activePlayer);};
+    mapCan.onclick = function(event){event.preventDefault(); activePlayer = triggerBots(gra, map, sets, players, activePlayer);};
 }
 
 function scoreboard(players, hideScores){

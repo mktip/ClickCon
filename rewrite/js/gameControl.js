@@ -7,6 +7,25 @@ function render(G, map, settings, active){
     }
 }
 
+function initMap(map, players, settings){
+    if(settings.spawnCount * players.length > map.length){
+        settings.spawnCount = Math.floor(map.length / players.length);
+    }
+    var tmpMap = map;
+    for(var p = 0; p < players.length; p++){
+        for(var reps = 0; reps < settings.spawnCount; reps++){
+            var pick = Math.floor(Math.random()*tmpMap.length);
+            //tId, tCol, oId, oCol, iCol, oChar, tChar
+            map[tmpMap[pick].getId()].setOwner(players[p].getTeamId(), players[p].getTeamColour(), players[p].getId(), players[p].getColour(), players[p].getInverse(), players[p].getChars()[1], players[p].getChars()[0])
+            tmpMap = [];
+            for(var x = 0; x <map.length; x++){
+                if(map[x].getTeam() == 0){
+                    tmpMap.push(map[x]);
+                }
+            }
+        }
+    }
+}
 function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
     if(tar.getLockLife() == 0){
@@ -24,13 +43,17 @@ function move(tar, pla, map){
     }
 }
 
-function swapPlayer(G, map, settings, players, actPla){
+function triggerBots(G, map, settings, players, actPla){
     while(players[actPla-1].getisBot()){
         players[actPla-1].makeMove(map);
         actPla += 1;
     }
     render(G, map, settings, actPla);
     return actPla;
+}
+
+function checkHit(){
+
 }
 
 function tstScope(){
