@@ -134,12 +134,21 @@ function setCanvasDims(map){
 	mapCan.height = maxY + 100;
 	//console.log("wid: " + canvas.width);
 	//console.log("hei: " + canvas.height);
-    }
+}
 
-function scoreboard(players, colourBlind, hideScores){
+function setUpControls(map, players, sets, grSets){
+    colourblindToggle.onchange = function(event){event.preventDefault(); scoreboard(players, sets.hideScores); render(sets.graphics, map, grSets)};
+    
+}
+
+function scoreboard(players, hideScores){
+    if(document.getElementById("scoresBubble")){
+        scoresBubble.parentNode.removeChild(scoresBubble);
+    }
+    addElement("scoresBubble", "div", scores);
     for(var r = 0; r<players.length; r++){
         var contStr = "";
-        if(colourBlind){
+        if(colourblindToggle.checked){
             contStr += "("+ players[r].getChars()[0] + players[r].getChars()[1] + ") ";
         }
         contStr += players[r].getName() + ": "
@@ -150,10 +159,11 @@ function scoreboard(players, colourBlind, hideScores){
             contStr += players[r].getScore();
         }
          
-        addElement(("pScore"+r), "div", scores, contStr);
+        addElement(("pScore"+r), "div", scoresBubble, contStr);
         document.getElementById("pScore"+r).style.color = players[r].getColour();
-        document.getElementById("pScore"+r).style.background = players[r].getInverse();
-        
+        if(colourblindToggle.checked){
+            document.getElementById("pScore"+r).style.background = players[r].getInverse();
+        }
     }
 }
 

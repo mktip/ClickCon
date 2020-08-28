@@ -4,24 +4,19 @@
     inGame();
     var gameMap = mapConverter(praiseJibbers());
 
-    var players = [new player(1,1,"Mins-1", colList[0][0], colList[0][0], colList[0][2], colList[0][1], colList[0][1], false),
-    new player(2,2,"Mins-1", colList[1][0], colList[1][0], colList[1][2], colList[1][1], colList[1][1], false),
-    new player(3,3,"Mins-1", colList[2][0], colList[2][0], colList[2][2], colList[2][1], colList[2][1], false),
-    new player(4,4,"Mins-1", colList[3][0], colList[3][0], colList[3][2], colList[3][1], colList[3][1], false),
-    new player(5,5,"Mins-1", colList[4][0], colList[4][0], colList[4][2], colList[4][1], colList[4][1], false)]
+    var players = [];
 
-    // var tstpl = new bot(1, 1, "Mins-1", colList[8][0], colList[8][0], colList[8][2], colList[8][1],colList[8][1], true, 1);
-    // var tstpl2 = new bot(2, 2, "Mins-2", colList[6][0], colList[6][0], colList[6][2], colList[6][1],colList[6][1], true, 0);
+    for(var r = 0; r < colList.length; r++){
+        players.push(new player((r+1), (r+1), "Knob-"+r, colList[r][0], colList[r][0], colList[r][2], colList[r][1],colList[r][1], false));
+    }
 
-    // //tId, tCol, oId, oCol, iCol, oChar, tChar
-    // gameMap[0].setOwner(tstpl.getTeamId(), tstpl.getTeamColour(), tstpl.getId(), tstpl.getColour(), tstpl.getInverse(), tstpl.getChars()[1], tstpl.getChars()[0]);
-    // gameMap[5].setOwner(tstpl2.getTeamId(), tstpl2.getTeamColour(), tstpl2.getId(), tstpl2.getColour(), tstpl2.getInverse(), tstpl2.getChars()[1], tstpl2.getChars()[0]);
+    //tId, tCol, oId, oCol, iCol, oChar, tChar
+    gameMap[22].setOwner(players[0].getTeamId(), players[0].getTeamColour(), players[0].getId(), players[0].getColour(), players[0].getInverse(), players[0].getChars()[1], players[0].getChars()[0]);
 
-    //setUp(gameMap);
-
-    setCanvasDims(gameMap);
-    scoreboard(players, true, true);
     var g = mapCan.getContext("2d");
+    setCanvasDims(gameMap);
+    scoreboard(players,false);
+    setUpControls(gameMap, players, {graphics: g, hideScores: false}, {fog:false, debug:false});
     //g.scale(.15, .15);
     render(g, gameMap, {fog: false, colourblind: true, debug: false});
 })();

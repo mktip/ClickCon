@@ -91,7 +91,7 @@ planeto.prototype.drawPlaneto = function(G, map, settings){
         G.arc(this.x, this.y, (this.radius*2) - 5, 0, 2*Math.PI);
         G.fill();
         G.stroke();
-        if(settings.colourblind){
+        if(colourblindToggle.checked){
             if(this.ownerId != 0){
                 G.fillStyle = this.cInverse;
                 G.strokeStyle = this.cInverse;
