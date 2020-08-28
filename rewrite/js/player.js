@@ -26,6 +26,10 @@ player.prototype.getScore = function(){
     return this.score;
 }
 
+player.prototype.getName = function(){
+    return this.name;
+}
+
 player.prototype.getColour = function(){
     return this.colour;
 }

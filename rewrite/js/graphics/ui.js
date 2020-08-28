@@ -100,10 +100,61 @@ function startMenu(cols){
 
 function inGame(){
     var master = document.getElementById("masterDiv");
-    addElement("holder", "div", master, "Mins");
+    addElement("holder", "div", master);
+
     addElement("scores", "div", holder, "Scores");
+
+    addElement("controls", "div", holder, "Controls");
+    addElement("skipBtn", "button", controls, "Skip Turn");
+    addElement("surrBtn", "button", controls, "Surrender");
+    addElement("toLobBtn", "button", controls, "Back To Lobby");
+    addElement("colTogTxt", "label", controls, "<br>Colour Blind Mode");
+    addElement("colourblindToggle", "input", controls);
+    colourblindToggle.type = "checkbox";
+    colTogTxt.htmlFor = 'colourblindToggle';
+
     addElement("map", "div", holder, "Map");
     addElement("mapCan", "canvas", map, "Mins");
+    mapCan.width = 750;
+    mapCan.height = 750;
+}
+
+function setCanvasDims(map){
+	var maxY = 0;
+	var maxX = 0;
+	for(var v = 0; v<map.length; v++){
+		if((map[v].getCoords()[0]) > maxX){
+			maxX = map[v].getCoords()[0];
+		}
+		if((map[v].getCoords()[1]) > maxY){
+			maxY = map[v].getCoords()[1];
+		}
+	}
+	mapCan.width = maxX + 100;
+	mapCan.height = maxY + 100;
+	//console.log("wid: " + canvas.width);
+	//console.log("hei: " + canvas.height);
+    }
+
+function scoreboard(players, colourBlind, hideScores){
+    for(var r = 0; r<players.length; r++){
+        var contStr = "";
+        if(colourBlind){
+            contStr += "("+ players[r].getChars()[0] + players[r].getChars()[1] + ") ";
+        }
+        contStr += players[r].getName() + ": "
+        if(hideScores){
+            contStr += "???";
+        }
+        else{
+            contStr += players[r].getScore();
+        }
+         
+        addElement(("pScore"+r), "div", scores, contStr);
+        document.getElementById("pScore"+r).style.color = players[r].getColour();
+        document.getElementById("pScore"+r).style.background = players[r].getInverse();
+        
+    }
 }
 
 function addPlayerBlob(blobNum, pType, cols, side){
