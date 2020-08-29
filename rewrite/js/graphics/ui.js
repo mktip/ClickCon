@@ -151,7 +151,13 @@ function setUpControls(map, players, gra, sets, activePlayer){
             updateScores(map, players);
             scoreboard(players, sets.hideScores); 
             render(gra, map, sets, activePlayer);
-            activePlayer = triggerBots(gra,map,sets,players, activePlayer);
+            if(activePlayer > players.length){
+                activePlayer = 1;
+                render(gra, map, sets, activePlayer);
+            }
+            else{
+                activePlayer = triggerBots(gra,map,sets,players, activePlayer);
+            }
             }
         };
 }
