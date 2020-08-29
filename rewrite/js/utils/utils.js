@@ -39,3 +39,9 @@ function findAngle(p0,p1,p2, coords){
 	var y2 = coords[p2][1]- coords[p0][1];
 	return Math.acos((x1*x2+y1*y2)/(findLength(p0,p1, coords)*findLength(p0,p2, coords)));
 }
+function mapParser(old){
+	for(var r = 0; r < old.length; r++){
+		old[r][0] = r;
+		console.log("["+old[r][0]+", "+old[r][1] + ", " + old[r][2] + ", " + "["+old[r][3].toString()+"]],");
+	}
+}

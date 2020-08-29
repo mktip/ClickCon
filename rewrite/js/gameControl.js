@@ -42,6 +42,7 @@ function initMap(map, players, settings){
         }
     }
 }
+
 function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
     if(tar.getLockLife() == 0){
@@ -54,7 +55,9 @@ function move(tar, pla, map){
             }
         }
         else{
-            map[tar.getId()].setShield(false);
+            if(map[tar.getId()].getShield == true && map[tar.getId()].getOwner() != pla.getId()){
+                map[tar.getId()].setShield(false);
+            }    
         }
     }
 }
@@ -68,8 +71,41 @@ function triggerBots(G, map, settings, players, actPla){
     return actPla;
 }
 
-function checkHit(){
+function checkHit(map, players, actPla, playing){
+    var canvRect = mapCan.getBoundingClientRect();
+	var x = (event.clientX - canvRect.left);
+	var y = (event.clientY - canvRect.top);
+    var r;
+	if (players[actPla-1].getisBot() != true && playing){
+		for(r=0; r<map.length;r++){
+		if (x >= (map[r].getCoords()[0] - map[r].getRadius()*2) && x <= (map[r].getCoords()[0] + map[r].getRadius()*2)){
+			if (y >= (map[r].getCoords()[1] - map[r].getRadius()*2) && y <= (map[r].getCoords()[1] + map[r].getRadius()*2)){
+                if(map[r].getLockLife() == 0){
+                    if (map[r].getOwner() == players[actPla-1].getId()){
+                        move(map[r], players[actPla-1], map);
+                    }
+                    else{
+                        if(checkProxy(map[r], map, players[actPla-1].getId())){
+                            move(map[r], players[actPla-1], map);
+                        }
+                    }
+                    break;
+                }
+			}
+		}
+		}
+	}
+}
 
+function checkProxy(targ, map, id){
+	var r;
+	var cons = targ.getConnections();
+		for(r=0; r < cons.length; r++){
+			if (map[cons[r]].getOwner() == id){
+				return true;
+			}
+		}
+	return false;
 }
 
 function tstScope(){

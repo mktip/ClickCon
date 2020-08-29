@@ -186,6 +186,10 @@ planeto.prototype.getCoords = function(){
     return [this.x, this.y];
 }
 
+planeto.prototype.getRadius = function(){
+    return this.radius;
+}
+
 planeto.prototype.getOwner = function(){
     return this.ownerId;
 }

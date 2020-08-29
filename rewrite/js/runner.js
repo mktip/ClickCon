@@ -5,15 +5,15 @@
     var gameMap = mapConverter(praiseJibbers());
 
     var activePlayer = 1;
-    var settings = {hideScores: false, spawnCount: 35, randShields: true, randBlocks: true, fog: false, debug: false};
+    var settings = {playing: true, hideScores: false, spawnCount: 35, randShields: false, randBlocks: true, fog: false, debug: true};
 
     var players = [];
 
     for(var r = 0; r < 16; r++){
-        players.push(new player((r+1), (r+1), "Knob-"+r, colList[r][0], colList[r][0], colList[r][2], colList[r][1],colList[r][1], false));
+        players.push(new bot((r+1), (r+1), "KnobBot-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 1));
     }
 
-    players[1] = new bot(2, 2, "KnobBot", colList[1][0], colList[1][0], colList[1][2], colList[1][1], colList[1][1], true, 1);
+    players[0] = new player(1, 1, "Knob", colList[0][0], colList[0][0], colList[0][2], colList[0][1], colList[0][1], false);
 
     initMap(gameMap, players, settings);
 
