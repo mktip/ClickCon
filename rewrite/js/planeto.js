@@ -16,6 +16,7 @@ function planeto(id, nx, ny, cons, oId, tId, vPack){
     this.value = 1;
     this.type = 0;
     this.heat = 0;
+    this.heatLife = 0;
     this.lockLife = 0;
     this.maxHeat = (Math.floor(Math.random()*5)) + 4;
     this.prevOwner = 0;
@@ -137,7 +138,20 @@ planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer){
     }
 }
 
+planeto.prototype.decayLockLife = function(){
+    if(this.lockLife > 0){
+		this.lockLife -= 1;
+	}
+	if(this.heatLife > 0){
+		this.heatLife -= 1;
+		if(this.heatLife < 1){
+			this.heat = 0;
+		}
+	}
+}
+
 planeto.prototype.setOwner = function(tId, tCol, oId, oCol, iCol, oChar, tChar){
+    this.heatLife = 2;
     if(this.prevOwner = tId){
         this.heat += 1;
         if(this.heat == this.maxHeat){

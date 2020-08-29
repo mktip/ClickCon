@@ -7,6 +7,18 @@ function render(G, map, settings, active){
     }
 }
 
+function updateLockLife(map){
+    for(var r = 0; r<map.length; r++){
+        map[r].decayLockLife();
+    }
+}
+
+function updateScores(map, players){
+    for(var r = 0; r<map.length; r++){
+        
+    }
+}
+
 function initMap(map, players, settings){
     if(settings.spawnCount * players.length > map.length){
         settings.spawnCount = Math.floor(map.length / players.length);
@@ -45,6 +57,7 @@ function initMap(map, players, settings){
 
 function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
+    console.log([tar, pla]);
     if(tar.getLockLife() == 0){
         if(tar.getShield() == false){
             if(tar.getOwner() == pla.getId()){
@@ -55,7 +68,7 @@ function move(tar, pla, map){
             }
         }
         else{
-            if(map[tar.getId()].getShield == true && map[tar.getId()].getOwner() != pla.getId()){
+            if(map[tar.getId()].getShield() == true && map[tar.getId()].getOwner() != pla.getId()){
                 map[tar.getId()].setShield(false);
             }    
         }
@@ -63,19 +76,33 @@ function move(tar, pla, map){
 }
 
 function triggerBots(G, map, settings, players, actPla){
+    var stall = 1000;
     while(players[actPla-1].getisBot()){
-        players[actPla-1].makeMove(map);
+        var choice;
+        function getMove(pla){
+            choice = pla.makeMove(map);
+        }
+        setTimeout(getMove(players[actPla-1], choice), stall);
+        if(choice != 0){
+            move(choice, players[actPla-1], map);
+        }
         actPla += 1;
+        render(G, map, settings, actPla);
+        if(actPla > players.length){
+            actPla = 1;
+            updateLockLife(map);
+        }
     }
     render(G, map, settings, actPla);
     return actPla;
 }
 
-function checkHit(map, players, actPla, playing){
+function checkHit(gra, map, players, actPla, playing){
     var canvRect = mapCan.getBoundingClientRect();
 	var x = (event.clientX - canvRect.left);
 	var y = (event.clientY - canvRect.top);
     var r;
+    var moved = false;
 	if (players[actPla-1].getisBot() != true && playing){
 		for(r=0; r<map.length;r++){
 		if (x >= (map[r].getCoords()[0] - map[r].getRadius()*2) && x <= (map[r].getCoords()[0] + map[r].getRadius()*2)){
@@ -83,10 +110,12 @@ function checkHit(map, players, actPla, playing){
                 if(map[r].getLockLife() == 0){
                     if (map[r].getOwner() == players[actPla-1].getId()){
                         move(map[r], players[actPla-1], map);
+                        moved = true;
                     }
                     else{
                         if(checkProxy(map[r], map, players[actPla-1].getId())){
                             move(map[r], players[actPla-1], map);
+                            moved = true;
                         }
                     }
                     break;
@@ -94,7 +123,8 @@ function checkHit(map, players, actPla, playing){
 			}
 		}
 		}
-	}
+    }
+    return moved;
 }
 
 function checkProxy(targ, map, id){

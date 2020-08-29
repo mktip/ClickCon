@@ -9,8 +9,8 @@
 
     var players = [];
 
-    for(var r = 0; r < 16; r++){
-        players.push(new bot((r+1), (r+1), "KnobBot-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 1));
+    for(var r = 0; r < 4; r++){
+        players.push(new bot((r+1), (r+1), "KnobBot-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 0));
     }
 
     players[0] = new player(1, 1, "Knob", colList[0][0], colList[0][0], colList[0][2], colList[0][1], colList[0][1], false);
