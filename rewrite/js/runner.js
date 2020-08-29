@@ -5,11 +5,11 @@
     var gameMap = mapConverter(praiseJibbers());
 
     var activePlayer = 1;
-    var settings = {playing: true, hideScores: false, spawnCount: 35, randShields: false, randBlocks: true, fog: false, debug: true};
+    var settings = {playing: true, hideScores: false, spawnCount: 35, randShields: false, randBlocks: true, fog: false, debug: false};
 
     var players = [];
 
-    for(var r = 0; r < 4; r++){
+    for(var r = 0; r < 16; r++){
         players.push(new bot((r+1), (r+1), "KnobBot-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 0));
     }
 
@@ -19,7 +19,7 @@
 
     var g = mapCan.getContext("2d");
     setCanvasDims(gameMap);
-    scoreboard(players,false);
+    scoreboard(players, settings.hideScores);
     setUpControls(gameMap, players, g, settings, activePlayer);
     //g.scale(.15, .15);
     render(g, gameMap, settings, activePlayer);

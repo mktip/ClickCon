@@ -137,8 +137,23 @@ function setCanvasDims(map){
 }
 
 function setUpControls(map, players, gra, sets, activePlayer){
-    colourblindToggle.onchange = function(event){event.preventDefault(); scoreboard(players, sets.hideScores);render(gra, map, sets, activePlayer)};
-    mapCan.onclick = function(event){event.preventDefault();  if(checkHit(gra, map, players, activePlayer, sets.playing)){activePlayer += 1; render(gra, map, sets, activePlayer); activePlayer = triggerBots(gra,map,sets,players, activePlayer);}};
+    colourblindToggle.onchange = function(event){
+        event.preventDefault();
+         scoreboard(players, sets.hideScores);
+         render(gra, map, sets, activePlayer)
+        };
+    
+    mapCan.onclick = function(event){
+        event.preventDefault();  
+        if(checkHit(gra, map, players, activePlayer, sets.playing)){
+            activePlayer += 1;
+            updateValues(map);
+            updateScores(map, players);
+            scoreboard(players, sets.hideScores); 
+            render(gra, map, sets, activePlayer);
+            activePlayer = triggerBots(gra,map,sets,players, activePlayer);
+            }
+        };
 }
 
 function scoreboard(players, hideScores){

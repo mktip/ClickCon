@@ -231,3 +231,11 @@ planeto.prototype.setShield = function(shi){
 planeto.prototype.getShield = function(){
     return this.hasShield;
 }
+
+planeto.prototype.getValue = function(){
+    return this.value;
+}
+
+planeto.prototype.setValue = function(val){
+    this.value = val;
+}

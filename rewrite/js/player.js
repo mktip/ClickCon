@@ -30,6 +30,10 @@ player.prototype.getScore = function(){
     return this.score;
 }
 
+player.prototype.setScore = function(scr){
+    this.score = scr;
+}
+
 player.prototype.getName = function(){
     return this.name;
 }

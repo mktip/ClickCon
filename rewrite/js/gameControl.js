@@ -13,9 +13,18 @@ function updateLockLife(map){
     }
 }
 
+function updateValues(map){
+
+}
+
 function updateScores(map, players){
-    for(var r = 0; r<map.length; r++){
-        
+    for(var r = 0; r < players.length; r++){
+        var list = players[r].getOwned(map);
+        var score = 0;
+        for(var t = 0; t<list.length; t++){
+            score += map[list[t]].getValue();
+        }
+        players[r].setScore(score);
     }
 }
 
@@ -53,11 +62,13 @@ function initMap(map, players, settings){
             map[pick].setLockLife(Math.floor(Math.random()*5)+1);
         }
     }
+
+    updateValues(map);
+    updateScores(map, players);
 }
 
 function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
-    console.log([tar, pla]);
     if(tar.getLockLife() == 0){
         if(tar.getShield() == false){
             if(tar.getOwner() == pla.getId()){
@@ -87,6 +98,9 @@ function triggerBots(G, map, settings, players, actPla){
             move(choice, players[actPla-1], map);
         }
         actPla += 1;
+        updateValues(map);
+        updateScores(map, players);
+        scoreboard(players, settings.hideScores);
         render(G, map, settings, actPla);
         if(actPla > players.length){
             actPla = 1;
