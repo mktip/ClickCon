@@ -9,7 +9,7 @@
 
     var players = [];
 
-    for(var r = 0; r < 1; r++){
+    for(var r = 0; r < 5; r++){
         players.push(new bot((r+1), (r+1), "KnobBot-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 0));
     }
 

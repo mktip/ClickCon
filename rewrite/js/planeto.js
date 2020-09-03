@@ -65,7 +65,7 @@ planeto.prototype.drawConnections = function(G, map, settings){
     }
 }
 
-planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer){
+planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer, colourblind){
     if(this.teamId == currentPlayer){
         G.beginPath();
         var halfRad = this.radius*2;
@@ -106,7 +106,7 @@ planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer){
         G.arc(this.x, this.y, (this.radius*2) - 5, 0, 2*Math.PI);
         G.fill();
         G.stroke();
-        if(colourblindToggle.checked){
+        if(colourblind){
             if(this.ownerId != 0){
                 if(this.lockLife > 0){
                     G.fillStyle = "#fff";
