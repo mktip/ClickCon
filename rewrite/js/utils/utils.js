@@ -4,7 +4,8 @@ var premades = ["Godzilla", "Chickenlips", "Hound", "Canal", "Bladder", "Fogbag"
 
 function removeAtIndex(arr, index){
 	var clipped = [];
-	for (var r = 0; r < arr.length; r++){
+	let reps = arr.length;
+	for (var r = 0; r < reps; r++){
 		if(r != index){
 			clipped.push(arr[r]);
 		}
@@ -13,7 +14,8 @@ function removeAtIndex(arr, index){
 }
 function removeItem(arr, item){
 	var clipped = arr;
-	for (var r=0; r< clipped.length; r++){
+	let reps = clipped.length;
+	for (var r=0; r< reps; r++){
 		if(clipped[r] == item){
 			clipped = removeAtIndex(clipped, r);
 			r=0;
@@ -39,8 +41,12 @@ function findAngle(p0,p1,p2, coords){
 	var y2 = coords[p2][1]- coords[p0][1];
 	return Math.acos((x1*x2+y1*y2)/(findLength(p0,p1, coords)*findLength(p0,p2, coords)));
 }
+function sleep(leng){
+	return new Promise(resolve => setTimeout(resolve, leng));
+}
 function mapParser(old){
-	for(var r = 0; r < old.length; r++){
+	let reps = old.length;
+	for(var r = 0; r < reps; r++){
 		old[r][0] = r;
 		console.log("["+old[r][0]+", "+old[r][1] + ", " + old[r][2] + ", " + "["+old[r][3].toString()+"]],");
 	}
