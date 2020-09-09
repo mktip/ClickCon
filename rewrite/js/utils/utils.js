@@ -44,10 +44,88 @@ function findAngle(p0,p1,p2, coords){
 function sleep(leng){
 	return new Promise(resolve => setTimeout(resolve, leng));
 }
-function mapParser(old){
+function mapDataParser(old){
 	let reps = old.length;
 	for(var r = 0; r < reps; r++){
 		old[r][0] = r;
 		console.log("["+old[r][0]+", "+old[r][1] + ", " + old[r][2] + ", " + "["+old[r][3].toString()+"]],");
 	}
+}
+
+function mapParser(old){
+	let reps = old.length;
+	for(var r = 0; r < reps; r++){
+		console.log("["+old[r].getId()+", "+old[r].getCoords()[0] + ", " + old[r].getCoords()[1] + ", " + "["+old[r].getConnections().toString()+"]],");
+	}
+}
+
+function connectionLinker(old, cons){
+	let reps = old.length;
+	let linked = old;
+	for(var r = 0; r < reps; r++){
+		linked[r].connections = cons[r].getConnections();
+	}
+	return linked;
+}
+
+function oldMapParser(old){
+	let reps = old.length;
+	for(var r = 0; r < reps; r++){
+		old[r][0] = r;
+		//own, nx, ny, col, rad, cons
+		console.log("new planeto(0, "+old[r].getCoords()[0] + ", " + old[r].getCoords()[1] + ", '#fff', 10, " + "["+old[r].getConnections().toString()+"]),");
+	}
+}
+
+function connectionFixer(old){
+	var fixedMap = old;
+	var fixedCons = [];
+	let mapLeng = old.length;
+	for(var r = 0; r < mapLeng; r++){
+		fixedCons[r] = [];
+	}
+	for(var r = 0; r < mapLeng; r++){	
+		if(fixedMap[r].getConnections().length > 0){
+			var mini = fixedMap[r].getConnections();
+			for(var t = 0; t<mini.length; t++){
+				mini[t] = (mini[t] - 1);
+				fixedCons[mini[t]].push(r);
+			}
+			for(var z = 0; z < mini.length; z++){
+				fixedCons[r].push(mini[z]);
+			}
+		}
+	}
+	for(var r = 0; r < mapLeng; r++){
+		fixedMap[r].connections = fixedCons[r];
+	}
+
+	//console.log(fixedCons);
+
+	return fixedMap;
+}
+
+function scale(map, scal){
+	let leng = map.length;
+	for(var r = 0; r < leng; r++){
+		map[r].x = map[r].x * scal;
+		map[r].y = map[r].y * scal;
+	}
+	return map;
+}
+
+function shiftX(map, shi){
+	let leng = map.length;
+	for(var r = 0; r < leng; r++){
+		map[r].x = map[r].x + shi;
+	}
+	return map;
+}
+
+function shiftY(map, shi){
+	let leng = map.length;
+	for(var r = 0; r < leng; r++){
+		map[r].y = map[r].y + shi;
+	}
+	return map;
 }

@@ -94,9 +94,20 @@ function move(tar, pla, map){
     }
 }
 
-async function triggerBots(G, map, settings, players, actPla){
-    let stall = 1000;
-    while(players[actPla-1].getisBot()){ 
+function triggerBots(G, map, settings, players, actPla){
+    let stall = 250;
+    var count = 0;
+    let current = actPla;
+    while(players[current-1].getisBot()){
+        count += 1;
+        if(current >= players.length){
+            current = 1;
+        }
+        else{
+            current += 1;
+        }
+    }
+    function doBot(){
         let choice;
         choice = players[actPla-1].makeMove(map);
         if(choice != 0){
@@ -111,11 +122,21 @@ async function triggerBots(G, map, settings, players, actPla){
             actPla = 1;
             updateLockLife(map);
         }
-        sleep(stall);
+        reps++;
+        if(reps == count){
+            stopBot();
+        }
     }
-    render(G, map, settings, actPla);
-    console.log(actPla);
-    return true;
+    function stopBot(){
+        clearInterval(botCaller);
+        updateValues(map);
+        updateScores(map, players);
+        scoreboard(players, settings.hideScores);
+        render(G, map, settings, actPla);
+    }
+    var reps = 0;
+    var botCaller = setInterval(doBot, stall);
+    return count;
 }
 
 function checkHit(gra, map, players, actPla, playing){
@@ -125,7 +146,6 @@ function checkHit(gra, map, players, actPla, playing){
     var r;
     var moved = false;
     let reps = map.length;
-    console.log(actPla);
 	if (players[actPla-1].getisBot() != true && playing){
 		for(r=0; r<reps;r++){
 		if (x >= (map[r].getCoords()[0] - map[r].getRadius()*2) && x <= (map[r].getCoords()[0] + map[r].getRadius()*2)){
