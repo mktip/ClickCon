@@ -1,5 +1,4 @@
 function planeto(id, nx, ny, cons, oId, tId, vPack){
-    this.id = id;
     this.ownerId = oId;
     this.teamId = tId;
     this.x = nx;
@@ -20,7 +19,9 @@ function planeto(id, nx, ny, cons, oId, tId, vPack){
     this.lockLife = 0;
     this.maxHeat = (Math.floor(Math.random()*5)) + 4;
     this.prevOwner = 0;
+    Object.defineProperty(this, 'id', {value: id});
 }
+
 
 planeto.prototype.spew = function(){console.log("Spew!");}//Just for testing scopes
 
@@ -140,7 +141,7 @@ planeto.prototype.drawPlaneto = function(G, map, settings, currentPlayer, colour
 
 planeto.prototype.decayLockLife = function(){
     if(this.lockLife > 0){
-		this.lockLife -= 1;
+        this.lockLife -= 1;
 	}
 	if(this.heatLife > 0){
 		this.heatLife -= 1;
@@ -190,10 +191,6 @@ planeto.prototype.setOwner = function(tId, tCol, oId, oCol, iCol, oChar, tChar){
             this.heat -= 1;
         }
     }
-}
-
-planeto.prototype.getId = function(){
-    return this.id;
 }
 
 planeto.prototype.getCoords = function(){

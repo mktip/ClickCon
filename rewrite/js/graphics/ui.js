@@ -136,7 +136,7 @@ function setCanvasDims(map){
 	//console.log("hei: " + canvas.height);
 }
 
-function setUpControls(map, players, gra, sets, activePlayer){
+function setUpControls(map, players, livePlas, gra, sets, activePlayer){
     colourblindToggle.onchange = function(event){
         event.preventDefault();
          scoreboard(players, sets.hideScores);
@@ -150,15 +150,25 @@ function setUpControls(map, players, gra, sets, activePlayer){
             updateValues(map);
             updateScores(map, players);
             scoreboard(players, sets.hideScores); 
+            livePlas = checkLivePlayers(livePlas);
+            activePlayer = activePlayer - (players.length - livePlas.length);
+            console.log(livePlas);
+            console.log(activePlayer);
             render(gra, map, sets, activePlayer);
-            if(activePlayer > players.length){
+            if(activePlayer > livePlas.length){
                 activePlayer = 1;
+                updateLockLife(map);
                 render(gra, map, sets, activePlayer);
             }
             else{
-                activePlayer += triggerBots(gra,map,sets,players, activePlayer);
-                if(activePlayer >= players.length){
-                    activePlayer = 1;
+                if(players[activePlayer-1].getisBot()){
+                    activePlayer += triggerBots(gra,map,sets, livePlas, activePlayer);
+                    livePlas = checkLivePlayers(livePlas);
+                    activePlayer = activePlayer - (players.length - livePlas.length);
+                    console.log(livePlas);
+                    if(activePlayer > livePlas.length){
+                        activePlayer = 1;
+                    }
                 }
             }
             }

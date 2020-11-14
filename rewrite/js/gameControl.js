@@ -20,6 +20,17 @@ function updateValues(map){
 
 }
 
+function checkLivePlayers(inp){
+    let updated = [];
+    let count = inp.length;
+    for(let r = 0; r < count; r++){
+        if(inp[r].getScore() > 0){
+            updated.push(inp[r]);
+        }
+    }
+    return updated;
+}
+
 function updateScores(map, players){
     let reps = players.length;
     for(var r = 0; r < reps; r++){
@@ -45,7 +56,7 @@ function initMap(map, players, settings){
         for(var reps = 0; reps < settings.spawnCount; reps++){
             var pick = Math.floor(Math.random()*tmpMap.length);
             //tId, tCol, oId, oCol, iCol, oChar, tChar
-            map[tmpMap[pick].getId()].setOwner(players[p].getTeamId(), players[p].getTeamColour(), players[p].getId(), players[p].getColour(), players[p].getInverse(), players[p].getChars()[1], players[p].getChars()[0])
+            map[tmpMap[pick].id].setOwner(players[p].getTeamId(), players[p].getTeamColour(), players[p].id, players[p].getColour(), players[p].getInverse(), players[p].getChars()[1], players[p].getChars()[0])
             tmpMap = [];
             for(var x = 0; x <mapLength; x++){
                 if(map[x].getTeam() == 0){
@@ -79,16 +90,16 @@ function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
     if(tar.getLockLife() == 0){
         if(tar.getShield() == false){
-            if(tar.getOwner() == pla.getId()){
-                map[tar.getId()].setShield(true);
+            if(tar.getOwner() == pla.id){
+                map[tar.id].setShield(true);
             }
             else{
-                map[tar.getId()].setOwner(pla.getTeamId(), pla.getTeamColour(), pla.getId(), pla.getColour, pla.getInverse(), pla.getChars()[1], pla.getChars()[0]);
+                map[tar.id].setOwner(pla.getTeamId(), pla.getTeamColour(), pla.id, pla.getColour, pla.getInverse(), pla.getChars()[1], pla.getChars()[0]);
             }
         }
         else{
-            if(map[tar.getId()].getShield() == true && map[tar.getId()].getOwner() != pla.getId()){
-                map[tar.getId()].setShield(false);
+            if(map[tar.id].getShield() == true && map[tar.id].getOwner() != pla.id){
+                map[tar.id].setShield(false);
             }    
         }
     }
@@ -151,12 +162,12 @@ function checkHit(gra, map, players, actPla, playing){
 		if (x >= (map[r].getCoords()[0] - map[r].getRadius()*2) && x <= (map[r].getCoords()[0] + map[r].getRadius()*2)){
 			if (y >= (map[r].getCoords()[1] - map[r].getRadius()*2) && y <= (map[r].getCoords()[1] + map[r].getRadius()*2)){
                 if(map[r].getLockLife() == 0){
-                    if (map[r].getOwner() == players[actPla-1].getId()){
+                    if (map[r].getOwner() == players[actPla-1].id){
                         move(map[r], players[actPla-1], map);
                         moved = true;
                     }
                     else{
-                        if(checkProxy(map[r], map, players[actPla-1].getId())){
+                        if(checkProxy(map[r], map, players[actPla-1].id)){
                             move(map[r], players[actPla-1], map);
                             moved = true;
                         }
