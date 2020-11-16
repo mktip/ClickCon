@@ -177,23 +177,28 @@ function scoreboard(players, hideScores){
         scoresBubble.parentNode.removeChild(scoresBubble);
     }
     addElement("scoresBubble", "div", scores);
+    var ordered = [];
     for(var r = 0; r<players.length; r++){
+        ordered.push([r, players[r].getScore()]);
+    }
+    ordered.sort(function(a, b){return b[1] - a[1]})
+    for(var r = 0; r<ordered.length; r++){
         var contStr = "";
         if(colourblindToggle.checked){
-            contStr += "("+ players[r].getChars()[0] + players[r].getChars()[1] + ") ";
+            contStr += "("+ players[ordered[r][0]].getChars()[0] + players[ordered[r][0]].getChars()[1] + ") ";
         }
-        contStr += players[r].getName() + ": "
+        contStr += players[ordered[r][0]].getName() + ": "
         if(hideScores){
             contStr += "???";
         }
         else{
-            contStr += players[r].getScore();
+            contStr += players[ordered[r][0]].getScore();
         }
          
         addElement(("pScore"+r), "div", scoresBubble, contStr);
-        document.getElementById("pScore"+r).style.color = players[r].getColour();
+        document.getElementById("pScore"+r).style.color = players[ordered[r][0]].getColour();
         if(colourblindToggle.checked){
-            document.getElementById("pScore"+r).style.background = players[r].getInverse();
+            document.getElementById("pScore"+r).style.background = players[ordered[r][0]].getInverse();
         }
     }
 }
