@@ -1,4 +1,5 @@
-function planeto(id, nx, ny, cons, oId, tId, vPack){
+function planeto(i, nx, ny, cons, oId, tId, vPack){
+    this.id = i;
     this.ownerId = oId;
     this.teamId = tId;
     this.x = nx;
@@ -19,7 +20,6 @@ function planeto(id, nx, ny, cons, oId, tId, vPack){
     this.lockLife = 0;
     this.maxHeat = (Math.floor(Math.random()*5)) + 4;
     this.prevOwner = 0;
-    Object.defineProperty(this, 'id', {value: id});
 }
 
 
