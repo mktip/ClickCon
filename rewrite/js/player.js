@@ -9,7 +9,6 @@ function player(id, tId, name, colour, tColour, cInverse, tChar, pChar, isBot){
     this.pChar = pChar;
     this.score = 0;
     this.isBot = isBot;
-
 }
 
 player.prototype.getOwned = function(map){

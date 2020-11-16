@@ -152,8 +152,6 @@ function setUpControls(map, players, livePlas, gra, sets, activePlayer){
             scoreboard(players, sets.hideScores); 
             livePlas = checkLivePlayers(livePlas);
             activePlayer = activePlayer - (players.length - livePlas.length);
-            console.log(livePlas);
-            console.log(activePlayer);
             render(gra, map, sets, activePlayer);
             if(activePlayer > livePlas.length){
                 activePlayer = 1;
@@ -165,7 +163,6 @@ function setUpControls(map, players, livePlas, gra, sets, activePlayer){
                     activePlayer += triggerBots(gra,map,sets, livePlas, activePlayer);
                     livePlas = checkLivePlayers(livePlas);
                     activePlayer = activePlayer - (players.length - livePlas.length);
-                    console.log(livePlas);
                     if(activePlayer > livePlas.length){
                         activePlayer = 1;
                     }

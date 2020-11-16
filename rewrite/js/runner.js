@@ -7,13 +7,13 @@
     //oldMapParser(gameMap);
 
     var activePlayer = 1;
-    var settings = {playing: true, hideScores: false, spawnCount: 35, randShields: false, randBlocks: false, fog: false, debug: false};
+    var settings = {playing: true, hideScores: false, spawnCount: 5, randShields: false, randBlocks: false, fog: false, debug: false};
 
     var players = [];
     var livePlayers;
 
     for(var r = 0; r < 8; r++){
-        players.push(new bot((r+1), (r+1), "Knob-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 1));
+        players.push(new bot((r+1), (r+1), "Knob-" + r, colList[r][0], colList[r][0], colList[r][2], colList[r][1], colList[r][1], true, 2));
     }
 
     //players[1] = new bot(2, 2, "KnobBot1", colList[1][0], colList[1][0], colList[1][2], colList[1][1], colList[1][1], true, 1);
