@@ -24,8 +24,11 @@ function checkLivePlayers(inp){
     let updated = [];
     let count = inp.length;
     for(let r = 0; r < count; r++){
-        if(inp[r].getScore() > 0){
-            updated.push(inp[r]);
+        var cnt = inp[r].length;
+        for(var t = 1; t < cnt; t++){
+            if(inp[r][t].getScore() > 0){
+                updated.push(inp[r]);
+            }
         }
     }
     return updated;
@@ -122,7 +125,7 @@ function triggerBots(G, map, settings, players, actPla){
         let choice;
         choice = players[actPla-1].makeMove(map);
         if(choice != 0){
-            if(checkProxy(choice, map, players[actPla-1].id)){move(choice, players[actPla-1], map)};
+            if(checkProximity(choice, map, players[actPla-1].id)){move(choice, players[actPla-1], map)};
         }
         actPla += 1;
         updateValues(map);
@@ -151,7 +154,20 @@ function triggerBots(G, map, settings, players, actPla){
     return count;
 }
 
-function checkHit(gra, map, players, actPla, playing, botTurn){
+function setActives(pla, teamCount){
+    var activesArr = [];
+    var plaCnt = pla.length;
+    for(var r = 0; r<teamCount; r++){
+        activesArr[r] = [1];
+    }
+    for(var r = 0; r <plaCnt; r++){
+        var targTeam = pla[r].getTeamId();
+        activesArr[targTeam-1].push(pla[r]);
+    }
+    return activesArr;
+}
+
+function checkHit(gra, map, players, actPla, playing, botTurn, multiShield){
     var canvRect = mapCan.getBoundingClientRect();
 	var x = (event.clientX - canvRect.left);
 	var y = (event.clientY - canvRect.top);
@@ -164,11 +180,19 @@ function checkHit(gra, map, players, actPla, playing, botTurn){
 			if (y >= (map[r].getCoords()[1] - map[r].getRadius()*2) && y <= (map[r].getCoords()[1] + map[r].getRadius()*2)){
                 if(map[r].getLockLife() == 0){
                     if (map[r].getOwner() == players[actPla-1].id){
-                        move(map[r], players[actPla-1], map);
-                        moved = true;
+                        if(multiShield){
+                            move(map[r], players[actPla-1], map);
+                            moved = true;
+                        }
+                        else{
+                            if(!map[r].getShield()){
+                                move(map[r], players[actPla-1], map);
+                                moved = true;
+                            }
+                        }
                     }
                     else{
-                        if(checkProxy(map[r], map, players[actPla-1].id)){
+                        if(checkProximity(map[r], map, players[actPla-1].id)){
                             move(map[r], players[actPla-1], map);
                             moved = true;
                         }
@@ -182,7 +206,7 @@ function checkHit(gra, map, players, actPla, playing, botTurn){
     return moved;
 }
 
-function checkProxy(targ, map, id){
+function checkProximity(targ, map, id){
 	var r;
     var cons = targ.getConnections();
     let reps = cons.length;

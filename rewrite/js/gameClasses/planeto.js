@@ -12,6 +12,7 @@ function planeto(i, nx, ny, cons, oId, tId, vPack){
     this.teamColour = vPack.tColour || "#fff";
     this.connections = cons;
     this.hasShield = vPack.shield || false;
+    this.shieldVal = 0;
     this.bonerShowing = false;
     this.value = 1;
     this.type = 0;

@@ -145,12 +145,11 @@ function setUpControls(map, players, livePlas, gra, sets, activePlayer){
     
     mapCan.onclick = function(event){
         event.preventDefault();  
-        if(checkHit(gra, map, players, activePlayer, sets.playing, sets.botTurn)){
+        if(checkHit(gra, map, players, activePlayer, sets.playing, sets.botTurn, sets.multiShield)){
             activePlayer += 1;
             updateValues(map);
             updateScores(map, players);
             scoreboard(players, sets.hideScores); 
-            livePlas = checkLivePlayers(livePlas);
             activePlayer = activePlayer - (players.length - livePlas.length);
             render(gra, map, sets, activePlayer);
             if(activePlayer > livePlas.length){
@@ -162,7 +161,6 @@ function setUpControls(map, players, livePlas, gra, sets, activePlayer){
                 if(players[activePlayer-1].getisBot()){
                     sets.botTurn = true;
                     activePlayer += triggerBots(gra,map,sets, livePlas, activePlayer);
-                    livePlas = checkLivePlayers(livePlas);
                     activePlayer = activePlayer - (players.length - livePlas.length);
                     if(activePlayer > livePlas.length){
                         activePlayer = 1;
