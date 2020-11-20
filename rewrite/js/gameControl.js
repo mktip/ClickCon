@@ -122,7 +122,7 @@ function triggerBots(G, map, settings, players, actPla){
         let choice;
         choice = players[actPla-1].makeMove(map);
         if(choice != 0){
-            move(choice, players[actPla-1], map);
+            if(checkProxy(choice, map, players[actPla-1].id)){move(choice, players[actPla-1], map)};
         }
         actPla += 1;
         updateValues(map);
@@ -144,20 +144,21 @@ function triggerBots(G, map, settings, players, actPla){
         updateScores(map, players);
         scoreboard(players, settings.hideScores);
         render(G, map, settings, actPla);
+        settings.botTurn = false;
     }
     var reps = 0;
     var botCaller = setInterval(doBot, stall);
     return count;
 }
 
-function checkHit(gra, map, players, actPla, playing){
+function checkHit(gra, map, players, actPla, playing, botTurn){
     var canvRect = mapCan.getBoundingClientRect();
 	var x = (event.clientX - canvRect.left);
 	var y = (event.clientY - canvRect.top);
     var r;
     var moved = false;
     let reps = map.length;
-	if (players[actPla-1].getisBot() != true && playing){
+	if (players[actPla-1].getisBot() != true && playing && !botTurn){
 		for(r=0; r<reps;r++){
 		if (x >= (map[r].getCoords()[0] - map[r].getRadius()*2) && x <= (map[r].getCoords()[0] + map[r].getRadius()*2)){
 			if (y >= (map[r].getCoords()[1] - map[r].getRadius()*2) && y <= (map[r].getCoords()[1] + map[r].getRadius()*2)){
