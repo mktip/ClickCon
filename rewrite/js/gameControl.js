@@ -41,9 +41,9 @@ function updateScores(map, players){
         var score = 0;
         let lreps = list.length;
         for(var t = 0; t<lreps; t++){
-            score += map[list[t]].getValue();
+            score += map[list[t]].value;
         }
-        players[r].setScore(score);
+        players[r].score = score;
     }
 }
 
@@ -59,10 +59,10 @@ function initMap(map, players, settings){
         for(var reps = 0; reps < settings.spawnCount; reps++){
             var pick = Math.floor(Math.random()*tmpMap.length);
             //tId, tCol, oId, oCol, iCol, oChar, tChar
-            map[tmpMap[pick].id].setOwner(players[p].getTeamId(), players[p].getTeamColour(), players[p].id, players[p].getColour(), players[p].getInverse(), players[p].getChars()[1], players[p].getChars()[0])
+            map[tmpMap[pick].id].setOwner(players[p].teamId, players[p].teamColour, players[p].id, players[p].colour, players[p].cInverse, players[p].getChars()[1], players[p].getChars()[0])
             tmpMap = [];
             for(var x = 0; x <mapLength; x++){
-                if(map[x].getTeam() == 0){
+                if(map[x].teamId == 0){
                     tmpMap.push(map[x]);
                 }
             }
@@ -73,7 +73,7 @@ function initMap(map, players, settings){
         var count = Math.floor(Math.random()* (mapLength*.5) + (mapLength*.15));
         for(var r = 0; r<count; r++){
             var pick = Math.floor(Math.random()*mapLength);
-            map[pick].setShield(true);
+            map[pick].hasShield = true;
         }
     }
 
@@ -81,7 +81,7 @@ function initMap(map, players, settings){
         var count = Math.floor(Math.random()* (mapLength*.35) + 3);
         for(var r = 0; r<count; r++){
             var pick = Math.floor(Math.random()*mapLength);
-            map[pick].setLockLife(Math.floor(Math.random()*5)+1);
+            map[pick].lockLife = Math.floor(Math.random()*5)+1;
         }
     }
 
@@ -91,18 +91,18 @@ function initMap(map, players, settings){
 
 function move(tar, pla, map){
     //tId, tCol, oId, oCol, iCol, oChar, tChar
-    if(tar.getLockLife() == 0){
-        if(tar.getShield() == false){
-            if(tar.getOwner() == pla.id){
-                map[tar.id].setShield(true);
+    if(tar.lockLife == 0){
+        if(tar.hasShield == false){
+            if(tar.ownerId == pla.id){
+                map[tar.id].hasShield = true;
             }
             else{
-                map[tar.id].setOwner(pla.getTeamId(), pla.getTeamColour(), pla.id, pla.getColour, pla.getInverse(), pla.getChars()[1], pla.getChars()[0]);
+                map[tar.id].setOwner(pla.teamId, pla.teamColour, pla.id, pla.colour, pla.cInverse, pla.getChars()[1], pla.getChars()[0]);
             }
         }
         else{
-            if(map[tar.id].getShield() == true && map[tar.id].getOwner() != pla.id){
-                map[tar.id].setShield(false);
+            if(map[tar.id].hasShield == true && map[tar.id].ownerId != pla.id){
+                map[tar.id].hasShield = false;
             }    
         }
     }
@@ -112,7 +112,7 @@ function triggerBots(G, map, settings, players, actPla){
     let stall = 250;
     var count = 0;
     let current = actPla;
-    while(players[current-1].getisBot()){
+    while(players[current-1].isBot){
         count += 1;
         if(current >= players.length){
             current = 1;
@@ -161,9 +161,10 @@ function setActives(pla, teamCount){
         activesArr[r] = [1];
     }
     for(var r = 0; r <plaCnt; r++){
-        var targTeam = pla[r].getTeamId();
+        var targTeam = pla[r].teamId;
         activesArr[targTeam-1].push(pla[r]);
     }
+    console.log(activesArr);
     return activesArr;
 }
 
@@ -174,18 +175,18 @@ function checkHit(gra, map, players, actPla, playing, botTurn, multiShield){
     var r;
     var moved = false;
     let reps = map.length;
-	if (players[actPla-1].getisBot() != true && playing && !botTurn){
+	if (players[actPla-1].isBot != true && playing && !botTurn){
 		for(r=0; r<reps;r++){
-		if (x >= (map[r].getCoords()[0] - map[r].getRadius()*2) && x <= (map[r].getCoords()[0] + map[r].getRadius()*2)){
-			if (y >= (map[r].getCoords()[1] - map[r].getRadius()*2) && y <= (map[r].getCoords()[1] + map[r].getRadius()*2)){
-                if(map[r].getLockLife() == 0){
-                    if (map[r].getOwner() == players[actPla-1].id){
+		if (x >= (map[r].getCoords()[0] - map[r].radius*2) && x <= (map[r].getCoords()[0] + map[r].radius*2)){
+			if (y >= (map[r].getCoords()[1] - map[r].radius*2) && y <= (map[r].getCoords()[1] + map[r].radius*2)){
+                if(map[r].lockLife == 0){
+                    if (map[r].ownerId == players[actPla-1].id){
                         if(multiShield){
                             move(map[r], players[actPla-1], map);
                             moved = true;
                         }
                         else{
-                            if(!map[r].getShield()){
+                            if(!map[r].hasShield){
                                 move(map[r], players[actPla-1], map);
                                 moved = true;
                             }
@@ -208,10 +209,10 @@ function checkHit(gra, map, players, actPla, playing, botTurn, multiShield){
 
 function checkProximity(targ, map, id){
 	var r;
-    var cons = targ.getConnections();
+    var cons = targ.connections;
     let reps = cons.length;
 		for(r=0; r < reps; r++){
-			if (map[cons[r]].getOwner() == id){
+			if (map[cons[r]].ownerId == id){
 				return true;
 			}
 		}

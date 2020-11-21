@@ -158,7 +158,7 @@ function setUpControls(map, players, livePlas, gra, sets, activePlayer){
                 render(gra, map, sets, activePlayer);
             }
             else{
-                if(players[activePlayer-1].getisBot()){
+                if(players[activePlayer-1].isBot){
                     sets.botTurn = true;
                     activePlayer += triggerBots(gra,map,sets, livePlas, activePlayer);
                     activePlayer = activePlayer - (players.length - livePlas.length);
@@ -178,7 +178,7 @@ function scoreboard(players, hideScores){
     addElement("scoresBubble", "div", scores);
     var ordered = [];
     for(var r = 0; r<players.length; r++){
-        ordered.push([r, players[r].getScore()]);
+        ordered.push([r, players[r].score]);
     }
     ordered.sort(function(a, b){return b[1] - a[1]})
     for(var r = 0; r<ordered.length; r++){
@@ -186,18 +186,18 @@ function scoreboard(players, hideScores){
         if(colourblindToggle.checked){
             contStr += "("+ players[ordered[r][0]].getChars()[0] + players[ordered[r][0]].getChars()[1] + ") ";
         }
-        contStr += players[ordered[r][0]].getName() + ": "
+        contStr += players[ordered[r][0]].name + ": "
         if(hideScores){
             contStr += "???";
         }
         else{
-            contStr += players[ordered[r][0]].getScore();
+            contStr += players[ordered[r][0]].score;
         }
          
         addElement(("pScore"+r), "div", scoresBubble, contStr);
-        document.getElementById("pScore"+r).style.color = players[ordered[r][0]].getColour();
+        document.getElementById("pScore"+r).style.color = players[ordered[r][0]].colour;
         if(colourblindToggle.checked){
-            document.getElementById("pScore"+r).style.background = players[ordered[r][0]].getInverse();
+            document.getElementById("pScore"+r).style.background = players[ordered[r][0]].inverse;
         }
     }
 }

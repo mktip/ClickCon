@@ -28,8 +28,6 @@
     initMap(gameMap, players, settings);
     livePlayers = setActives(players, settings.teams);
 
-    console.log(livePlayers);
-
     var g = mapCan.getContext("2d");
     setCanvasDims(gameMap);
     scoreboard(players, settings.hideScores);

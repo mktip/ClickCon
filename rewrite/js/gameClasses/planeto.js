@@ -198,42 +198,6 @@ planeto.prototype.getCoords = function(){
     return [this.x, this.y];
 }
 
-planeto.prototype.getRadius = function(){
-    return this.radius;
-}
-
-planeto.prototype.getOwner = function(){
-    return this.ownerId;
-}
-
-planeto.prototype.getTeam = function(){
-    return this.teamId;
-}
-
-planeto.prototype.getConnections = function(){
-    return this.connections;
-}
-
-planeto.prototype.setLockLife = function(amt){
-    this.lockLife = amt;
-}
-
-planeto.prototype.getLockLife = function(){
-    return this.lockLife;
-}
-
 planeto.prototype.setShield = function(shi){
     this.hasShield = shi;
-}
-
-planeto.prototype.getShield = function(){
-    return this.hasShield;
-}
-
-planeto.prototype.getValue = function(){
-    return this.value;
-}
-
-planeto.prototype.setValue = function(val){
-    this.value = val;
 }
