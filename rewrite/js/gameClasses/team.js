@@ -1,9 +1,15 @@
 class team{
-    constructor(i, col, pla){
+    constructor(i, col, tChar, cInverse){
         this.id = i;
         this.colour = col;
-        this.players = pla;
+        this.cInverse = cInverse;
+        this.tChar = tChar;
+        this.players = [];
         this.currentPlayer = 0;
+    }
+
+    addPlayers(pla){
+        this.players = pla;
     }
 
     getScore(){

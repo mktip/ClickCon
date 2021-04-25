@@ -112,6 +112,10 @@ function inGame(){
     addElement("colourblindToggle", "input", controls);
     colourblindToggle.type = "checkbox";
     colTogTxt.htmlFor = 'colourblindToggle';
+    addElement("IDTogTxt", "label", controls, "<br>Show Planeto IDs");
+    addElement("IDToggle", "input", controls);
+    IDToggle.type = "checkbox";
+    IDTogTxt.htmlFor = 'IDToggle';
 
     addElement("map", "div", holder);
     addElement("mapCan", "canvas", map, "Mins");
@@ -123,11 +127,11 @@ function setCanvasDims(map){
 	var maxY = 0;
 	var maxX = 0;
 	for(var v = 0; v<map.length; v++){
-		if((map[v].getCoords()[0]) > maxX){
-			maxX = map[v].getCoords()[0];
+		if((map[v].x) > maxX){
+			maxX = map[v].x;
 		}
-		if((map[v].getCoords()[1]) > maxY){
-			maxY = map[v].getCoords()[1];
+		if((map[v].y) > maxY){
+			maxY = map[v].y;
 		}
 	}
 	mapCan.width = maxX + 100;
@@ -136,31 +140,35 @@ function setCanvasDims(map){
 	//console.log("hei: " + canvas.height);
 }
 
-function setUpControls(map, players, livePlas, gra, sets, activePlayer){
+function setUpControls(map, players, livePlas, gra, art, sets, activePlayer){
     colourblindToggle.onchange = function(event){
         event.preventDefault();
          scoreboard(players, sets.hideScores);
-         render(gra, map, sets, activePlayer)
+         render(gra, art, map, sets, activePlayer)
+        };
+    IDToggle.onchange = function(event){
+         event.preventDefault();
+         render(gra, art, map, sets, activePlayer)
         };
     
     mapCan.onclick = function(event){
         event.preventDefault();  
-        if(checkHit(gra, map, players, activePlayer, sets.playing, sets.botTurn, sets.multiShield)){
+        if(checkHit(gra, art, map, players, activePlayer, sets.playing, sets.botTurn, sets.multiShield)){
             activePlayer += 1;
             updateValues(map);
             updateScores(map, players);
             scoreboard(players, sets.hideScores); 
             activePlayer = activePlayer - (players.length - livePlas.length);
-            render(gra, map, sets, activePlayer);
+            render(gra, art, map, sets, activePlayer);
             if(activePlayer > livePlas.length){
                 activePlayer = 1;
                 updateLockLife(map);
-                render(gra, map, sets, activePlayer);
+                render(gra, art, map, sets, activePlayer);
             }
             else{
                 if(players[activePlayer-1].isBot){
                     sets.botTurn = true;
-                    activePlayer += triggerBots(gra,map,sets, livePlas, activePlayer);
+                    activePlayer += triggerBots(gra, art, map,sets, livePlas, activePlayer);
                     activePlayer = activePlayer - (players.length - livePlas.length);
                     if(activePlayer > livePlas.length){
                         activePlayer = 1;
@@ -197,7 +205,7 @@ function scoreboard(players, hideScores){
         addElement(("pScore"+r), "div", scoresBubble, contStr);
         document.getElementById("pScore"+r).style.color = players[ordered[r][0]].colour;
         if(colourblindToggle.checked){
-            document.getElementById("pScore"+r).style.background = players[ordered[r][0]].inverse;
+            document.getElementById("pScore"+r).style.background = players[ordered[r][0]].cInverse;
         }
     }
 }

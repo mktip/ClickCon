@@ -19,6 +19,7 @@ v?
 -formation generation tweaks, no duplicate planetos
 -Sound effects
 -Bigger shields (numerical)
+-Varied planeto values
 -Skins and themes
 
 v2.0
@@ -60,7 +61,7 @@ X-player
  -gameloop
 	 -while loop to cycle through players
 	 -support for teams mode in scoreboard render
-	 -UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
+	X-UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
 	 -lighter formation checker
 
  -map generation

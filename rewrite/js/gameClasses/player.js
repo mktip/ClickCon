@@ -1,32 +1,45 @@
-function player(id, tId, name, colour, tColour, cInverse, tChar, pChar, isBot){
-    this.id = id;
-    this.teamId = tId;
-    this.name = name;
-    this.colour = colour;
-    this.teamColour = tColour;
-    this.cInverse = cInverse;
-    this.tChar = tChar;
-    this.pChar = pChar;
-    this.score = 0;
-    this.isBot = isBot;
-}
-
-player.prototype.getOwned = function(map){
-    var list = [];
-	for(var r = 0; r<map.length; r++){
-		if (map[r].owner == this.id){
-			list.push(r);
-		}
+class player{
+    constructor(id, team, name, colour, cInverse, pChar, isBot){
+        this.id = id;
+        this.team = team;
+        this.name = name;
+        this.colour = colour;
+        this.cInverse = cInverse;
+        this.pChar = pChar;
+        this.score = 0;
+        this.isBot = isBot;
     }
-	return list;
-}
 
-player.prototype.getChars = function(){
-    return [this.tChar, this.pChar];
-}
+    getOwned(map){
+        var list = [];
+	    for(var r = 0; r<map.length; r++){
+		    if (map[r].ownerId == this.id){
+			    list.push(r);
+		    }
+        }
+	    return list;
+    }
 
-player.prototype.setTeam = function(tId, tCol, tChar){
-    this.tId = tId;
-    this.tColour = tCol;
-    this.tChar = tChar;
+    getChars(){
+        return [this.tChar, this.pChar];
+    }
+
+    get teamId(){
+        return this.team.id;
+    }
+
+    get tChar(){
+        return this.team.tChar;
+    }
+
+    get teamColour(){
+        return this.team.colour;
+    }
+    
+    setTeam(tId, tCol, tChar){
+        this.tId = tId;
+        this.tColour = tCol;
+        this.tChar = tChar;
+  
+    }
 }

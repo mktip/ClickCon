@@ -6,8 +6,9 @@
 // external method creates actual planetos out of the stored info
 function mapConverter(map){
     var out = [];
+    let neut = {id:0, colour: "#fff", team:{id:0, colour: "#fff"}}
     for(var r = 0; r < map.length; r++){
-        out[r] = new planeto(map[r][0], map[r][1], map[r][2], map[r][3], 0, 0, {});
+        out[r] = new planeto(map[r][0], map[r][1], map[r][2], neut, 10, map[r][3]);
 	}
 	
     return out;

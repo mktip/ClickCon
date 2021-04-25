@@ -1,11 +1,12 @@
-function render(G, map, settings, active){
+function render(G, art, map, settings, active){
     G.fillStyle = "#000";
     G.fillRect(0,0,mapCan.width, mapCan.height);
     let colourBlind = colourblindToggle.checked;
+    let showIDs = IDToggle.checked;
     let reps = map.length;
     for (var r = 0; r < reps; r++){
         map[r].drawConnections(G, map, settings);
-        map[r].drawPlaneto(G, map, settings, active, colourBlind);
+        map[r].drawPlaneto(G, art, map, settings, active, colourBlind, showIDs);
     }
 }
 
@@ -59,7 +60,7 @@ function initMap(map, players, settings){
         for(var reps = 0; reps < settings.spawnCount; reps++){
             var pick = Math.floor(Math.random()*tmpMap.length);
             //tId, tCol, oId, oCol, iCol, oChar, tChar
-            map[tmpMap[pick].id].setOwner(players[p].teamId, players[p].teamColour, players[p].id, players[p].colour, players[p].cInverse, players[p].getChars()[1], players[p].getChars()[0])
+            map[tmpMap[pick].id].setOwner(players[p]);
             tmpMap = [];
             for(var x = 0; x <mapLength; x++){
                 if(map[x].teamId == 0){
@@ -74,6 +75,9 @@ function initMap(map, players, settings){
         for(var r = 0; r<count; r++){
             var pick = Math.floor(Math.random()*mapLength);
             map[pick].hasShield = true;
+            if(settings.multiShield){
+                map[pick].shieldVal = Math.floor((Math.random()*9) + 1);
+            }
         }
     }
 
@@ -95,13 +99,19 @@ function move(tar, pla, map){
         if(tar.hasShield == false){
             if(tar.ownerId == pla.id){
                 map[tar.id].hasShield = true;
+                map[tar.id].shieldVal++;
             }
             else{
                 map[tar.id].setOwner(pla.teamId, pla.teamColour, pla.id, pla.colour, pla.cInverse, pla.getChars()[1], pla.getChars()[0]);
             }
         }
         else{
-            if(map[tar.id].hasShield == true && map[tar.id].ownerId != pla.id){
+            if(tar.ownerId == pla.id){
+                if(map[tar.id].shieldVal < 9){
+                    map[tar.id].shieldVal++;
+                }              
+            }
+            else if(map[tar.id].hasShield == true && map[tar.id].ownerId != pla.id){
                 map[tar.id].hasShield = false;
             }    
         }
@@ -175,10 +185,11 @@ function checkHit(gra, map, players, actPla, playing, botTurn, multiShield){
     var r;
     var moved = false;
     let reps = map.length;
-	if (players[actPla-1].isBot != true && playing && !botTurn){
+	if (actPla.isBot != true && playing && !botTurn){
+        console.log("inside");
 		for(r=0; r<reps;r++){
-		if (x >= (map[r].getCoords()[0] - map[r].radius*2) && x <= (map[r].getCoords()[0] + map[r].radius*2)){
-			if (y >= (map[r].getCoords()[1] - map[r].radius*2) && y <= (map[r].getCoords()[1] + map[r].radius*2)){
+		if (x >= (map[r].x - map[r].radius*2) && x <= (map[r].x + map[r].radius*2)){
+			if (y >= (map[r].y - map[r].radius*2) && y <= (map[r].y + map[r].radius*2)){
                 if(map[r].lockLife == 0){
                     if (map[r].ownerId == players[actPla-1].id){
                         if(multiShield){
