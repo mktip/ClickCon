@@ -140,42 +140,21 @@ function setCanvasDims(map){
 	//console.log("hei: " + canvas.height);
 }
 
-function setUpControls(map, players, livePlas, gra, art, sets, activePlayer){
+function setUpControls(map, players, gra, gam, art, sets){
     colourblindToggle.onchange = function(event){
         event.preventDefault();
          scoreboard(players, sets.hideScores);
-         render(gra, art, map, sets, activePlayer)
+         render(gra, art, gam, map, sets)
         };
     IDToggle.onchange = function(event){
          event.preventDefault();
-         render(gra, art, map, sets, activePlayer)
+         render(gra, art, gam, map, sets)
         };
     
     mapCan.onclick = function(event){
         event.preventDefault();  
-        if(checkHit(gra, art, map, players, activePlayer, sets.playing, sets.botTurn, sets.multiShield)){
-            activePlayer += 1;
-            updateValues(map);
-            updateScores(map, players);
-            scoreboard(players, sets.hideScores); 
-            activePlayer = activePlayer - (players.length - livePlas.length);
-            render(gra, art, map, sets, activePlayer);
-            if(activePlayer > livePlas.length){
-                activePlayer = 1;
-                updateLockLife(map);
-                render(gra, art, map, sets, activePlayer);
-            }
-            else{
-                if(players[activePlayer-1].isBot){
-                    sets.botTurn = true;
-                    activePlayer += triggerBots(gra, art, map,sets, livePlas, activePlayer);
-                    activePlayer = activePlayer - (players.length - livePlas.length);
-                    if(activePlayer > livePlas.length){
-                        activePlayer = 1;
-                    }
-                }
-            }
-            }
+        if(checkHit(gra, art, map, players, gam, sets.playing, sets.botTurn, sets.multiShield)){
+        }
         };
 }
 
@@ -192,7 +171,7 @@ function scoreboard(players, hideScores){
     for(var r = 0; r<ordered.length; r++){
         var contStr = "";
         if(colourblindToggle.checked){
-            contStr += "("+ players[ordered[r][0]].getChars()[0] + players[ordered[r][0]].getChars()[1] + ") ";
+            contStr += "("+ players[ordered[r][0]].tChar + players[ordered[r][0]].pChar + ") ";
         }
         contStr += players[ordered[r][0]].name + ": "
         if(hideScores){

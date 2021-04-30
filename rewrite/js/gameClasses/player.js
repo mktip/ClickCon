@@ -1,11 +1,9 @@
 class player{
-    constructor(id, team, name, colour, cInverse, pChar, isBot){
+    constructor(id, team, name, colour, isBot){
         this.id = id;
         this.team = team;
         this.name = name;
-        this.colour = colour;
-        this.cInverse = cInverse;
-        this.pChar = pChar;
+        this.colPack = colour;
         this.score = 0;
         this.isBot = isBot;
     }
@@ -20,10 +18,6 @@ class player{
 	    return list;
     }
 
-    getChars(){
-        return [this.tChar, this.pChar];
-    }
-
     get teamId(){
         return this.team.id;
     }
@@ -32,14 +26,23 @@ class player{
         return this.team.tChar;
     }
 
+    get pChar(){
+        return this.colPack.char;
+    }
+
     get teamColour(){
         return this.team.colour;
     }
+
+    get colour(){
+        return this.colPack.colour;
+    }
+
+    get cInverse(){
+        return this.colPack.inverse;
+    }
     
-    setTeam(tId, tCol, tChar){
-        this.tId = tId;
-        this.tColour = tCol;
-        this.tChar = tChar;
-  
+    setTeam(team){
+       this.team = team;
     }
 }

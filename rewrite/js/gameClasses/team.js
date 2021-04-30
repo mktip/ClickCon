@@ -1,9 +1,7 @@
 class team{
-    constructor(i, col, tChar, cInverse){
+    constructor(i, colour){
         this.id = i;
-        this.colour = col;
-        this.cInverse = cInverse;
-        this.tChar = tChar;
+        this.colPack = colour;
         this.players = [];
         this.currentPlayer = 0;
     }
@@ -20,7 +18,29 @@ class team{
         }
     }
 
-    getNextMove(){
-        //do the things
+    getNextPlayer(){
+        if(this.currentPlayer >= this.players.length -1){
+            this.currentPlayer = 0;
+        }
+        else{
+            this.currentPlayer++;
+        }
+        return this.players[this.currentPlayers];
+    }
+
+    getCurrentPlayer(){
+        return this.players[this.currentPlayer];
+    }
+
+    get tChar(){
+        return this.colPack.char;
+    }
+    
+    get colour(){
+        return this.colPack.colour;
+    }
+
+    get cInverse(){
+        return this.colPack.inverse;
     }
 }

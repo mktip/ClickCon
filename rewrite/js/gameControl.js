@@ -1,12 +1,14 @@
-function render(G, art, map, settings, active){
+function render(G, art, gam, map, settings){
     G.fillStyle = "#000";
     G.fillRect(0,0,mapCan.width, mapCan.height);
     let colourBlind = colourblindToggle.checked;
     let showIDs = IDToggle.checked;
     let reps = map.length;
+    let activePlayer = gam.currentPlayer;
+    console.log(activePlayer);
     for (var r = 0; r < reps; r++){
         map[r].drawConnections(G, map, settings);
-        map[r].drawPlaneto(G, art, map, settings, active, colourBlind, showIDs);
+        map[r].drawPlaneto(G, art, map, activePlayer, settings, colourBlind, showIDs);
     }
 }
 
@@ -35,22 +37,23 @@ function checkLivePlayers(inp){
     return updated;
 }
 
-function updateScores(map, players){
-    let reps = players.length;
+function updateScores(map, gam){
+    let reps = gam.players.length;
     for(var r = 0; r < reps; r++){
-        var list = players[r].getOwned(map);
+        var list = gam.players[r].getOwned(map);
         var score = 0;
         let lreps = list.length;
         for(var t = 0; t<lreps; t++){
             score += map[list[t]].value;
         }
-        players[r].score = score;
+        gam.players[r].score = score;
     }
 }
 
-function initMap(map, players, settings){
+function initMap(map, gam, settings){
     let mapLength = map.length;
-    let plaLength = players.length;
+    let plaLength = gam.players.length;
+    let teamLength = gam.teams.length;
 
     if(settings.spawnCount * plaLength > mapLength){
         settings.spawnCount = Math.floor(mapLength / plaLength);
@@ -60,7 +63,7 @@ function initMap(map, players, settings){
         for(var reps = 0; reps < settings.spawnCount; reps++){
             var pick = Math.floor(Math.random()*tmpMap.length);
             //tId, tCol, oId, oCol, iCol, oChar, tChar
-            map[tmpMap[pick].id].setOwner(players[p]);
+            map[tmpMap[pick].id].setOwner(gam.players[p]);
             tmpMap = [];
             for(var x = 0; x <mapLength; x++){
                 if(map[x].teamId == 0){
@@ -90,7 +93,7 @@ function initMap(map, players, settings){
     }
 
     updateValues(map);
-    updateScores(map, players);
+    updateScores(map, gam);
 }
 
 function move(tar, pla, map){
@@ -116,66 +119,6 @@ function move(tar, pla, map){
             }    
         }
     }
-}
-
-function triggerBots(G, map, settings, players, actPla){
-    let stall = 250;
-    var count = 0;
-    let current = actPla;
-    while(players[current-1].isBot){
-        count += 1;
-        if(current >= players.length){
-            current = 1;
-        }
-        else{
-            current += 1;
-        }
-    }
-    function doBot(){
-        let choice;
-        choice = players[actPla-1].makeMove(map);
-        if(choice != 0){
-            if(checkProximity(choice, map, players[actPla-1].id)){move(choice, players[actPla-1], map)};
-        }
-        actPla += 1;
-        updateValues(map);
-        updateScores(map, players);
-        scoreboard(players, settings.hideScores);
-        render(G, map, settings, actPla);
-        if(actPla > players.length){
-            actPla = 1;
-            updateLockLife(map);
-        }
-        reps++;
-        if(reps == count){
-            stopBot();
-        }
-    }
-    function stopBot(){
-        clearInterval(botCaller);
-        updateValues(map);
-        updateScores(map, players);
-        scoreboard(players, settings.hideScores);
-        render(G, map, settings, actPla);
-        settings.botTurn = false;
-    }
-    var reps = 0;
-    var botCaller = setInterval(doBot, stall);
-    return count;
-}
-
-function setActives(pla, teamCount){
-    var activesArr = [];
-    var plaCnt = pla.length;
-    for(var r = 0; r<teamCount; r++){
-        activesArr[r] = [1];
-    }
-    for(var r = 0; r <plaCnt; r++){
-        var targTeam = pla[r].teamId;
-        activesArr[targTeam-1].push(pla[r]);
-    }
-    console.log(activesArr);
-    return activesArr;
 }
 
 function checkHit(gra, map, players, actPla, playing, botTurn, multiShield){
