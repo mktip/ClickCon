@@ -27,22 +27,32 @@
 
     teams[0] = new team(1, colList[0]);
     teams[1] = new team(2, colList[1]);
+    teams[2] = new team(3, colList[2]);
+    //teams[3] = new team(4, colList[3]);
     players[0] = new player(1, teams[0], "Knob0", colList[0], false);
 
-    for(var r = 1; r < 4; r++){
-        players.push(new bot((r+1), teams[1], "Knob-" + r, colList[r+3], true, 2));
+    for(var r = 1; r < 5; r++){
+        players.push(new bot((r+1), teams[1], "Knob-" + r, colList[r], true, 2));
     }
 
-    console.log(players);
+    //console.log(players);
 
-    teams[0].addPlayers([players[0], players[1]]);
-    teams[1].addPlayers([players[2], players[3]]);
+    teams[0].addPlayers([players[0]]);
+    teams[1].addPlayers([players[1], players[2]]);
+    players[3].team = teams[2];
+    players[4].team = teams[2];
+    teams[2].addPlayers([players[3], players[4]]);
+    //players[6].team = teams[3];
+    //players[7].team = teams[3];
+    //teams[3].addPlayers([players[6], players[7]]);
 
-    console.log(teams);
+    //console.log(teams);
 
-    var gameA = new game(teams, players);
+    var gameA = new game(teams, players, gameMap);
 
-    console.log(gameA);
+    gameA.loadTurnList();
+
+    //console.log(gameA);
     
     initMap(gameMap, gameA, settings);
 

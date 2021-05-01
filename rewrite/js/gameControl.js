@@ -5,7 +5,6 @@ function render(G, art, gam, map, settings){
     let showIDs = IDToggle.checked;
     let reps = map.length;
     let activePlayer = gam.currentPlayer;
-    console.log(activePlayer);
     for (var r = 0; r < reps; r++){
         map[r].drawConnections(G, map, settings);
         map[r].drawPlaneto(G, art, map, activePlayer, settings, colourBlind, showIDs);
@@ -52,26 +51,8 @@ function updateScores(map, gam){
 
 function initMap(map, gam, settings){
     let mapLength = map.length;
-    let plaLength = gam.players.length;
-    let teamLength = gam.teams.length;
 
-    if(settings.spawnCount * plaLength > mapLength){
-        settings.spawnCount = Math.floor(mapLength / plaLength);
-    }
-    var tmpMap = map;
-    for(var p = 0; p < plaLength; p++){
-        for(var reps = 0; reps < settings.spawnCount; reps++){
-            var pick = Math.floor(Math.random()*tmpMap.length);
-            //tId, tCol, oId, oCol, iCol, oChar, tChar
-            map[tmpMap[pick].id].setOwner(gam.players[p]);
-            tmpMap = [];
-            for(var x = 0; x <mapLength; x++){
-                if(map[x].teamId == 0){
-                    tmpMap.push(map[x]);
-                }
-            }
-        }
-    }
+    setSpawns(map, gam, settings.spawnCount);
 
     if(settings.randShields){
         var count = Math.floor(Math.random()* (mapLength*.5) + (mapLength*.15));
@@ -94,6 +75,36 @@ function initMap(map, gam, settings){
 
     updateValues(map);
     updateScores(map, gam);
+}
+
+function setSpawns(map, gam, spawnCount){
+    let teamCount = gam.teams.length;
+    let sorted = gam.teams.slice();
+    sorted.sort(function(a, b){return b.players.length - a.players.length});
+    let maxSpawns = sorted[0].players.length * spawnCount;
+    if(maxSpawns * gam.teams.length > map.length){
+        maxSpawns = Math.floor(map.length / gam.teams.length);
+    }
+    let tempMap = map.slice();
+    for(let r = 0; r < teamCount; r++){
+        var dispensed = 0;
+        let currentTeam = gam.teams[r].players;
+        while(dispensed <= maxSpawns){
+            for(let t = 0; t < currentTeam.length; t++){
+                dispensed++;
+                if(dispensed > maxSpawns){
+                    break;
+                }
+                else{
+                    let ranNum = Math.floor(Math.random()*tempMap.length);
+                    let pick = tempMap[ranNum].id;
+                    map[pick].setOwner(currentTeam[t]);
+                    tempMap = removeAtIndex(tempMap, ranNum);
+                }
+            }
+        }
+    }
+
 }
 
 function move(tar, pla, map){

@@ -144,17 +144,19 @@ function setUpControls(map, players, gra, gam, art, sets){
     colourblindToggle.onchange = function(event){
         event.preventDefault();
          scoreboard(players, sets.hideScores);
-         render(gra, art, gam, map, sets)
+         render(gra, art, gam, map, sets);
         };
     IDToggle.onchange = function(event){
          event.preventDefault();
-         render(gra, art, gam, map, sets)
+         render(gra, art, gam, map, sets);
         };
     
     mapCan.onclick = function(event){
         event.preventDefault();  
-        if(checkHit(gra, art, map, players, gam, sets.playing, sets.botTurn, sets.multiShield)){
-        }
+        //if(checkHit(gra, art, map, players, gam, sets.playing, sets.botTurn, sets.multiShield)){
+        //}
+        gam.currentPlayerInd++;
+        render(gra, art, gam, map, sets);
         };
 }
 

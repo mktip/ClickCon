@@ -1,21 +1,32 @@
 class game{
-    constructor(teams, players){
+    constructor(teams, players, map){
         this.teams = teams;
         this.players = players;
-        this.currentTeam = 0;
+        this.map = map;
+        this.turnList = [];
+        this.currentPlayerInd = 0;
     }
-    getNextTeam(){
-        if(this.currentTeam >= this.teams.length - 1){
-            this.currentTeam = 0;
+    loadTurnList(){
+        let tmpList = [];
+        for(let r = 0; r < this.teams.length; r++){
+            tmpList.push({current: -1, players: this.teams[r].players});
         }
-        else{
-            this.currentTeam++;
+        for(let r = 0; r < this.players.length - 1; r++){
+            for(let t = 0; t < tmpList.length; t++){
+                if(tmpList[t].current >= tmpList[t].players.length - 1){
+                    tmpList[t].current = 0;
+                }
+                else{
+                    tmpList[t].current++;
+                }
+                let selection = tmpList[t].players[tmpList[t].current];
+                this.turnList.push(selection);
+            }
         }
-        return this.teams[this.currentTeam];
+        //console.log(this.turnList);
     }
 
     get currentPlayer(){
-        console.log(this.teams[this.currentTeam]);
-        return this.teams[this.currentTeam].getCurrentPlayer();
+        return this.turnList[this.currentPlayerInd];
     }
 }

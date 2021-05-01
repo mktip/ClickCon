@@ -3,7 +3,6 @@ class team{
         this.id = i;
         this.colPack = colour;
         this.players = [];
-        this.currentPlayer = 0;
     }
 
     addPlayers(pla){
@@ -17,21 +16,7 @@ class team{
             score += players[r].getScore();
         }
     }
-
-    getNextPlayer(){
-        if(this.currentPlayer >= this.players.length -1){
-            this.currentPlayer = 0;
-        }
-        else{
-            this.currentPlayer++;
-        }
-        return this.players[this.currentPlayers];
-    }
-
-    getCurrentPlayer(){
-        return this.players[this.currentPlayer];
-    }
-
+    
     get tChar(){
         return this.colPack.char;
     }
