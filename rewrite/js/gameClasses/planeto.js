@@ -5,6 +5,7 @@ class planeto{
         this.y = y;
         this.owner = owner;
         this.value = 1; //To be used in future
+        this.prod = 0; //For "prod" mode
         this.radius = radius;
         this.connections = cons;
         this.shieldVal = 0;
