@@ -18,9 +18,9 @@ v?
 		-Each player/team has a set of planets to take on the map, first to do so wins
 -formation generation tweaks, no duplicate planetos
 -Sound effects
--Bigger shields (numerical)
 -Varied planeto values
 -Skins and themes
+-ProdCon
 
 v2.0
  -Fearsome multiplayer
@@ -39,11 +39,13 @@ v1.4
  -Fog mode: "Soft" and "Hard" fog
 	-"Frog" mode
  -Tombstone planetos
+ -Bigger shields (numerical)
  -Tutorial Page
 
 v1.3
  -Beautify!
  -Toggle Graphics
+ -Move log
  -Scale / zoom features
  
 v1.2(The overhaul update)
@@ -59,7 +61,7 @@ X-player
 	X-teamID
 
  -gameloop
-	 -while loop to cycle through players
+	X-while loop to cycle through players
 	 -support for teams mode in scoreboard render
 	X-UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
 	 -lighter formation checker

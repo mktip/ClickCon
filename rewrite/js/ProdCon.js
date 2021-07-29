@@ -1,0 +1,7 @@
+function makeAttack(){
+
+}
+
+function getAttackValue(){
+    
+}

@@ -9,6 +9,10 @@ class team{
         this.players = pla;
     }
 
+    addPlayer(pla){
+        this.players.push(pla);
+    }
+
     getScore(){
         var reps = players.length;
         var score = 0;

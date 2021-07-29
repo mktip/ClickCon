@@ -19,48 +19,57 @@
     inGame();
     var teams = [];
     var players = [];
-    var gameMap = mapConverter(praiseJibbers());
+    var gameMap = mapConverter(galconGalaxy7());
 
     //oldMapParser(gameMap);
 
     var settings = {playing: true, botTurn: false, hideScores: false, spawnCount: 5, teams: 1, randShields: false, randBlocks: false, fog: false, multiShield: false, debug: false};
 
-    teams[0] = new team(1, colList[0]);
-    teams[1] = new team(2, colList[1]);
-    teams[2] = new team(3, colList[2]);
-    //teams[3] = new team(4, colList[3]);
-    players[0] = new player(1, teams[0], "Knob0", colList[0], false);
+    for(var r = 1; r <= 3; r++){
+        teams.push(new team(r, colList[r-1]));
+    }
+    //console.log(teams);
 
-    for(var r = 1; r < 5; r++){
+    players[0] = new player(1, teams[0], "Knob0", colList[0], false);
+    players[0].team = teams[0];
+    teams[0].addPlayer(players[0]);
+
+    for(var r = 1; r <= 4; r++){
         players.push(new bot((r+1), teams[1], "Knob-" + r, colList[r], true, 2));
+        //players[r].team = teams[r];
+        //teams[r].addPlayer(players[r]);
     }
 
     //console.log(players);
 
-    teams[0].addPlayers([players[0]]);
+    players[1].team = teams[1];
+    players[2].team = teams[1];
     teams[1].addPlayers([players[1], players[2]]);
+
     players[3].team = teams[2];
     players[4].team = teams[2];
     teams[2].addPlayers([players[3], players[4]]);
+
+    // teams[0].addPlayers([players[0]]);
+    // teams[1].addPlayers([players[1], players[2]]);
+    // players[3].team = teams[2];
+    // players[4].team = teams[2];
+    // teams[2].addPlayers([players[3], players[4]]);
     //players[6].team = teams[3];
     //players[7].team = teams[3];
     //teams[3].addPlayers([players[6], players[7]]);
 
-    //console.log(teams);
-
     var gameA = new game(teams, players, gameMap);
 
     gameA.loadTurnList();
-
-    //console.log(gameA);
     
-    initMap(gameMap, gameA, settings);
+    initMap(gameA, settings);
 
     var g = mapCan.getContext("2d");
     var arty = new art(g);
     setCanvasDims(gameMap);
-    scoreboard(players, settings.hideScores);
-    setUpControls(gameMap, players, g, gameA, arty, settings);
+    scoreboard(gameA, settings.hideScores);
+    setUpControls(g, gameA, arty, settings);
     //g.scale(.15, .15);
-    render(g, arty, gameA, gameMap, settings);
+    render(g, arty, gameA, settings);
 })();

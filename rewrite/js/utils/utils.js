@@ -129,3 +129,32 @@ function shiftY(map, shi){
 	}
 	return map;
 }
+
+function copyArray(arr) {
+	let cpy = Array(arr.length);
+	for (var i = 0; i < arr.length; i++) {
+	  let value = arr[i] ;
+	  if (typeof value == "object") {
+		if (Array.isArray(value))
+		  value = copyArray(value);
+		else
+		  value = copyObject(value);
+	  }
+	  cpy[i] = value;
+	}
+	return cpy;
+}
+  function copyObject(obj) {
+	let cpy = { };
+	for (var key of obj) {
+	  let value = obj[key];
+	  if (typeof value == "object") {
+		if (Array.isArray(value))
+		  value = copyArray(value);
+		else
+		  value = copyObject(value);
+	  }
+	  cpy[i] = value;
+	}
+	return cpy;
+}

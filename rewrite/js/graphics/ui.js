@@ -140,27 +140,31 @@ function setCanvasDims(map){
 	//console.log("hei: " + canvas.height);
 }
 
-function setUpControls(map, players, gra, gam, art, sets){
+function setUpControls(gra, gam, art, sets){
     colourblindToggle.onchange = function(event){
         event.preventDefault();
-         scoreboard(players, sets.hideScores);
-         render(gra, art, gam, map, sets);
+         scoreboard(gam, sets.hideScores);
+         render(gra, art, gam, sets);
         };
     IDToggle.onchange = function(event){
          event.preventDefault();
-         render(gra, art, gam, map, sets);
+         render(gra, art, gam, sets);
         };
     
     mapCan.onclick = function(event){
         event.preventDefault();  
         //if(checkHit(gra, art, map, players, gam, sets.playing, sets.botTurn, sets.multiShield)){
         //}
-        gam.currentPlayerInd++;
-        render(gra, art, gam, map, sets);
+        //console.log(gam.currentPlayerInd);
+        //console.log(gam.turnList);
+        gam.nextPlayer();
+        render(gra, art, gam, sets);
+        updateScores(gam, sets.hideScores);
         };
 }
 
-function scoreboard(players, hideScores){
+function scoreboard(gam, hideScores){
+    let players = gam.players;
     if(document.getElementById("scoresBubble")){
         scoresBubble.parentNode.removeChild(scoresBubble);
     }
@@ -185,7 +189,8 @@ function scoreboard(players, hideScores){
          
         addElement(("pScore"+r), "div", scoresBubble, contStr);
         document.getElementById("pScore"+r).style.color = players[ordered[r][0]].colour;
-        if(colourblindToggle.checked){
+        let tmpCurrentPlayer = gam.turnList[gam.currentPlayerInd].id;
+        if((colourblindToggle.checked && players[ordered[r][0]].id != tmpCurrentPlayer) || (colourblindToggle.checked == false && players[ordered[r][0]].id == tmpCurrentPlayer)){
             document.getElementById("pScore"+r).style.background = players[ordered[r][0]].cInverse;
         }
     }

@@ -11,22 +11,44 @@ class game{
         for(let r = 0; r < this.teams.length; r++){
             tmpList.push({current: -1, players: this.teams[r].players});
         }
-        for(let r = 0; r < this.players.length - 1; r++){
-            for(let t = 0; t < tmpList.length; t++){
-                if(tmpList[t].current >= tmpList[t].players.length - 1){
-                    tmpList[t].current = 0;
-                }
-                else{
-                    tmpList[t].current++;
-                }
-                let selection = tmpList[t].players[tmpList[t].current];
-                this.turnList.push(selection);
+        let tmpTeams = this.teams.slice();
+        tmpTeams.sort(function(a, b){return b.players.length - a.players.length;});
+        let count = tmpTeams[0].players.length * this.teams.length;
+        let r = 0;
+        let t = 0;
+        while(r < count){
+            if(tmpList[t].current >= tmpList[t].players.length - 1){
+                tmpList[t].current = 0;
             }
+            else{
+                tmpList[t].current++;
+            }
+            let selection = tmpList[t].players[tmpList[t].current];
+            //console.log(selection);
+            this.turnList.push(selection);
+            if(t == this.teams.length - 1){
+                t = 0;
+            }
+            else{
+                t++;
+            }
+            r++;
         }
+        //console.log(tmpList);
+        //console.log("final:");
         //console.log(this.turnList);
     }
 
     get currentPlayer(){
         return this.turnList[this.currentPlayerInd];
+    }
+
+    nextPlayer(){
+        if(this.currentPlayerInd == this.turnList.length - 1){
+            this.currentPlayerInd = 0;
+        }
+        else{
+            this.currentPlayerInd++;
+        }
     }
 }

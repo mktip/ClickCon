@@ -1,13 +1,13 @@
-function render(G, art, gam, map, settings){
+function render(G, art, gam, settings){
     G.fillStyle = "#000";
     G.fillRect(0,0,mapCan.width, mapCan.height);
     let colourBlind = colourblindToggle.checked;
     let showIDs = IDToggle.checked;
-    let reps = map.length;
+    let reps = gam.map.length;
     let activePlayer = gam.currentPlayer;
     for (var r = 0; r < reps; r++){
-        map[r].drawConnections(G, map, settings);
-        map[r].drawPlaneto(G, art, map, activePlayer, settings, colourBlind, showIDs);
+        gam.map[r].drawConnections(G, gam.map, settings);
+        gam.map[r].drawPlaneto(G, art, gam.map, activePlayer, settings, colourBlind, showIDs);
     }
 }
 
@@ -36,8 +36,9 @@ function checkLivePlayers(inp){
     return updated;
 }
 
-function updateScores(map, gam){
+function updateScores(gam){
     let reps = gam.players.length;
+    let map = gam.map;
     for(var r = 0; r < reps; r++){
         var list = gam.players[r].getOwned(map);
         var score = 0;
@@ -47,12 +48,14 @@ function updateScores(map, gam){
         }
         gam.players[r].score = score;
     }
+    scoreboard(gam, )
 }
 
-function initMap(map, gam, settings){
+function initMap(gam, settings){
+    let map = gam.map;
     let mapLength = map.length;
 
-    setSpawns(map, gam, settings.spawnCount);
+    setSpawns(gam, settings.spawnCount);
 
     if(settings.randShields){
         var count = Math.floor(Math.random()* (mapLength*.5) + (mapLength*.15));
@@ -74,10 +77,11 @@ function initMap(map, gam, settings){
     }
 
     updateValues(map);
-    updateScores(map, gam);
+    updateScores(gam);
 }
 
-function setSpawns(map, gam, spawnCount){
+function setSpawns(gam, spawnCount){
+    let map = gam.map;
     let teamCount = gam.teams.length;
     let sorted = gam.teams.slice();
     sorted.sort(function(a, b){return b.players.length - a.players.length});
@@ -132,12 +136,13 @@ function move(tar, pla, map){
     }
 }
 
-function checkHit(gra, map, players, actPla, playing, botTurn, multiShield){
-    var canvRect = mapCan.getBoundingClientRect();
-	var x = (event.clientX - canvRect.left);
-	var y = (event.clientY - canvRect.top);
-    var r;
-    var moved = false;
+function checkHit(gam, playing, botTurn, multiShield){
+    let canvRect = mapCan.getBoundingClientRect();
+	let x = (event.clientX - canvRect.left);
+	let y = (event.clientY - canvRect.top);
+    let r;
+    let moved = false;
+    let currentPlayer = gam.currentPlayer();
     let reps = map.length;
 	if (actPla.isBot != true && playing && !botTurn){
         console.log("inside");
