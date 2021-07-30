@@ -140,31 +140,31 @@ function setCanvasDims(map){
 	//console.log("hei: " + canvas.height);
 }
 
-function setUpControls(gra, gam, art, sets){
+function setUpControls(gra, gam, art){
     colourblindToggle.onchange = function(event){
         event.preventDefault();
-         scoreboard(gam, sets.hideScores);
-         render(gra, art, gam, sets);
+         scoreboard(gam);
+         render(gra, art, gam);
         };
     IDToggle.onchange = function(event){
          event.preventDefault();
-         render(gra, art, gam, sets);
+         render(gra, art, gam);
         };
     
     mapCan.onclick = function(event){
-        event.preventDefault();  
-        //if(checkHit(gra, art, map, players, gam, sets.playing, sets.botTurn, sets.multiShield)){
-        //}
-        //console.log(gam.currentPlayerInd);
-        //console.log(gam.turnList);
-        gam.nextPlayer();
-        render(gra, art, gam, sets);
-        updateScores(gam, sets.hideScores);
+        event.preventDefault();
+        if(checkHit(gam, gam.settings.playing, gam.settings.botTurn, gam.settings.multShield)){
+            gam.nextPlayer();
+        }
+        render(gra, art, gam);
+        updateScores(gam);
+        //console.log(gam.map);
         };
 }
 
-function scoreboard(gam, hideScores){
+function scoreboard(gam){
     let players = gam.players;
+    let hideScores = gam.settings.hideScores;
     if(document.getElementById("scoresBubble")){
         scoresBubble.parentNode.removeChild(scoresBubble);
     }

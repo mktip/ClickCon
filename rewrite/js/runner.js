@@ -19,7 +19,7 @@
     inGame();
     var teams = [];
     var players = [];
-    var gameMap = mapConverter(galconGalaxy7());
+    var gameMap = mapConverter(praiseJibbers());
 
     //oldMapParser(gameMap);
 
@@ -35,7 +35,7 @@
     teams[0].addPlayer(players[0]);
 
     for(var r = 1; r <= 4; r++){
-        players.push(new bot((r+1), teams[1], "Knob-" + r, colList[r], true, 2));
+        players.push(new player((r+1), teams[1], "Knob-" + r, colList[r], false));
         //players[r].team = teams[r];
         //teams[r].addPlayer(players[r]);
     }
@@ -59,11 +59,11 @@
     //players[7].team = teams[3];
     //teams[3].addPlayers([players[6], players[7]]);
 
-    var gameA = new game(teams, players, gameMap);
+    var gameA = new game(teams, players, gameMap, settings);
 
     gameA.loadTurnList();
     
-    initMap(gameA, settings);
+    initMap(gameA);
 
     var g = mapCan.getContext("2d");
     var arty = new art(g);
@@ -71,5 +71,5 @@
     scoreboard(gameA, settings.hideScores);
     setUpControls(g, gameA, arty, settings);
     //g.scale(.15, .15);
-    render(g, arty, gameA, settings);
+    render(g, arty, gameA);
 })();

@@ -54,6 +54,15 @@ class planeto{
         return this.owner.cInverse;
     }
 
+    get hasShield(){
+        if(this.shieldVal > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     setOwner(owner){
         this.owner = owner;
         //other stuff

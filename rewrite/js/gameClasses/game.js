@@ -1,8 +1,9 @@
 class game{
-    constructor(teams, players, map){
+    constructor(teams, players, map, settings){
         this.teams = teams;
         this.players = players;
         this.map = map;
+        this.settings = settings;
         this.turnList = [];
         this.currentPlayerInd = 0;
     }
