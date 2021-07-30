@@ -14,11 +14,12 @@ class team{
     }
 
     getScore(){
-        var reps = players.length;
+        var reps = this.players.length;
         var score = 0;
         for(var r = 0; r < reps; r++){
-            score += players[r].getScore();
+            score += this.players[r].score;
         }
+        return score;
     }
     
     get tChar(){

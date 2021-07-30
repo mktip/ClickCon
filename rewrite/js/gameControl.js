@@ -99,7 +99,7 @@ function setSpawns(gam, spawnCount){
 }
 
 function move(tar, pla, map){
-    console.log("move function");
+    //console.log("move function");
     if(tar.lockLife == 0){
         if(tar.hasShield == false){
             if(tar.teamId == pla.teamId){
@@ -117,14 +117,14 @@ function move(tar, pla, map){
                 }              
             }
             else if(map[tar.id].hasShield == true && map[tar.id].teamId != pla.teamId){
-                map[tar.id].hasShield = false;
+                map[tar.id].shieldVal = 0;
             }    
         }
     }
     //console.log(map);
 }
 
-function checkHit(gam, playing, botTurn, multiShield){
+function checkHit(gam){
     let canvRect = mapCan.getBoundingClientRect();
 	let x = (event.clientX - canvRect.left);
 	let y = (event.clientY - canvRect.top);
@@ -133,14 +133,14 @@ function checkHit(gam, playing, botTurn, multiShield){
     let currentPlayer = gam.currentPlayer;
     let map = gam.map;
     let reps = map.length;
-	if (currentPlayer.isBot != true && playing && !botTurn){
+	if (currentPlayer.isBot != true && gam.settings.playing && !gam.settings.botTurn){
         //console.log("checkHit function");
 		for(r=0; r<reps;r++){
 		if (x >= (map[r].x - map[r].radius*2) && x <= (map[r].x + map[r].radius*2)){
 			if (y >= (map[r].y - map[r].radius*2) && y <= (map[r].y + map[r].radius*2)){
                 if(map[r].lockLife == 0){
                     if (map[r].teamId == currentPlayer.teamId){
-                        if(multiShield){
+                        if(gam.settings.multiShield){
                             move(map[r], currentPlayer, map);
                             moved = true;
                         }

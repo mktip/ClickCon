@@ -153,12 +153,11 @@ function setUpControls(gra, gam, art){
     
     mapCan.onclick = function(event){
         event.preventDefault();
-        if(checkHit(gam, gam.settings.playing, gam.settings.botTurn, gam.settings.multShield)){
+        if(checkHit(gam)){
+            updateScores(gam);
             gam.nextPlayer();
+            render(gra, art, gam);
         }
-        render(gra, art, gam);
-        updateScores(gam);
-        //console.log(gam.map);
         };
 }
 

@@ -51,5 +51,11 @@ class game{
         else{
             this.currentPlayerInd++;
         }
+        console.log("currentPlayer score: " + this.turnList[this.currentPlayerInd].team.getScore());
+        if(this.turnList[this.currentPlayerInd].team.getScore() == 0){
+            console.log("ded!");
+            //console.log("currentPlayer score: " + this.turnList[this.currentPlayerInd].team.getScore());
+            this.nextPlayer();
+        }
     }
 }
