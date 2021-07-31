@@ -18,6 +18,16 @@ class player{
 	    return list;
     }
 
+    getTeamOwned(map){
+        var list = [];
+	    for(var r = 0; r<map.length; r++){
+		    if (map[r].teamId == this.teamId){
+			    list.push(r);
+		    }
+        }
+	    return list;
+    }
+
     get teamId(){
         return this.team.id;
     }

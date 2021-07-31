@@ -55,12 +55,7 @@ class planeto{
     }
 
     get hasShield(){
-        if(this.shieldVal > 0){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return this.shieldVal > 0;
     }
 
     setOwner(owner){

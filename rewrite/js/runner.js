@@ -23,32 +23,41 @@
 
     //oldMapParser(gameMap);
 
-    var settings = {playing: true, botTurn: false, hideScores: false, spawnCount: 5, teams: 1, randShields: false, randBlocks: false, fog: false, multiShield: false, debug: false};
+    var settings = {playing: true, botTurn: false, hideScores: false, spawnCount: 3, teams: 1, randShields: false, randBlocks: false, fog: false, multiShield: false, debug: false};
 
-    for(var r = 1; r <= 3; r++){
+    for(var r = 1; r <= 8; r++){
         teams.push(new team(r, colList[r-1]));
     }
     //console.log(teams);
 
     players[0] = new player(1, teams[0], "Knob0", colList[0], false);
     players[0].team = teams[0];
-    teams[0].addPlayer(players[0]);
 
-    for(var r = 1; r <= 4; r++){
-        players.push(new player((r+1), teams[1], "Knob-" + r, colList[r], false));
+    for(var r = 1; r <= 15; r++){
+        players.push(new bot((r+1), {}, "Knob-" + r, colList[r], true, Math.floor(Math.random()*3)));
         //players[r].team = teams[r];
         //teams[r].addPlayer(players[r]);
     }
 
+    for(let r = 0; r < players.length - 1; r++){
+        let currentTeam = Math.floor(r / 2) + (r % 2);
+        //console.log(currentTeam + " - " + r);
+        players[r].team = teams[currentTeam];
+        teams[currentTeam].addPlayer(players[r]);
+    }
+    players[15].team = teams[0];
+    teams[0].addPlayer(players[15]);
+
     //console.log(players);
+    //console.log(teams);
 
-    players[1].team = teams[1];
-    players[2].team = teams[1];
-    teams[1].addPlayers([players[1], players[2]]);
+    // players[1].team = teams[1];
+    // players[2].team = teams[1];
+    // teams[1].addPlayers([players[1], players[2]]);
 
-    players[3].team = teams[2];
-    players[4].team = teams[2];
-    teams[2].addPlayers([players[3], players[4]]);
+    // players[3].team = teams[2];
+    // players[4].team = teams[2];
+    // teams[2].addPlayers([players[3], players[4]]);
 
     // teams[0].addPlayers([players[0]]);
     // teams[1].addPlayers([players[1], players[2]]);

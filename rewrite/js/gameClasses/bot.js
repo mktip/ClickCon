@@ -1,6 +1,6 @@
 class bot extends player{
-	constructor(id, tId, name, colour, tColour, cInverse, tChar, pChar, isBot, type){
-		super(id, tId, name, colour, tColour, cInverse, tChar, pChar, isBot);
+	constructor(id, team, name, colour, isBot, type){
+		super(id, team, name, colour, isBot);
 		this.type = type;
     	this.memory = {};
 	}
@@ -22,11 +22,11 @@ class bot extends player{
 
 	wildStep(map){
 		var hitList = [];
-		var owned = this.getOwned(map);
+		var owned = this.getTeamOwned(map);
 		for (var r = 0; r<owned.length; r++){
-			var cons = map[owned[r]].getConnections();
+			var cons = map[owned[r]].connections;
 			for (var t = 0; t<cons.length; t++){
-				if((map[cons[t]].getOwner() != this.id || map[cons[t]].getShield() !== true) && map[cons[t]].getLockLife() == 0){
+				if((map[cons[t]].teamId != this.id || map[cons[t]].hasShield != true) && map[cons[t]].lockLife == 0){
 					hitList.push(map[cons[t]]);
 				}
 			}
@@ -41,11 +41,11 @@ class bot extends player{
 
 	wildExpand(map){
 		var hitList = [];
-    	var owned = this.getOwned(map);
+    	var owned = this.getTeamOwned(map);
 		for (var r = 0; r<owned.length; r++){
-			var cons = map[owned[r]].getConnections();
+			var cons = map[owned[r]].connections;
 			for (var t = 0; t<cons.length; t++){
-				if(map[cons[t]].getOwner() != this.id && map[cons[t]].getLockLife() == 0){
+				if(map[cons[t]].teamId != this.id && map[cons[t]].lockLife == 0){
 					hitList.push(map[cons[t]]);
 				}
 			}
@@ -60,13 +60,13 @@ class bot extends player{
 
 	clusterGuard(map){
 		var hitList = [];
-		var owned = this.getOwned(map);
+		var owned = this.getTeamOwned(map);
 		var reps = owned.length;
 		for (var r = 0; r<reps; r++){
-			var cons = map[owned[r]].getConnections();
+			var cons = map[owned[r]].connections;
 			var creps = cons.length;
 			for (var t = 0; t<creps; t++){
-				if(map[cons[t]].getOwner() != this.id && map[cons[t]].getLockLife() == 0){
+				if(map[cons[t]].teamId != this.teamId && map[cons[t]].lockLife == 0){
 					hitList.push(map[cons[t]]);
 				}
 			}
@@ -77,10 +77,10 @@ class bot extends player{
 		reps = hitList.length;
 		for(var x = 0; x < reps; x++){
 			var cnt = 0;
-			var cons = hitList[x].getConnections();
+			var cons = hitList[x].connections;
 			var creps = cons.length;
 			for(var y = 0; y < creps; y++){
-				if(map[cons[y]].getOwner() == this.id){
+				if(map[cons[y]].teamId == this.teamId){
 					cnt++;
 				}
 			}

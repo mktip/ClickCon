@@ -34,7 +34,6 @@ function updateScores(gam){
         }
         gam.players[r].score = score;
     }
-    scoreboard(gam, )
 }
 
 function initMap(gam){
@@ -103,7 +102,6 @@ function move(tar, pla, map){
     if(tar.lockLife == 0){
         if(tar.hasShield == false){
             if(tar.teamId == pla.teamId){
-                map[tar.id].hasShield = true;
                 map[tar.id].shieldVal++;
             }
             else{
@@ -167,14 +165,16 @@ function checkHit(gam){
 }
 
 function checkProximity(targ, map, id){
-	var r;
-    var cons = targ.connections;
-    let reps = cons.length;
-		for(r=0; r < reps; r++){
-			if (map[cons[r]].teamId == id){
-				return true;
-			}
-		}
+    if(targ != 0){
+        var r;
+        var cons = targ.connections;
+        let reps = cons.length;
+            for(r=0; r < reps; r++){
+                if (map[cons[r]].teamId == id){
+                    return true;
+                }
+            }
+    }
 	return false;
 }
 
