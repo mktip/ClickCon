@@ -23,7 +23,7 @@
 
     //oldMapParser(gameMap);
 
-    var settings = {playing: true, botTurn: false, hideScores: false, spawnCount: 3, teams: 1, randShields: false, randBlocks: false, fog: false, multiShield: false, debug: false};
+    var settings = {playing: true, botTurn: false, botDelay: 125,  hideScores: false, spawnCount: 3, randShields: true, randBlocks: false, fog: false, multiShield: true, debug: false};
 
     for(var r = 1; r <= 8; r++){
         teams.push(new team(r, colList[r-1]));

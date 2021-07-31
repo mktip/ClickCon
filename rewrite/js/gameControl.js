@@ -97,8 +97,10 @@ function setSpawns(gam, spawnCount){
 
 }
 
-function move(tar, pla, map){
+function move(tar, gam){
     //console.log("move function");
+    let map = gam.map;
+    let pla = gam.currentPlayer;
     if(tar.lockLife == 0){
         if(tar.hasShield == false){
             if(tar.teamId == pla.teamId){
@@ -110,12 +112,22 @@ function move(tar, pla, map){
         }
         else{
             if(tar.teamId == pla.teamId){
-                if(map[tar.id].shieldVal < 9){
-                    map[tar.id].shieldVal++;
-                }              
+                if(gam.settings.multiShield){
+                    if(map[tar.id].shieldVal < 9){
+                        map[tar.id].shieldVal++;
+                    }   
+                }
+                else{
+                    map[tar.id].shieldVal = 1;
+                }                        
             }
             else if(map[tar.id].hasShield == true && map[tar.id].teamId != pla.teamId){
-                map[tar.id].shieldVal = 0;
+                if(gam.settings.multiShield){
+                    map[tar.id].shieldVal--;
+                }
+                else{
+                    map[tar.id].shieldVal = 0;
+                }            
             }    
         }
     }
@@ -139,19 +151,19 @@ function checkHit(gam){
                 if(map[r].lockLife == 0){
                     if (map[r].teamId == currentPlayer.teamId){
                         if(gam.settings.multiShield){
-                            move(map[r], currentPlayer, map);
+                            move(map[r], gam);
                             moved = true;
                         }
                         else{
                             if(!map[r].hasShield){
-                                move(map[r], currentPlayer, map);
+                                move(map[r], gam);
                                 moved = true;
                             }
                         }
                     }
                     else{
                         if(checkProximity(map[r], map, currentPlayer.teamId)){
-                            move(map[r], currentPlayer, map);
+                            move(map[r], gam);
                             moved = true;
                         }
                     }

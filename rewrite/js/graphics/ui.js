@@ -158,18 +158,34 @@ function setUpControls(gra, gam, art){
             gam.nextPlayer();
             scoreboard(gam);
             render(gra, art, gam);
-            while(gam.currentPlayer.isBot){
-                //console.log("bot!");
+            // while(gam.currentPlayer.isBot){
+            //     //console.log("bot!");
+            //     gam.settings.botTurn = true;
+            //     let turn = gam.currentPlayer.makeMove(gam.map);
+            //     if(checkProximity(turn, gam.map, gam.currentPlayer.teamId) || turn.teamId == gam.currentPlayer.teamId){
+            //         move(turn, gam);
+            //     }
+            //     updateScores(gam);
+            //     gam.nextPlayer();
+            //     scoreboard(gam);
+            //     render(gra, art, gam);
+            // }
+
+            let botCaller = setInterval(function(gam){
                 gam.settings.botTurn = true;
                 let turn = gam.currentPlayer.makeMove(gam.map);
                 if(checkProximity(turn, gam.map, gam.currentPlayer.teamId) || turn.teamId == gam.currentPlayer.teamId){
-                    move(turn, gam.currentPlayer, gam.map);
+                    move(turn, gam);
                 }
                 updateScores(gam);
                 gam.nextPlayer();
                 scoreboard(gam);
                 render(gra, art, gam);
-            }
+                if(gam.currentPlayer.isBot == false){
+                    clearInterval(botCaller);
+                    gam.settings.botTurn = false;
+                }
+            }, gam.settings.botDelay, gam);
             gam.settings.botTurn = false;
         }
         };
