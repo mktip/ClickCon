@@ -6,7 +6,7 @@
 // external method creates actual planetos out of the stored info
 function mapConverter(map){
     var out = [];
-    let neut = {id:0, colour: "#fff", team:{id:0, colour: "#fff"}}
+    let neut = {id:0, colour: "#fff", team:{id:0, colour: "#fff"}};
     for(var r = 0; r < map.length; r++){
         out[r] = new planeto(map[r][0], map[r][1], map[r][2], neut, 10, map[r][3]);
 	}
@@ -1153,6 +1153,35 @@ function galconGalaxy8(){
     [511, 2431.7, 2642.2, [242,310,356,393,490]]];
 
     return mapData;
+}
+
+function randomGen(w, h){
+	var map = [];
+	var coords = [];
+	var count;
+	var padding = 60;
+	var density = .45;
+	var r = 50;
+	var maxEdge = 200;
+	var minAng = Math.PI/8;
+	var cons = [];
+	
+	coords = getCoords(w, h, density, padding, r);
+
+	cons = convertEdges(filterEdges(minAng, maxEdge, coords, generateTriangles(coords)));
+	
+	for(var r=0; r<coords.length; r++){
+		var con;
+		if(cons[r] != undefined){
+			con = cons[r];
+		}
+		else{
+			con = [];
+		}
+		map.push(new planeto(r,coords[r][0], coords[r][1], {id:0, colour: "#fff", team:{id:0, colour: "#fff"}}, 10, con));
+	}
+    console.log(map);
+	return map;
 }
 
 function transferMap(){

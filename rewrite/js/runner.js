@@ -19,7 +19,7 @@
     inGame();
     var teams = [];
     var players = [];
-    var gameMap = mapConverter(praiseJibbers());
+    var gameMap = randomGen(1500,1500); //mapConverter(galconGalaxy7());
 
     //oldMapParser(gameMap);
 

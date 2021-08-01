@@ -58,7 +58,7 @@ function convertEdges(edges){
 function getCoords(w, h, density, padding, r){
     var plans = [];
 
-	//plans = generateChunk(w,h, density, padding, r);
+	plans = generateChunk(w,h, density, padding, r);
 	//plans = ring(w,h,density,padding,r);
 	//plans = clusters(w,h,density, padding, r, -1, 500);
 	// var type = Math.floor(Math.random() * 5);

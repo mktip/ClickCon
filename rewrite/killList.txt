@@ -34,12 +34,10 @@ v1.5
  
 v1.4
  -Better bots
- -Teams mode
  -Borg mode
  -Fog mode: "Soft" and "Hard" fog
 	-"Frog" mode
  -Tombstone planetos
- -Bigger shields (numerical)
  -Tutorial Page
 
 v1.3
@@ -80,6 +78,8 @@ X-bot
 	 -name input
 	 -two buttons to add bot or player
 	 -bot button pull up menu to select type
+	 -Collapsible scoreboard and move log
+	 -Scoreboard to support teams mode
 
  -Map Editor
 	 -generate random planets
@@ -87,6 +87,8 @@ X-bot
 
  -Roadmap
  -BFS FOR RANDOM MAPS	
+X-Teams mode
+X-Bigger shields (numerical)
  -Toggle for local multiplayer
  -Update documentation for bots
 

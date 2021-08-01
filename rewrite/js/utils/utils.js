@@ -46,7 +46,7 @@ function sleep(leng){
 }
 function mapDataParser(old){
 	let reps = old.length;
-	for(var r = 0; r < reps; r++){
+	for(let r = 0; r < reps; r++){
 		old[r][0] = r;
 		console.log("["+old[r][0]+", "+old[r][1] + ", " + old[r][2] + ", " + "["+old[r][3].toString()+"]],");
 	}
