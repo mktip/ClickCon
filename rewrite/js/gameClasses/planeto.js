@@ -5,7 +5,7 @@ class planeto{
         this.y = y;
         this.owner = owner;
         this.value = 1; //To be used in future
-        this.prod = 0; //For "prod" mode
+        this.defense = 0; //For "prod" mode
         this.radius = radius;
         this.connections = cons;
         this.shieldVal = 0;
@@ -149,7 +149,22 @@ class planeto{
                 G.fillStyle = "#000";
                 G.strokeStyle = "#000";
                 G.fillRect(this.x-8, this.y-38, 15, 15);
-                art.drawText(this.x-5, this.y-27, this.shieldVal, "bold 15px Arial", "#0ff");            }
+                art.drawText(this.x-5, this.y-27, this.shieldVal, "bold 15px Arial", "#0ff");            
+            }
+        }
+
+        if(settings.prodMode){
+            if(this.ownerId != 0){
+                if(this.lockLife > 0){
+                    art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Arial", "#fff");
+                }
+                else{
+                    art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Arial", this.cInverse);
+                }
+            }
+            else{
+                art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Arial", "#000")
+            }
         }
     
         if(settings.debug || showIDs){

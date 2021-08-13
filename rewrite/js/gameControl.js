@@ -41,6 +41,15 @@ function initMap(gam){
     let mapLength = map.length;
     let settings = gam.settings;
 
+    if(settings.prodMode){
+        let count = map.length;
+        for(let r = 0; r < count; r++){
+            map[r].value = Math.floor(Math.random()*3) + 1;
+            map[r].defense = Math.floor(Math.random()*4);
+            map[r].radius = 5 + map[r].value * 2;
+        }
+    }
+
     setSpawns(gam, settings.spawnCount);
 
     if(settings.randShields){
@@ -75,6 +84,12 @@ function setSpawns(gam, spawnCount){
     if(maxSpawns * gam.teams.length > map.length){
         maxSpawns = Math.floor(map.length / gam.teams.length);
     }
+    let valueList = [];
+    if(gam.settings.prodMode){
+        for(let r = 0; r < maxSpawns; r++){
+            valueList.push(Math.floor(Math.random()*3)+1);
+        }
+    }
     let tempMap = map.slice();
     for(let r = 0; r < teamCount; r++){
         var dispensed = 0;
@@ -89,6 +104,11 @@ function setSpawns(gam, spawnCount){
                     let ranNum = Math.floor(Math.random()*tempMap.length);
                     let pick = tempMap[ranNum].id;
                     map[pick].setOwner(currentTeam[t]);
+                    if(gam.settings.prodMode){
+                        map[pick].defense = 5;
+                        map[pick].value = valueList[dispensed-1];
+                        map[pick].radius = 5 + map[pick].value * 2;
+                    }
                     tempMap = removeAtIndex(tempMap, ranNum);
                 }
             }
@@ -101,35 +121,40 @@ function move(tar, gam){
     //console.log("move function");
     let map = gam.map;
     let pla = gam.currentPlayer;
-    if(tar.lockLife == 0){
-        if(tar.hasShield == false){
-            if(tar.teamId == pla.teamId){
-                map[tar.id].shieldVal++;
+    if(!gam.settings.prodMode){
+        if(tar.lockLife == 0){
+            if(tar.hasShield == false){
+                if(tar.teamId == pla.teamId){
+                    map[tar.id].shieldVal++;
+                }
+                else{
+                    map[tar.id].setOwner(pla);
+                }
             }
             else{
-                map[tar.id].setOwner(pla);
-            }
-        }
-        else{
-            if(tar.teamId == pla.teamId){
-                if(gam.settings.multiShield){
-                    if(map[tar.id].shieldVal < 9){
-                        map[tar.id].shieldVal++;
-                    }   
+                if(tar.teamId == pla.teamId){
+                    if(gam.settings.multiShield){
+                        if(map[tar.id].shieldVal < 9){
+                            map[tar.id].shieldVal++;
+                        }   
+                    }
+                    else{
+                        map[tar.id].shieldVal = 1;
+                    }                        
                 }
-                else{
-                    map[tar.id].shieldVal = 1;
-                }                        
+                else if(map[tar.id].hasShield == true && map[tar.id].teamId != pla.teamId){
+                    if(gam.settings.multiShield){
+                        map[tar.id].shieldVal--;
+                    }
+                    else{
+                        map[tar.id].shieldVal = 0;
+                    }            
+                }    
             }
-            else if(map[tar.id].hasShield == true && map[tar.id].teamId != pla.teamId){
-                if(gam.settings.multiShield){
-                    map[tar.id].shieldVal--;
-                }
-                else{
-                    map[tar.id].shieldVal = 0;
-                }            
-            }    
-        }
+        } 
+    }
+    else{
+        makeAttack(gam, getAttackValue(gam), tar);
     }
     //console.log(map);
 }
