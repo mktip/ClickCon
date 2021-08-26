@@ -46,20 +46,21 @@
     inGame();
     var teams = [];
     var players = [];
-    var gameMap = randomGen(1500,1500); //mapConverter(galconGalaxy7());
+    var gameMap = randomGen(2500,2500);
+    //var gameMap = mapConverter(galconGalaxy8());
 
 
-    var settings = {playing: true, botTurn: false, botDelay: 125,  hideScores: false, spawnCount: 3, randShields: true, randBlocks: false, fog: false, multiShield: false, prodMode: true, debug: false};
+    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: 1, randShields: true, randBlocks: false, fog: false, multiShield: false, prodMode: true, maxDefense: 5, debug: false};
 
-    for(var r = 1; r <= 4; r++){
+    for(var r = 1; r <= 6; r++){
         teams.push(new team(r, colList[r-1]));
     }
     //console.log(teams);
 
-    players[0] = new player(1, teams[0], "Knob0", colList[0], false);
+    players[0] = new player(1, teams[0], "Knob-Player", colList[0], false);
     players[0].team = teams[0];
 
-    for(var r = 1; r <= 3; r++){
+    for(var r = 1; r <= 5; r++){
         players.push(new bot((r+1), {}, "Knob-" + r, colList[r], true, Math.floor(Math.random()*3)));
         //players[r].team = teams[r];
         //teams[r].addPlayer(players[r]);
@@ -82,7 +83,7 @@
     scoreboard(gameA, settings.hideScores);
     setUpControls(g, gameA, arty, settings);
     //g.scale(.15, .15);
-    //console.log(gameA.teams);
+    console.log(gameA.teams);
     updateDefense(gameA);
     render(g, arty, gameA);
         </script>

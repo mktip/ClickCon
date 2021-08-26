@@ -8,7 +8,7 @@ function addElement(id, type, parent, innards){
 function startMenu(cols){
     //Create Holders
     var master = document.getElementById("masterDiv");
-    var colors = cols;
+    var colors = cols.slice();
 
     addElement("buttonHolder", "div", master);
     addElement("playerHolder", "div", master);
@@ -26,7 +26,7 @@ function startMenu(cols){
     //Player Div Holder
     addElement("leftHolder", "div", playerHolder);
     addElement("rightHolder", "div", playerHolder);
-    for(var r = 0; r < 16 ; r++){
+    for(var r = 0; r < 4 ; r++){
         if(r%2 == 0){
             addPlayerBlob(r, false, colors, true);
         }
@@ -154,30 +154,30 @@ function setUpControls(gra, gam, art){
     mapCan.onclick = function(event){
         event.preventDefault();
         if(checkHit(gam)){
-            updateScores(gam);
-            gam.nextPlayer();
-            scoreboard(gam);
-            render(gra, art, gam);
+            setupNextPlayer(gam, art, gra);
             
-            let botCaller = setInterval(function(gam){
-                if(gam.settings.prodMode) updateDefense(gam);
-                gam.settings.botTurn = true;
-                let turn = gam.currentPlayer.makeMove(gam.map);
-                if(checkProximity(turn, gam.map, gam.currentPlayer.teamId) || turn.teamId == gam.currentPlayer.teamId){
-                    move(turn, gam);
-                }
-                updateScores(gam);
-                gam.nextPlayer();
-                scoreboard(gam);
-                render(gra, art, gam);
-                if(gam.currentPlayer.isBot == false){
-                    clearInterval(botCaller);
-                    gam.settings.botTurn = false;
+            if(gam.currentPlayer.isBot){
+                let botCaller = setInterval(function(gam){
                     if(gam.settings.prodMode) updateDefense(gam);
-                    render(gra, art, gam);
-                }
-            }, gam.settings.botDelay, gam);
-            gam.settings.botTurn = false;
+                    gam.settings.botTurn = true;
+                    let turn = gam.currentPlayer.makeMove(gam.map);
+                    if(checkProximity(turn, gam.map, gam.currentPlayer.teamId) || turn.teamId == gam.currentPlayer.teamId){
+                        move(turn, gam);
+                    }
+                    setupNextPlayer(gam, art, gra);
+                    if(gam.currentPlayer.isBot == false){
+                        clearInterval(botCaller);
+                        gam.settings.botTurn = false;
+                        if(gam.settings.prodMode) updateDefense(gam);
+                        render(gra, art, gam);
+                    }
+                }, gam.settings.botDelay, gam);
+                gam.settings.botTurn = false;
+            }
+            else{
+                if(gam.settings.prodMode) updateDefense(gam);
+            }
+            
         }
         };
 }
@@ -227,8 +227,9 @@ function addPlayerBlob(blobNum, pType, cols, side){
     addElement(("pDiv" + blobNum), "div", curr, "Player!");
     toggleBlobType(curr, pType, blobNum);
     curr.className = "playerBlob";
-    curr.style.background = cols[0][0];
-    curr.style.border = cols[0][0];
+    curr.style.background = cols[0].colour;
+    curr.style.color = cols[0].inverse;
+    curr.style.border = cols[0].colour;
 }
 
 function toggleBlobType(blob, pType, num){

@@ -3,7 +3,7 @@ function makeAttack(gam, value, target){
         target.defense += value;
     }
     else{
-        console.log(target.defense + " vs " + value + " at " + target.id);
+        //console.log(target.defense + " vs " + value + " at " + target.id);
         if(value > target.defense){
             target.setOwner(gam.currentPlayer);
             target.defense = value - target.defense;
@@ -41,5 +41,22 @@ function updateDefense(gam){
    let owned = gam.currentPlayer.getTeamOwned(gam.map);
    for(let r = 0; r < owned.length; r++){
       gam.map[owned[r]].defense += gam.map[owned[r]].value;
+    }
+}
+
+function calcDefense(gam, playerID){
+    let owned = gam.players[playerID].getTeamOwned(gam.map);
+    let total = 0;
+    for(let r = 0; r < owned.length; r++){
+        total += gam.map[owned[r]].defense;
+    }
+    return total;
+}
+
+function printAllDefense(gam){
+    let count = gam.teams.length;
+    for(let r = 0; r < count; r++){
+        let tempDef = calcDefense(gam, r);
+        console.log("Team " + r + ": " + tempDef);
     }
 }

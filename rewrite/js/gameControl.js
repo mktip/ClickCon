@@ -18,6 +18,13 @@ function updateLockLife(map){
     }
 }
 
+function setupNextPlayer(gam, art, gra){
+    updateScores(gam);
+    gam.nextPlayer();
+    scoreboard(gam);
+    render(gra, art, gam);
+}
+
 function updateValues(map){
 
 }
@@ -45,7 +52,7 @@ function initMap(gam){
         let count = map.length;
         for(let r = 0; r < count; r++){
             map[r].value = Math.floor(Math.random()*3) + 1;
-            map[r].defense = Math.floor(Math.random()*4);
+            map[r].defense = Math.floor(Math.random()*gam.settings.maxDefense);
             map[r].radius = 5 + map[r].value * 2;
         }
     }
@@ -85,9 +92,11 @@ function setSpawns(gam, spawnCount){
         maxSpawns = Math.floor(map.length / gam.teams.length);
     }
     let valueList = [];
+    let defenseList = [];
     if(gam.settings.prodMode){
         for(let r = 0; r < maxSpawns; r++){
             valueList.push(Math.floor(Math.random()*3)+1);
+            defenseList.push(Math.floor(Math.random()*gam.settings.maxDefense));
         }
     }
     let tempMap = map.slice();
@@ -105,7 +114,7 @@ function setSpawns(gam, spawnCount){
                     let pick = tempMap[ranNum].id;
                     map[pick].setOwner(currentTeam[t]);
                     if(gam.settings.prodMode){
-                        map[pick].defense = 5;
+                        map[pick].defense = defenseList[dispensed-1];
                         map[pick].value = valueList[dispensed-1];
                         map[pick].radius = 5 + map[pick].value * 2;
                     }

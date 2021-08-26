@@ -22,6 +22,40 @@
 </head>
 <body>
     <div id=masterDiv>
+        <div id="buttonHolder" class="bigBox">
+            <button id="StartBtn">Start!</button>
+            <button id="BotWarBtn">Start Botwar!</button>
+        </div>
+
+        <div id="playerHolder" class="bigBox">
+
+        </div>
+
+        <div id="settingsHolder" class="bigBox">
+            <div id="drpHolder">
+                <label for="spawnDrp">Spawn Count: </label>
+                <select id="spawnDrp">
+                    <option>Random Count</option>
+                    <option>1 Spawn</option>
+                    <option>2 Spawns</option>
+                    <option>3 Spawns</option>
+                    <option>5 Spawns</option>
+                    <option>7 Spawns</option>
+                    <option>Fill</option>
+                </select>
+                <label for="roundCount">Round Count: </label>
+                <input id="roundCount" value=150 type="number">
+            </div>
+
+            <div id="rdbHolder">
+                <input type="checkbox" id="shields">
+                <input type="checkbox" id="roadblock">
+                <input type="checkbox">
+                <input type="checkbox">
+            </div>
+
+        </div>
+
         <script src="../js/runner.js"></script>
     </div>
 </body>
