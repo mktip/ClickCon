@@ -1,10 +1,12 @@
 #scores, #controls{
     border: 3px solid rgb(175, 174, 174);
     border-radius: 3px;
-    width: 30%;
+    width: 10%;
     font: bold;
+    display: inline-block;
 }
 #map{
     border: 3px solid rgb(175, 174, 174);
     border-radius: 3px;
+    display: inline-block;
 }

@@ -12,10 +12,10 @@ function startMenu(cols){
 
     addElement("buttonHolder", "div", master);
     addElement("playerHolder", "div", master);
-    addElement("settingsMaster", "div", master);
+    addElement("settingsHolder", "div", master);
     buttonHolder.className = "bigBox";
     playerHolder.className = "bigBox";
-    settingsMaster.className = "bigBox";
+    settingsHolder.className = "bigBox";
 
     //Create Contents per holder
 
@@ -26,7 +26,7 @@ function startMenu(cols){
     //Player Div Holder
     addElement("leftHolder", "div", playerHolder);
     addElement("rightHolder", "div", playerHolder);
-    for(var r = 0; r < 4 ; r++){
+    for(var r = 0; r < 16 ; r++){
         if(r%2 == 0){
             addPlayerBlob(r, false, colors, true);
         }
@@ -39,8 +39,8 @@ function startMenu(cols){
     toggleBlobType(blob0, true, 0); //Toggle first blob as a player
 
     //Settings Holder
-    addElement("drpHolder", "div", settingsMaster);
-    addElement("rdbHolder", "div", settingsMaster);
+    addElement("drpHolder", "div", settingsHolder);
+    addElement("rdbHolder", "div", settingsHolder);
 
     //Spawn Dropdown
     addElement("spawnHolder", "div", drpHolder, "Spawn Count: ");
@@ -150,10 +150,15 @@ function setUpControls(gra, gam, art){
          event.preventDefault();
          render(gra, art, gam);
         };
+
+    surrBtn.onclick = function(event){
+        event.preventDefault(); 
+        surrender(gam, art, gra);
+    };
     
     mapCan.onclick = function(event){
         event.preventDefault();
-        if(checkHit(gam)){
+        if(checkHit(gam) || gam.currentPlayer.surrendered){
             setupNextPlayer(gam, art, gra);
             
             if(gam.currentPlayer.isBot){

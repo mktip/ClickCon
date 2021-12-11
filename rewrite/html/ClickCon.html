@@ -25,7 +25,7 @@
         <div id="buttonHolder" class="bigBox">
             <button id="StartBtn">Start!</button>
             <button id="BotWarBtn">Start Botwar!</button>
-        </div>
+            </div>
 
         <div id="playerHolder" class="bigBox">
 
@@ -33,29 +33,34 @@
 
         <div id="settingsHolder" class="bigBox">
             <div id="drpHolder">
-                <label for="spawnDrp">Spawn Count: </label>
+            <label for="spawnDrp">Spawn Count: </label>
                 <select id="spawnDrp">
-                    <option>Random Count</option>
-                    <option>1 Spawn</option>
-                    <option>2 Spawns</option>
-                    <option>3 Spawns</option>
-                    <option>5 Spawns</option>
-                    <option>7 Spawns</option>
-                    <option>Fill</option>
-                </select>
-                <label for="roundCount">Round Count: </label>
-                <input id="roundCount" value=150 type="number">
-            </div>
-
-            <div id="rdbHolder">
-                <input type="checkbox" id="shields">
-                <input type="checkbox" id="roadblock">
-                <input type="checkbox">
-                <input type="checkbox">
-            </div>
-
+                <option>Random Count</option>
+                <option>1 Spawn</option>
+                <option>2 Spawns</option>
+                <option>3 Spawns</option>
+                <option>5 Spawns</option>
+                <option>7 Spawns</option>
+                <option>Fill</option>
+            </select>
+            <label for="roundCount">Round Count: </label>
+            <input id="roundCount" value=150 type="number">
         </div>
 
+        <div id="rdbHolder">
+            <label for="shields">Random Shields: </label>
+            <input type="checkbox" id="shields">
+            <label for="roadblock">Random Locked Planetos: </label>
+            <input type="checkbox" id="roadblock">
+            <label for="lockmode">Formation Lock Mode: </label>
+            <input type="checkbox" id="lockMode">
+            <label for="hideScores">Hide Scores: </label>
+            <input type="checkbox" id="hideScores">
+        </div>
+
+        </div>
         <script src="../js/runner.js"></script>
     </div>
 </body>
+
+

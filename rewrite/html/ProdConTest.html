@@ -46,13 +46,15 @@
     inGame();
     var teams = [];
     var players = [];
-    var gameMap = randomGen(2500,2500);
+    var gameMap = randomGen(1750,1750);
     //var gameMap = mapConverter(galconGalaxy8());
+    var teamCount = 16; //For testing convenience only******
+    var botCount = 15; //For testing convenience only******
 
 
     var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: 1, randShields: true, randBlocks: false, fog: false, multiShield: false, prodMode: true, maxDefense: 5, debug: false};
-
-    for(var r = 1; r <= 6; r++){
+    
+    for(var r = 1; r <= teamCount; r++){
         teams.push(new team(r, colList[r-1]));
     }
     //console.log(teams);
@@ -60,16 +62,29 @@
     players[0] = new player(1, teams[0], "Knob-Player", colList[0], false);
     players[0].team = teams[0];
 
-    for(var r = 1; r <= 5; r++){
+    for(var r = 1; r <= botCount; r++){
         players.push(new bot((r+1), {}, "Knob-" + r, colList[r], true, Math.floor(Math.random()*3)));
-        //players[r].team = teams[r];
-        //teams[r].addPlayer(players[r]);
-    }
-
-    for(let r = 0; r < players.length; r++){
         players[r].team = teams[r];
         teams[r].addPlayer(players[r]);
     }
+
+    //players[1].team = teams[1];
+    //players[2].team = teams[0];
+    //players[3].team = teams[1];
+    //players[4].team = teams[0];
+    //players[5].team = teams[1];
+
+    teams[0].addPlayer(players[0]);
+    //teams[1].addPlayer(players[1]);
+    //teams[0].addPlayer(players[2]);
+    //teams[1].addPlayer(players[3]);
+    //teams[0].addPlayer(players[4]);
+    //teams[1].addPlayer(players[5]);
+
+    // for(let r = 0; r < players.length; r++){
+    //     players[r].team = teams[r];
+    //     teams[r].addPlayer(players[r]);
+    // }
 
     var gameA = new game(teams, players, gameMap, settings);
 
@@ -79,11 +94,12 @@
 
     var g = mapCan.getContext("2d");
     var arty = new art(g);
+    
     setCanvasDims(gameMap);
     scoreboard(gameA, settings.hideScores);
     setUpControls(g, gameA, arty, settings);
     //g.scale(.15, .15);
-    console.log(gameA.teams);
+    //console.log(gameA.teams);
     updateDefense(gameA);
     render(g, arty, gameA);
         </script>

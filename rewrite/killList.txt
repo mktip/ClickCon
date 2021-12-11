@@ -16,11 +16,13 @@ v?
 		-Custom made map with a certain setup
 	-Mission:
 		-Each player/team has a set of planets to take on the map, first to do so wins
+	-Pop:
+		-Every turn cycle a random planet is "popped" setting to neutral
 -formation generation tweaks, no duplicate planetos
 -Sound effects
 -Varied planeto values
 -Skins and themes
--ProdCon
+X-ProdCon
 
 v2.0
  -Fearsome multiplayer

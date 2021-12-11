@@ -1,5 +1,5 @@
 function render(G, art, gam){
-    G.fillStyle = "#000";
+    G.fillStyle = "#222";
     G.fillRect(0,0,mapCan.width, mapCan.height);
     let colourBlind = colourblindToggle.checked;
     let showIDs = IDToggle.checked;
@@ -222,6 +222,29 @@ function checkProximity(targ, map, id){
             }
     }
 	return false;
+}
+
+function surrender(gam, art, gra){
+    if(gam.settings.botTurn == false){
+        gam.currentPlayer.surrendered = true;
+        console.log("inside surrender");
+        let list = gam.currentPlayer.getOwned(gam.map);
+        let tmpTeam = gam.currentPlayer.team.players;
+        if(gam.currentPlayer.team.players.length > 1){
+             tmpTeam = removeItem(tmpTeam, gam.currentPlayer);
+             for(let r = 0; r < list.length; r++){
+                 let pick = Math.round(Math.random() * tmpTeam.length);
+                 gam.map[list[r]].setOwner(tmpTeam(pick));
+             }
+        }
+        else{
+            for(let r = 0; r < list.length; r++){
+                gam.map[list[r]].setOwner({id:0, colour: "#fff", team:{id:0, colour: "#fff"}});
+            }
+        }    
+    }
+    //setupNextPlayer(gam, art, gra);
+    mapCan.click();
 }
 
 function tstScope(){

@@ -6,6 +6,7 @@ class player{
         this.colPack = colour;
         this.score = 0;
         this.isBot = isBot;
+        this.surrendered = false;
     }
 
     getOwned(map){
