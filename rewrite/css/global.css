@@ -1,0 +1,8 @@
+@import"inGame.css";
+@import"startMenu.css";
+
+body {
+	color:#fff;
+	background-color:#222;
+	font-size:20px;
+}

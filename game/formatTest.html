@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <head>
 	<title>ClickCon!</title>
-	<script src='planeto.js'></script>
-	<script src='utils/map.js'></script>
-	<script src='game.js'></script>
-	<script src='bot.js'></script>
-	<script src='utils/utils.js'></script>
-	<script src='utils/delaunator.js'></script>
+	<script src='./js/graphics/ui.js'></script>
+	<script src='./js/utils/utils.js'></script>
 </head>
 <style>
 	body {
@@ -22,23 +18,16 @@
 	.content{
 	margin:0 auto;
 	display:inline-block;
+	}
 </style>
-<!-- <span> -->
-	<!-- <form size="3"> -->
-		<!-- <fieldset  id="board" > -->
-		<!-- <legend>Score Box</legend> -->
-		<!-- </fieldset> -->
-	<!-- </form> -->
-<!-- </span> -->
-<!-- <span class="content" id='thingy'> -->
-	<!-- <canvas id='canvas' width='1500' height='1500' onclick="checkHit(map)"></canvas> -->
-<!-- </span> -->
+
 <body>
 </body>
 <script>
-
-console.log("started");
-var map = randomGen();
-//var dely = Delaunator.from(map);
-render(map);
+		var colList = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00cccc", "#e65c00", "#2e5cb8", "#800080","#663300", "#ff8080","#00802b", "#008080","#800000","#666699","#cc9900"];
+		//var pCount = 4;
+		//startMenu(colList);
+		//addPlayer(document.body, 3, colList[3]);
+		//colList = removeAtIndex(colList, 3);
+		ColourPicker(document.body, document.body);
 </script>

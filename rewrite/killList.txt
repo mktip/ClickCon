@@ -1,0 +1,127 @@
+kill list (update log)
+
+v?
+-gamemodes:
+	-Chaos mode:
+		-Warp planeto, lock planeto, mine planeto
+	-Hill:
+		-Central hill, everyone who doesnt own at end of turn cycle gets random number of planetos scrambled
+	-Plague:
+		-Unscored plague bot gets one less move then there are players each turn, occasionally getting as many as there are players
+	-Domination:
+		-Max players, big map, goes until someone owns too much or everyone gives up
+	-Crumble:
+		-Map edges slowly disappear with each turn until turn limit reached
+	-Scenario:
+		-Custom made map with a certain setup
+	-Mission:
+		-Each player/team has a set of planets to take on the map, first to do so wins
+	-Pop:
+		-Every turn cycle a random planet is "popped" setting to neutral
+-formation generation tweaks, no duplicate planetos
+-Sound effects
+-Varied planeto values
+-Skins and themes
+X-ProdCon
+
+v2.0
+ -Fearsome multiplayer
+ 
+v1.5
+ -Random Gen Additions
+	 -Cluster type
+	 -Chunk type
+	 -Spiral type
+	 -Customisable Settings
+ 
+v1.4
+ -Better bots
+ -Borg mode
+ -Fog mode: "Soft" and "Hard" fog
+	-"Frog" mode
+ -Tombstone planetos
+ -Tutorial Page
+
+v1.3
+ -Beautify!
+ -Toggle Graphics
+ -Move log
+ -Scale / zoom features
+ 
+v1.2(The overhaul update)
+X-planeto
+    X-shield
+	X-lock
+	X-teams graphics
+	X-render method to include formations
+	X-colourblind compatibility
+
+X-player
+	X-isBot
+	X-teamID
+
+ -gameloop
+	X-while loop to cycle through players
+	 -support for teams mode in scoreboard render
+	X-UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
+	 -lighter formation checker
+
+ -map generation
+	 -BFS
+	X-set to box maps only until random gen update
+
+X-bot
+	X-one bot class, prototype methods
+	X-memory var
+
+ -interface
+	 -colour Toggle
+	X-colourblind mode
+	 -name input
+	 -two buttons to add bot or player
+	 -bot button pull up menu to select type
+	 -Collapsible scoreboard and move log
+	 -Scoreboard to support teams mode
+
+ -Map Editor
+	 -generate random planets
+	 -shift and scale buttons
+
+ -Roadmap
+ -BFS FOR RANDOM MAPS	
+X-Teams mode
+X-Bigger shields (numerical)
+ -Toggle for local multiplayer
+ -Update documentation for bots
+
+
+v1.1.2
+X-Mini patch to fix random Maps
+
+v1.1.1
+X-Formations graphics fixes(linked formations)
+ 
+v1.1
+X-Random map generation
+X-Maps
+X-Formations Bug
+
+v1.0.3
+X-Update documentation
+
+v1.0.2
+X-Fixed another spawn setting bug
+ 
+v1.0.1
+X-Mini bug fixes: fill setting and supporter names
+ 
+v1.0
+X-Shields
+X-Lock life
+X-Formations
+X-Bot timer
+X-Random roadblocks
+X-Random shields
+X-Formation lock mode
+X-Hide scores
+X-Spawn types

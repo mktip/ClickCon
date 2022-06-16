@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <head>
 	<title>Planeto Demonstration</title>
-	<script src='planeto.js'></script>
-	<script src='utils/map.js'></script>
-	<script src='utils/utils.js'></script>
-	<script src='utils/delaunator.js'></script>
-	<script src='utils/randMapBuilder.js'></script>
-	<script src='utils/graphics.js'></script>
+	<script src='js/planeto.js'></script>
+	<script src='js/utils/map.js'></script>
+	<script src='js/utils/utils.js'></script>
+	<script src='js/utils/delaunator.js'></script>
+	<script src='js/utils/randMapBuilder.js'></script>
+	<script src='js/graphics/graphics.js'></script>
 </head>
 <style>
 	body {
@@ -15,15 +15,17 @@
 </style>
 <canvas id='canvas'></canvas>
 <script>
-var zoomScale = 1;
-var zoomChange = 0;
-var boners = [];
-var w = 1500, h = 1500;
-var map = randomGen(w, h);
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-canvas.width = w;
-canvas.height = h;
-var fog = false;
-render(false, ctx, map);
+	(function(){
+		var zoomScale = 1;
+		var zoomChange = 0;
+		var boners = [];
+		var w = 10000, h = 10000;
+		var map = randomGen(w, h);
+		var canvas = document.getElementById('canvas');
+		var ctx = canvas.getContext('2d');
+		canvas.width = w;
+		canvas.height = h;
+		var fog = false;
+		render(false, ctx, map);
+	})();
 </script>
