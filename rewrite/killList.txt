@@ -7,7 +7,7 @@ v?
 	-Hill:
 		-Central hill, everyone who doesnt own at end of turn cycle gets random number of planetos scrambled
 	-Plague:
-		-Unscored plague bot gets one less move then there are players each turn, occasionally getting as many as there are players
+		-Plague bot gets a % of up to playerCount+1 moves depending on percentage of map it owns, essentially gets stronger as it gets bigger
 	-Domination:
 		-Max players, big map, goes until someone owns too much or everyone gives up
 	-Crumble:
