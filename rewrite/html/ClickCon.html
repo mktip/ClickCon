@@ -27,8 +27,7 @@
     <div id="masterDivMenu">
         <div id="buttonHolder" class="bigBox">
             <button id="StartBtn">Start!</button>
-            <button id="BotWarBtn">Start Botwar!</button>
-            </div>
+        </div>
 
         <div id="playerHolder" class="bigBox">
 
@@ -73,6 +72,15 @@
                     <label for="hideScores">Hide Scores: </label>
                     <input type="checkbox" id="hideScores">
                 </div>
+                <div id="botSpeedHolder">
+                    <label for="botSpeedDrp">Bot Speed: </label>
+                    <select id="botSpeedDrp">
+                        <option>1x</option>
+                        <option>2x</option>
+                        <option>4x</option>
+                        <option>No Delay</option>
+                    </select>
+                </div>
             </div>
             <div id="rightSettings" style="float:right">
                 <label for="mapSelect">Select Map: </label>
@@ -92,7 +100,7 @@
                     <option>Random Gen</option>
                 </select>
                 <canvas id="previewCanvas">
-                    
+
                 </canvas>
             </div>
         </div>

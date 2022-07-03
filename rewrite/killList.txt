@@ -75,6 +75,7 @@ X-player
 	X-memory var
 
  -interface
+	 -bot speed toggle
 	 -colour Toggle
 	X-colourblind mode
 	X-name input
