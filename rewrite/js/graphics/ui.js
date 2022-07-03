@@ -6,99 +6,31 @@ function addElement(id, type, parent, innards){
 }
 
 function startMenu(cols){
-    //Create Holders
-    var master = document.getElementById("masterDiv");
+    //Hide game state, show menu state
+    document.getElementById("masterGameDiv").style.display = "none";
+    var master = document.getElementById("masterDivMenu");
+    master.style.display = "block";
     var colors = cols.slice();
 
-    addElement("buttonHolder", "div", master);
-    addElement("playerHolder", "div", master);
-    addElement("settingsHolder", "div", master);
-    buttonHolder.className = "bigBox";
-    playerHolder.className = "bigBox";
-    settingsHolder.className = "bigBox";
-
-    //Create Contents per holder
-
-    //Start Button Holder / Botwar Holder
-    addElement("startBtn", "button", buttonHolder, "Start");
-    addElement("botWarBtn", "button", buttonHolder, "Start Bot War");
-
-    //Player Div Holder
+    //Populate the player blobs
     addElement("leftHolder", "div", playerHolder);
     addElement("rightHolder", "div", playerHolder);
     for(var r = 0; r < 16 ; r++){
         if(r%2 == 0){
-            addPlayerBlob(r, false, colors, true);
+            addPlayerBlob(r, false, colors[r], true);
         }
         else{
-            addPlayerBlob(r, false, colors, false);
+            addPlayerBlob(r, false, colors[r], false);
         }
 
-        colors = removeAtIndex(colors, 0);
+        //colors = removeAtIndex(colors, 0);
     }
-    toggleBlobType(blob0, true, 0); //Toggle first blob as a player
-
-    //Settings Holder
-    addElement("drpHolder", "div", settingsHolder);
-    addElement("rdbHolder", "div", settingsHolder);
-
-    //Spawn Dropdown
-    addElement("spawnHolder", "div", drpHolder, "Spawn Count: ");
-    addElement("spawnDrp", "select", spawnHolder);
-	var spawnArr = ["Random Count", "1 Spawn", "2 Spawns", "3 Spawns", "5 spawns", "7 spawns", "Fill"];
-	for(var x = 0; x<spawnArr.length; x++){
-		addElement("opt"+ x, "option", spawnDrp, spawnArr[x]);
-    }
-    
-    //Radio Buttons
-    addElement("shiTxt", "label", rdbHolder, "Random Shields");
-	addElement("shields", "input", rdbHolder);
-	shields.type = "checkbox";
-	shiTxt.htmlFor = 'shields';
-
-	addElement("roaTxt", "label", rdbHolder, "<br>Random Roadblocks");
-	addElement("roadblocks", "input", rdbHolder);
-	roadblocks.type = "checkbox";
-	roaTxt.htmlFor = 'roadblocks';
-
-	addElement("locTxt", "label", rdbHolder, "<br>Formation Lock Mode");
-	addElement("lockMode", "input", rdbHolder);
-	document.getElementById("lockMode").type = "checkbox";
-	locTxt.htmlFor = 'lockMode';
-
-	addElement("scoTxt", "label", rdbHolder, "<br>Hide Scores");
-	addElement("hideScores", "input", rdbHolder);
-	hideScores.type = "checkbox";
-	scoTxt.htmlFor = 'hideScores';
-
-	//addElement("fogTxt", "label", rdbHolder, "<br>Fog Mode");
-	//addElement("fogMode", "input", rdbHolder);
-	//fogMode.type = "checkbox";
-	//fogTxt.htmlFor = 'fogMode';
-    
-    //Round count
-    addElement("rndLbl", "label", drpHolder, "<br>Round Count: ");
-	addElement("roundCount", "input", drpHolder);
-	roundCount.type = "number";
-	roundCount.value = 150;
-    rndLbl.htmlFor = 'roundCount';
-    
-    //Map preview Holder
-    addElement("mPreviewHolder", "div", settingsMaster);
-
-    //Map Dropdown
-    addElement("mDrpHolder", "div", mPreviewHolder, "Select Map: ")
-    addElement("mapDrp", "select", mDrpHolder);
-    var mapArr = ["Random Map", "Praise Jibbers", "Pretty Sym", "ScatterBlob", "Spiral Galaxy", "Ring of Death", "Clusters", "Heartbreak", "Converge", "Proper Spiral", "Tri Spiral", "Super Spiral", "Random Gen"];	
-	for(var x = 0; x<mapArr.length;x++){
-		addElement("opt" + x, "option", mapDrp, mapArr[x]);
-    }
-    addElement("mPreview", "canvas", mPreviewHolder);
-    mPreviewHolder.style.width = "45%";
-    mPreviewHolder.style.height = "45%";
+    toggleBlobType(blob0, true, 0, colors[0]); //Toggle first blob as a player
 }
 
 function inGame(){
+    document.getElementById("masterDivMenu").style.display = "none";
+    document.getElementById("masterDivGame").style.display = "block";
     var master = document.getElementById("masterDiv");
     addElement("holder", "div", master);
 
@@ -212,21 +144,47 @@ function addPlayerBlob(blobNum, pType, cols, side){
         addElement(("blob"+blobNum), "div", rightHolder);
     }
     var curr = document.getElementById("blob"+blobNum);
-    addElement(("pDiv" + blobNum), "div", curr, "Player!");
-    toggleBlobType(curr, pType, blobNum);
+    toggleBlobType(curr, pType, blobNum, cols);
     curr.className = "playerBlob";
-    curr.style.background = cols[0].colour;
-    curr.style.color = cols[0].inverse;
-    curr.style.border = cols[0].colour;
+    curr.style.background = cols.colour;
+    curr.style.color = cols.inverse;
+    curr.style.border = cols.colour;
 }
 
-function toggleBlobType(blob, pType, num){
+function toggleBlobType(blob, pType, num, currCol){
+    //addElement(id, type, parent, innards)
+    let adjNum = Math.floor(Math.random()*adjectives.length);
+    let nounNum = Math.floor(Math.random()*nouns.length);
     if(pType){
-        document.getElementById(("bDiv" + num)).remove();
-        addElement(("pDiv" + num), "div", blob, "Player!");
+        if(document.getElementById(("bDiv" + num))){document.getElementById(("bDiv" + num)).remove();}
+        addElement(("pDiv" + num), "div", blob);
+        let tempDiv = document.getElementById(("pDiv" + num));
+        addElement(("pDivPlayerToggle" + num), "button", tempDiv, "[Pla]");
+        document.getElementById(("pDivPlayerToggle"+num)).onclick = function(){toggleBlobType(blob, false, num, currCol);};
+        addElement(("pDivNameInp" + num), "input", tempDiv);
+        let inp = document.getElementById(("pDivNameInp" + num));
+        inp.className = "nameBox";
+        inp.maxLength = "24";
+        inp.value = adjectives[adjNum] + nouns[nounNum] + Math.round(Math.random()*9) + Math.round(Math.random()*9);
+        inp.style.color = currCol.inverse;
+        inp.style.background = currCol.colour;
+        inp.style.border = currCol.colour;
+        addElement(("pDivDeleteButton" + num), "button", tempDiv, "X");
     }
     else{
-        document.getElementById(("pDiv" + num)).remove();
-        addElement(("bDiv" + num), "div", blob, "Bot!");
+        if(document.getElementById(("pDiv" + num))){document.getElementById(("pDiv" + num)).remove();}
+        addElement(("bDiv" + num), "div", blob);
+        let tempDiv = document.getElementById(("bDiv" + num));
+        addElement(("bDivPlayerToggle" + num), "button", tempDiv, "[Bot]");
+        document.getElementById(("bDivPlayerToggle"+num)).onclick = function(){toggleBlobType(blob, true, num, currCol);};
+        addElement(("bDivNameInp" + num), "input", tempDiv);
+        let inp = document.getElementById(("bDivNameInp" + num));
+        inp.className = "nameBox";
+        inp.maxLength = "24";
+        inp.value = adjectives[adjNum] + nouns[nounNum] + Math.round(Math.random()*9) + Math.round(Math.random()*9);
+        inp.style.color = currCol.inverse;
+        inp.style.background = currCol.colour;
+        inp.style.border = currCol.colour;
+        addElement(("bDivDeleteButton" + num), "button", tempDiv, "X");
     }
 }

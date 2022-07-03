@@ -13,6 +13,10 @@
     background-color: rgb(175, 174, 174);
 }
 
+.nameBox{
+    font-size: 20px;
+}
+
 #playerHolder{
     text-align: center;
     display: inline-block;

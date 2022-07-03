@@ -21,7 +21,10 @@
 
 </head>
 <body>
-    <div id=masterDiv>
+    <div id="masterGameDiv">
+        Game Div Here
+    </div>
+    <div id="masterDivMenu">
         <div id="buttonHolder" class="bigBox">
             <button id="StartBtn">Start!</button>
             <button id="BotWarBtn">Start Botwar!</button>
@@ -32,35 +35,70 @@
         </div>
 
         <div id="settingsHolder" class="bigBox">
-            <div id="drpHolder">
-            <label for="spawnDrp">Spawn Count: </label>
-                <select id="spawnDrp">
-                <option>Random Count</option>
-                <option>1 Spawn</option>
-                <option>2 Spawns</option>
-                <option>3 Spawns</option>
-                <option>5 Spawns</option>
-                <option>7 Spawns</option>
-                <option>Fill</option>
-            </select>
-            <label for="roundCount">Round Count: </label>
-            <input id="roundCount" value=150 type="number">
-        </div>
-
-        <div id="rdbHolder">
-            <label for="shields">Random Shields: </label>
-            <input type="checkbox" id="shields">
-            <label for="roadblock">Random Locked Planetos: </label>
-            <input type="checkbox" id="roadblock">
-            <label for="lockmode">Formation Lock Mode: </label>
-            <input type="checkbox" id="lockMode">
-            <label for="hideScores">Hide Scores: </label>
-            <input type="checkbox" id="hideScores">
-        </div>
-
+            <div id="leftSettings" style='float: left'>
+                <div id="drpHolder">
+                    <label for="spawnDrp">Spawn Count: </label>
+                        <select id="spawnDrp">
+                        <option>Random Count</option>
+                        <option>1 Spawn</option>
+                        <option>2 Spawns</option>
+                        <option>3 Spawns</option>
+                        <option>5 Spawns</option>
+                        <option>7 Spawns</option>
+                        <option>Fill</option>
+                    </select>
+                    <br>
+                    <label for="roundCount">Round Count: </label>
+                    <input id="roundCount" value=150 type="number">
+                    <!--
+                    <label for="fogDrp">Fog Style: </label>
+                        <select id="fogDrp">
+                        <option>No Fog</option>
+                        <option>Soft Fog</option>
+                        <option>Hard Fog</option>
+                    </select>
+                    -->
+                </div>
+        
+                <div id="rdbHolder">
+                    <label for="shields">Random Shields: </label>
+                    <input type="checkbox" id="shields">
+                    <br>
+                    <label for="roadblock">Random Locked Planetos: </label>
+                    <input type="checkbox" id="roadblock">
+                    <br>
+                    <label for="lockmode">Formation Lock Mode: </label>
+                    <input type="checkbox" id="lockMode">
+                    <br>
+                    <label for="hideScores">Hide Scores: </label>
+                    <input type="checkbox" id="hideScores">
+                </div>
+            </div>
+            <div id="rightSettings" style="float:right">
+                <label for="mapSelect">Select Map: </label>
+                <select id="mapDrp">
+                    <option>Random</option>
+                    <option>Praise Jibbers</option>
+                    <option>Pretty Sym</option>
+                    <option>ScatterBlob</option>
+                    <option>Spiral Galaxy</option>
+                    <option>Ring of Death</option>
+                    <option>Clusters</option>
+                    <option>Heartbreak</option>
+                    <option>Converge</option>
+                    <option>Proper Spiral</option>
+                    <option>Tri Spiral</option>
+                    <option>Super Spiral</option>
+                    <option>Random Gen</option>
+                </select>
+                <canvas id="previewCanvas">
+                    
+                </canvas>
+            </div>
         </div>
         <script src="../js/runner.js"></script>
     </div>
+    
 </body>
 
 

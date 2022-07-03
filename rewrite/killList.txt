@@ -70,15 +70,15 @@ X-player
 	 -BFS
 	X-set to box maps only until random gen update
 
-X-bot
-	X-one bot class, prototype methods
+ -bot
+	 -class that extends basic bot
 	X-memory var
 
  -interface
 	 -colour Toggle
 	X-colourblind mode
-	 -name input
-	 -two buttons to add bot or player
+	X-name input
+	X-toggle bot or player
 	 -bot button pull up menu to select type
 	 -Collapsible scoreboard and move log
 	 -Scoreboard to support teams mode
@@ -91,7 +91,6 @@ X-bot
  -BFS FOR RANDOM MAPS	
 X-Teams mode
 X-Bigger shields (numerical)
- -Toggle for local multiplayer
  -Update documentation for bots
 
 
