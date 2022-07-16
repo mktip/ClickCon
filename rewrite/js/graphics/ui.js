@@ -10,28 +10,36 @@ function startMenu(cols){
     document.getElementById("masterGameDiv").style.display = "none";
     var master = document.getElementById("masterDivMenu");
     master.style.display = "block";
-    var colours = cols.slice();
+    document.getElementById("playerHolder").playerData = {
+        playerBlobList: [],
+        colours: cols.slice(),
+        currentColourId: 0
+    };
 
     //Populate the player blobs
     addElement("leftHolder", "div", playerHolder);
     addElement("rightHolder", "div", playerHolder);
-    for(var r = 0; r < 16 ; r++){
-        if(r%2 == 0){
-            addPlayerBlob(r, false, colours[r], true, colours, r);
-        }
-        else{
-            addPlayerBlob(r, false, colours[r], false, colours, r);
-        }
-        colours[r].claimed = true;
-        //colors = removeAtIndex(colors, 0);
+
+    for(var r = 0; r < 4 ; r++){
+        addPlayerBlob(r, true, playerHolder.playerData);
     }
-    toggleBlobType(blob0, true, 0, colours[0], colours, 0); //Toggle first blob as a player
+    toggleBlobType(document.getElementById("blob0"), 0, false, playerHolder.playerData); //Toggle first blob as a player
+    //Add the addPlayer button
+    addElement("addPlayerHolder", "div", playerHolder);
+    addElement("addPlayerButton", "button", document.getElementById("addPlayerHolder"), "+");
+    document.getElementById("addPlayerButton").onclick = function(){
+        addPlayerBlob(playerHolder.playerData.currentColourId, true, playerHolder.playerData);
+        if(playerHolder.playerData.playerBlobList.length == 16){
+            document.getElementById("addPlayerHolder").style.display = "none";
+        }
+    };
+
 }
 
 function inGame(){
     document.getElementById("masterDivMenu").style.display = "none";
     document.getElementById("masterDivGame").style.display = "block";
-    var master = document.getElementById("masterDiv");
+    var master = document.getElementById("masterDivGame");
     addElement("holder", "div", master);
 
     addElement("scores", "div", holder, "Scores");
@@ -136,27 +144,32 @@ function scoreboard(gam){
     }
 }
 
-function addPlayerBlob(blobNum, pType, currCol, side, colours, colourId){
-    if(side){
+function addPlayerBlob(blobNum, isBot, playerData){
+    let currCol = playerData.colours[playerData.currentColourId];
+    currCol.claimed = true;
+    if(blobNum%2==0){
         addElement(("blob"+blobNum), "div", leftHolder);
     }
     else{
         addElement(("blob"+blobNum), "div", rightHolder);
     }
     let curr = document.getElementById("blob"+blobNum);
-    toggleBlobType(curr, pType, blobNum, currCol, colours, colourId);
+    toggleBlobType(curr, blobNum, isBot, playerData);
     curr.className = "playerBlob";
     curr.style.background = currCol.colour;
     curr.style.color = currCol.inverse;
     curr.style.border = currCol.colour;
+    playerData.playerBlobList.push(curr);
+    playerData.currentColourId = findNextAvailableColour(playerData.colours, playerData.currentColourId);
 }
 
-function toggleBlobType(blob, pType, num, currCol, colours, colourId){
+function toggleBlobType(blob, num, isBot, playerData){
     //addElement(id, type, parent, innards)
+    //console.log(blob);
     let adjNum = Math.floor(Math.random()*adjectives.length);
     let nounNum = Math.floor(Math.random()*nouns.length);
+    let currCol = playerData.colours[num];
     let tempDiv;
-    let pTypeInverse;
         //Check if a div is already there, delete if so and replace accordingly
         if(document.getElementById(("bDiv" + num))){document.getElementById(("bDiv" + num)).remove(); addElement(("pDiv" + num), "div", blob); tempDiv = document.getElementById(("pDiv" + num));}
         else if(document.getElementById(("pDiv" + num))){document.getElementById(("pDiv" + num)).remove(); addElement(("bDiv" + num), "div", blob); tempDiv = document.getElementById(("bDiv" + num));}
@@ -169,47 +182,29 @@ function toggleBlobType(blob, pType, num, currCol, colours, colourId){
         colTog.onclick = 
             function(){
                 //console.log(colours);
-                let ind = colourId;
-                let checked = 0;
-                while(colours[ind].claimed){
-                    if(checked < 16){
-                        if(ind >= colours.length -1){
-                            ind = 0;
-                            checked++;
-                        }
-                        else{
-                            ind++;
-                            checked++;
-                        }
-                    }
-                    else{
-                        break;
-                    }
-                }
-                currCol.claimed = false;
-                colours[ind].claimed = true;
-                colourId = ind;
-                currCol = colours[ind];
-                blob.style.color = colours[ind].inverse;
-                blob.style.background = colours[ind].colour;
-                blob.style.border = colours[ind].colour;
-                colTog.style.color = colours[ind].colour;
-                colTog.style.background = colours[ind].colour;
-                document.getElementById(("pDivNameInp" + num)).style.background = colours[ind].colour;
-                document.getElementById(("pDivNameInp" + num)).style.color = colours[ind].inverse;
+                let ind = findNextAvailableColour(playerData.colours, tempDiv.colourId);
+                console.log(ind);
+                playerData.colours[tempDiv.colourId].claimed = false;
+                playerData.colours[ind].claimed = true;
+                tempDiv.colourId = ind;
+                blob.style.color = playerData.colours[ind].inverse;
+                blob.style.background = playerData.colours[ind].colour;
+                blob.style.border = playerData.colours[ind].colour;
+                colTog.style.color = playerData.colours[ind].colour;
+                colTog.style.background = playerData.colours[ind].colour;
+                document.getElementById(("pDivNameInp" + num)).style.background = playerData.colours[ind].colour;
+                document.getElementById(("pDivNameInp" + num)).style.color = playerData.colours[ind].inverse;
 
             };
         //Player type toggle button
         addElement(("pDivPlayerToggle" + num), "button", tempDiv);
-        if(pType){
+        if(!isBot){
             document.getElementById(("pDivPlayerToggle" + num)).innerHTML = "[Pla]";
-            pTypeInverse = false;
         }
         else{
             document.getElementById(("pDivPlayerToggle" + num)).innerHTML = "[Bot]";
-            pTypeInverse = true;
         }
-        document.getElementById(("pDivPlayerToggle"+num)).onclick = function(){toggleBlobType(blob, pTypeInverse, num, currCol, colours, colourId);};
+        document.getElementById(("pDivPlayerToggle"+num)).onclick = function(){toggleBlobType(blob, num, !isBot, playerData);};
         //Name input
         addElement(("pDivNameInp" + num), "input", tempDiv);
         let inp = document.getElementById(("pDivNameInp" + num));
@@ -221,5 +216,34 @@ function toggleBlobType(blob, pType, num, currCol, colours, colourId){
         inp.style.border = currCol.colour;
         //Delete button
         addElement(("pDivDeleteButton" + num), "button", tempDiv, "X");
-        document.getElementById("pDivDeleteButton" + num).onclick = function(){currCol.claimed = false; blob.parentElement.removeChild(blob);};
+            document.getElementById("pDivDeleteButton" + num).onclick = function(){
+                currCol.claimed = false; 
+                playerData.playerBlobList = removeItem(playerData.playerBlobList, blob);
+                console.log("Delete!");
+                console.log(playerHolder.playerData.playerBlobList);
+                blob.parentElement.removeChild(blob);
+                playerData.currentColourId = findNextAvailableColour(playerData.colours, playerData.currentColourId);
+                document.getElementById("addPlayerHolder").style.display = "block";
+                };
+        tempDiv.colourId = num;
+}
+function findNextAvailableColour(colours, startIndex){
+    let ind = startIndex;
+    let checked = 0;
+    while(colours[ind].claimed){
+        if(checked < colours.length){
+            if(ind >= colours.length -1){
+                ind = 0;
+                checked++;
+            }
+            else{
+                ind++;
+                checked++;
+            }
+        }
+        else{
+            break;
+        }
+    }
+    return ind;
 }

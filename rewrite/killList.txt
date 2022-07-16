@@ -93,6 +93,7 @@ X-player
 X-Teams mode
 X-Bigger shields (numerical)
  -Update documentation for bots
+ -Rework utils to support actual Array.prototype?
 
 
 v1.1.2
