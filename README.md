@@ -1,6 +1,6 @@
 # ClickCon
 
-Current online version: https://crinoid-cart.000webhostapp.com/
+Current online version: down for maintenance, will have one again soon!
 
 Simple ish turn-based game where the objective is to have as many points as possible by the time the turn limit is reached.
 
