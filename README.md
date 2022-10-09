@@ -1,6 +1,8 @@
 # ClickCon
 
-Current online version: https://crinoid-cart.000webhostapp.com/
+Current online beta version: https://vivideraphid.github.io/ClickCon/
+
+Independent stable version coming soon
 
 Simple ish turn-based game where the objective is to have as many points as possible by the time the turn limit is reached.
 
