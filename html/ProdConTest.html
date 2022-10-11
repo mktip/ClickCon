@@ -25,6 +25,7 @@
 </head>
 <body>
     <div id=masterDivMenu>Menu</div>
+
     <div id=masterDivGame>
     <script>
     var colList = [{colour:"#ff0000",char:"A",inverse:"#00ffff"}, 
@@ -45,6 +46,7 @@
     {colour:"#cc9900",char:"P",inverse:"#3366ff"}];
     
     inGame();
+
     let randSize = Math.round(Math.random()*1000) + 1500;
     var teams = [];
     var players = [];
@@ -80,6 +82,7 @@
     //players[5].team = teams[1];
 
     teams[0].addPlayer(players[0]);
+
     //teams[1].addPlayer(players[1]);
     //teams[0].addPlayer(players[2]);
     //teams[1].addPlayer(players[3]);

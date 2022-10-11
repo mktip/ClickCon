@@ -7,13 +7,17 @@ function addElement(id, type, parent, innards){
 
 function startMenu(cols){
     //Hide game state, show menu state
-    document.getElementById("masterGameDiv").style.display = "none";
+
+    document.getElementById("masterDivGame").style.display = "none";
+
     var master = document.getElementById("masterDivMenu");
     master.style.display = "block";
     document.getElementById("playerHolder").playerData = {
         playerBlobList: [],
         colours: cols.slice(),
-        currentColourId: 0
+        currentColourId: 0,
+        players: [],
+        teams: []
     };
 
     //Populate the player blobs
@@ -219,8 +223,10 @@ function toggleBlobType(blob, num, isBot, playerData){
             document.getElementById("pDivDeleteButton" + num).onclick = function(){
                 currCol.claimed = false; 
                 playerData.playerBlobList = removeItem(playerData.playerBlobList, blob);
-                console.log("Delete!");
-                console.log(playerHolder.playerData.playerBlobList);
+
+                //console.log("Delete!");
+                //console.log(playerHolder.playerData.playerBlobList);
+                
                 blob.parentElement.removeChild(blob);
                 playerData.currentColourId = findNextAvailableColour(playerData.colours, playerData.currentColourId);
                 document.getElementById("addPlayerHolder").style.display = "block";
