@@ -45,15 +45,19 @@
     {colour:"#cc9900",char:"P",inverse:"#3366ff"}];
     
     inGame();
+    let randSize = Math.round(Math.random()*1000) + 1500;
     var teams = [];
     var players = [];
-    var gameMap = randomGen(2500,2500);
+    var gameMap = randomGen(randSize, randSize);
     //var gameMap = mapConverter(galconGalaxy7());
-    var teamCount = 16; //For testing convenience only******
-    var botCount = 15; //For testing convenience only******
+    let teamC = Math.round(Math.random()*14)+2;
+    var teamCount = teamC; //16; //For testing convenience only******
+    var botCount = teamC-1;//15; //For testing convenience only******
 
 
-    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: 1, randShields: true, randBlocks: false, fog: false, multiShield: false, prodMode: true, maxDefense: 5, debug: false};
+    let spawns = Math.round(Math.random()*100)+1;
+
+    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: spawns, randShields: true, randBlocks: false, fog: false, multiShield: false, prodMode: true, maxDefense: 5, debug: false};
     
     for(var r = 1; r <= teamCount; r++){
         teams.push(new team(r, colList[r-1]));
