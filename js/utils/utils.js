@@ -34,6 +34,11 @@ function findLength(p0,p1, coords){
 	var y = coords[p0][1] - coords[p1][1];
 	return Math.sqrt(x*x + y*y);
 }
+function findLengthPoints(x1, x2, y1, y2){
+	var x = x1 - x2;
+	var y = y1 - y2;
+	return Math.sqrt(x*x + y*y);
+}
 function findAngle(p0,p1,p2, coords){
 	var x1 = coords[p1][0]- coords[p0][0];
 	var y1 = coords[p1][1]- coords[p0][1];
