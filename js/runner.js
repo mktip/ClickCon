@@ -21,7 +21,7 @@
     {colour:"#3b2340",char:"Z",inverse:"#c4dcbf"}];
 
     startMenu(colList);
-    //inGame();
+    // inGame();
     // var teams = [];
     // var players = [];
     // var gameMap = randomGen(1500,1500); //mapConverter(galconGalaxy7());
@@ -40,7 +40,18 @@
     // players[0].team = teams[0];
 
     // for(var r = 1; r <= 15; r++){
-    //     players.push(new bot((r+1), {}, "Knob-" + r, colList[r], true, Math.floor(Math.random()*3)));
+    //     let botType = Math.floor(Math.random()*3);
+    //     switch(botType){
+    //         case 0: 
+    //             players.push(new wildStep((r+1), {}, "Knob-" + r, colList[r], true));
+    //             break;
+    //         case 1:
+    //             players.push(new wildExpand((r+1), {}, "Knob-" + r, colList[r], true));
+    //             break;
+    //         case 2:
+    //             players.push(new clusterGuard((r+1), {}, "Knob-" + r, colList[r], true));
+    //             break;
+    //     }
     //     //players[r].team = teams[r];
     //     //teams[r].addPlayer(players[r]);
     // }
