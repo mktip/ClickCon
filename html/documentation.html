@@ -6,6 +6,26 @@
 <link rel="stylesheet" href="../css/global.css">
 
 <body>
-    bzzt...
-    Coming soon
+
+    <h1>PLAYER</h1>
+        <ul style="list-style-type:none">
+            <li>-id</li>
+            <li>-team</li>
+            <li>-name</li>
+            <li>-score</li>
+            <li>-isBot</li>
+        </ul>
+    <h1>TEAM</h1>
+    
+    <h1>BOT</h1>
+        Extends player class, your bot will extend bot class
+        <ul style="list-style-type:none">
+            <li><b>-makeMove(gameMap)</b> -> The function you decide what move your bot makes. Receives a reference to the game map as a parameter</li>
+            <li><b>-onGameStart(gameMap)</b> -> The function called when the map is first loaded in, for any initial strategy decisions. Receives reference to game map.</li>
+            <li><b>-mapUpdate()</b> -> The function called after each turn is made. Parameters TBD.</li>
+        </ul>
+        You may add any additional functions / variables, just ensuring that at least makeMove() is implemented.
+    <h1>PLANET</h1>
+
+
 </body>
