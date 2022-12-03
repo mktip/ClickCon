@@ -260,7 +260,7 @@ function botCycle(gam, art, gra){
         let botCaller = setInterval(function(gam){
             if(gam.settings.prodMode) updateDefense(gam);
             gam.settings.botTurn = true;
-            let turn = gam.currentPlayer.makeMove(gam.map);
+            let turn = gam.currentPlayer.makeMove(gam.map, gam.teams);
             if(checkProximity(turn, gam.map, gam.currentPlayer.teamId) || turn.teamId == gam.currentPlayer.teamId){
                 move(turn, gam);
             }

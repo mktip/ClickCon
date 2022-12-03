@@ -22,6 +22,7 @@
     <script src="../js/gameClasses/bots/wildExpandBot.js"></script>
     <script src="../js/gameClasses/bots/wildStepBot.js"></script>
     <script src="../js/gameClasses/bots/clusterGuardBot.js"></script>
+    <script src="../js/gameClasses/bots/expandAndStabBot.js"></script>
 
     <script src="../js/gameControl.js"></script>
     <script src="../js/ProdCon.js"></script>
@@ -74,7 +75,7 @@
     players[0].team = teams[0];
 
     for(var r = 1; r <= botCount; r++){
-        let botType = Math.floor(Math.random()*3);
+        let botType = 3;//Math.floor(Math.random()*3);
         switch(botType){
             case 0: 
                 players.push(new wildStep((r+1), {}, "Knob-" + r, colList[r], true));
@@ -85,6 +86,8 @@
             case 2:
                 players.push(new clusterGuard((r+1), {}, "Knob-" + r, colList[r], true));
                 break;
+            case 3:
+                players.push(new expandAndStab((r+1), {}, "Knob-" + r, colList[r], true));
         }
         
         players[r].team = teams[r];

@@ -24,7 +24,7 @@ v?
 -Skins and themes
 X-ProdCon
 
-v2.0
+v2.0?
  -Fearsome multiplayer
  
 v1.5
@@ -64,19 +64,20 @@ X-player
 	X-while loop to cycle through players
 	 -support for teams mode in scoreboard render
 	X-UPDATE ORDER OF PLAYERS IN SCOREBOARD BY HIGHEST SCORE
+	 -call mapUpdate() and onGameStart() functions for bots
 	 -lighter formation checker
 
- -map generation
-	 -BFS
+X-map generation
+	X-BFS
 	X-set to box maps only until random gen update
 
- -bot
-	 -class that extends basic bot
+X-bot
+	X-class that extends basic bot
 	X-memory var
 
  -interface
 	 -bot speed toggle
-	 -colour Toggle
+	X-colour Toggle
 	X-colourblind mode
 	X-name input
 	X-toggle bot or player
@@ -89,7 +90,7 @@ X-player
 	 -shift and scale buttons
 
  -Roadmap
- -BFS FOR RANDOM MAPS	
+X-BFS FOR RANDOM MAPS	
 X-Teams mode
 X-Bigger shields (numerical)
  -Update documentation for bots
