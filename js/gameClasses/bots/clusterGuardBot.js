@@ -1,4 +1,7 @@
 class clusterGuard extends bot{
+	constructor(id, team, name, colour, isBot){
+		super(id, team, name, colour, isBot);
+	}
     makeMove(map){
         var hitList = [];
 		var owned = this.getTeamOwned(map);
@@ -51,4 +54,6 @@ class clusterGuard extends bot{
     mapUpdate(){
 
     }
+
+
 }
