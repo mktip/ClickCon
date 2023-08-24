@@ -19,11 +19,11 @@
 
 #playerHolder{
     text-align: center;
-    display: inline-block;
+    float:left;
 }
 
 #settingsHolder{
-    display: inline-block;
+    float:left;
 }
 
 #rightHolder{

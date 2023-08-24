@@ -6,6 +6,13 @@ function addElement(id, type, parent, innards){
 }
 
 function startMenu(cols){
+    //initialise playerData object
+    //pass playerData object to function that will build playerblobs using that data:
+    //rebuild UI each time a player is updated? test performance
+    //
+    //
+    //
+
     //Hide game state, show menu state
 
     document.getElementById("masterDivGame").style.display = "none";

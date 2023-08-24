@@ -10,7 +10,17 @@ class team{
     }
 
     addPlayer(pla){
+        //console.log("team " + this.id);
+        //console.log(pla);
         this.players.push(pla);
+    }
+
+    removePlayer(pla){
+        this.players = removeItem(this.players, pla);
+    }
+
+    removeAllPlayers(){
+        this.players = [];
     }
 
     getScore(){

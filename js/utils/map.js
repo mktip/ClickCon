@@ -1180,7 +1180,7 @@ function randomGen(w, h){
 		}
 		map.push(new planeto(r,coords[r][0], coords[r][1], {id:0, colour: "#fff", team:{id:0, colour: "#fff"}}, 10, con));
 	}
-    console.log(map);
+    //console.log(map);
     map = verifyAllConnected(map);
 	return map;
 }

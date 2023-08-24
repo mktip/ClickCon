@@ -84,7 +84,7 @@ function getCoords(w, h, density, padding, r){
 	// 		plans = ring(h,h,density,padding,r);
 	// 		break;
 	// }
-	console.log(plans.length);
+	//console.log(plans.length);
     return plans;
 }
 
