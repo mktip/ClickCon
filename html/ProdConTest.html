@@ -2,6 +2,8 @@
 <head>
     <title>ProdCon!</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
     <link rel="stylesheet" href="../css/global.css">
 
     <script src="../js/graphics/ui.js"></script>
@@ -64,7 +66,7 @@
 
     let spawns = Math.round(Math.random()*100)+1;
 
-    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: spawns, randShields: true, randBlocks: false, fog: false, multiShield: false, prodMode: true, maxDefense: 5, debug: false};
+    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: spawns, randShields: true, randBlocks: false, fog: false, multiShield: false, borgMode: true, prodMode: true, maxDefense: 5, debug: false};
     
     for(var r = 1; r <= teamCount; r++){
         teams.push(new team(r, colList[r-1]));
@@ -73,9 +75,10 @@
 
     players[0] = new player(1, teams[0], "Knob-Player", colList[0], false);
     players[0].team = teams[0];
+    teams[0].addPlayer(players[0]);
 
     for(var r = 1; r <= botCount; r++){
-        let botType = 3;//Math.floor(Math.random()*3);
+        let botType = Math.floor(Math.random()*4);
         switch(botType){
             case 0: 
                 players.push(new wildStep((r+1), {}, "Knob-" + r, colList[r], true));
@@ -89,10 +92,13 @@
             case 3:
                 players.push(new expandAndStab((r+1), {}, "Knob-" + r, colList[r], true));
         }
-        
+        //console.log(r%2);
         players[r].team = teams[r];
         teams[r].addPlayer(players[r]);
     }
+
+    //console.log(players);
+    //console.log(teams);
 
     //players[1].team = teams[1];
     //players[2].team = teams[0];
@@ -100,7 +106,7 @@
     //players[4].team = teams[0];
     //players[5].team = teams[1];
 
-    teams[0].addPlayer(players[0]);
+    //teams[0].addPlayer(players[0]);
 
     //teams[1].addPlayer(players[1]);
     //teams[0].addPlayer(players[2]);
@@ -116,6 +122,8 @@
     var gameA = new game(teams, players, gameMap, settings);
 
     gameA.loadTurnList();
+
+    //console.log(gameA);
     
     initMap(gameA);
 

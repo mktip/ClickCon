@@ -28,7 +28,7 @@
 
     // //oldMapParser(gameMap);
 
-    // var settings = {playing: true, botTurn: false, botDelay: 125,  hideScores: false, spawnCount: 3, randShields: true, randBlocks: false, fog: false, multiShield: true, prodMode: false, debug: false};
+    // var settings = {playing: true, botTurn: false, botDelay: 125,  hideScores: false, spawnCount: 3, randShields: true, randBlocks: false, fog: false, borgMode: false, multiShield: true, prodMode: false, debug: false};
 
     // for(var r = 1; r <= 8; r++){
     //     teams.push(new team(r, colList[r-1]));
