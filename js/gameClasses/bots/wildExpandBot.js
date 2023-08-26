@@ -23,6 +23,6 @@ class wildExpand extends bot{
     }
 
     mapUpdate(){
-
+		
     }
 }

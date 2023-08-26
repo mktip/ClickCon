@@ -81,7 +81,7 @@ class expandAndStab extends bot{
 
 	}
 	mapUpdate(map, action){
-		
+        
 	}
 
     determineSafeCount(map, owned){

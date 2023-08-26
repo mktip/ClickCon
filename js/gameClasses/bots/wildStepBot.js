@@ -23,6 +23,6 @@ class wildStep extends bot{
     }
 
     mapUpdate(){
-
+		
     }
 }

@@ -1,21 +1,29 @@
 function makeAttack(gam, value, target){
+    //console.log(gam.currentPlayer.name);
+    let moveEvent = {
+        type: "", //Attack, capture, defense
+        attacker: gam.currentPlayer,
+        targetPlanet: target, 
+        defender: ""
+    }
     if(target.teamId == gam.currentPlayer.teamId){
         target.defense += value;
+        moveEvent.type = "Defense";
+        moveEvent.defender = gam.currentPlayer;
     }
     else{
-        //console.log(target.defense + " vs " + value + " at " + target.id);
         if(value > target.defense){
             if(gam.settings.borgMode){
                 if(target.owner.team.id != 0){
                     if(target.owner.getTeamOwned(gam.map).length == 1){
                         let targOwnerTeam = target.owner.team;
                         let count = targOwnerTeam.players.length;
+                        let tempTeam = targOwnerTeam.players.slice();
                         let borgerTeam = gam.currentPlayer.team;
                         console.log(targOwnerTeam);
                         console.log(borgerTeam);
                         for(let r = 0; r < count; r++){
-                            console.log(r);
-                            let tempPlayer = targOwnerTeam.players[r];
+                            let tempPlayer = tempTeam[r];
                             tempPlayer.team = borgerTeam;
                             borgerTeam.addPlayer(tempPlayer);
                             targOwnerTeam.removePlayer(tempPlayer);
@@ -24,13 +32,20 @@ function makeAttack(gam, value, target){
                     }
                 }
             }
+
+            moveEvent.type = "Capture";
+            moveEvent.defender = target.owner;
+
             target.setOwner(gam.currentPlayer);
             target.defense = value - target.defense;
         }
         else{
             target.defense -= value;
+            moveEvent.type = "Attack";
+            moveEvent.defender = target.owner;
         }
     }
+    callBotUpdates(gam, moveEvent);
 }
 
 function getAttackValue(gam, target){
