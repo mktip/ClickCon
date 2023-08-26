@@ -8,28 +8,19 @@ function makeAttack(gam, value, target){
             if(gam.settings.borgMode){
                 if(target.owner.team.id != 0){
                     if(target.owner.getTeamOwned(gam.map).length == 1){
-                        // let targOwnerTeamId = target.owner.team.id;
-                        // let borgerTeamId = gam.currentPlayer.team.id;
-                        // for(let r = 0; r < gam.teams[targOwnerTeamId-1].players.length; r++){
-                        //     //console.log(r);
-                        //     let tempPlayer = gam.teams[targOwnerTeamId-1].players[r];
-                        //     tempPlayer.team = gam.teams[borgerTeamId-1];
-                        //     //tempPlayer.colPack = gam.teams[borgerTeamId-1].colPack;
-                        //     gam.teams[borgerTeamId-1].addPlayer(tempPlayer);
-                        //     gam.teams[targOwnerTeamId-1].removePlayer(tempPlayer);
-                        // }
-                        // //console.log(gam.teams);
                         let targOwnerTeam = target.owner.team;
+                        let count = targOwnerTeam.players.length;
                         let borgerTeam = gam.currentPlayer.team;
-                        for(let r = 0; r < targOwnerTeam.players.length; r++){
-                            //console.log(r);
+                        console.log(targOwnerTeam);
+                        console.log(borgerTeam);
+                        for(let r = 0; r < count; r++){
+                            console.log(r);
                             let tempPlayer = targOwnerTeam.players[r];
                             tempPlayer.team = borgerTeam;
-                            //tempPlayer.colPack = gam.teams[borgerTeamId-1].colPack;
                             borgerTeam.addPlayer(tempPlayer);
                             targOwnerTeam.removePlayer(tempPlayer);
                         }
-                        //console.log(gam.teams);
+                        console.log(gam.teams);
                     }
                 }
             }
