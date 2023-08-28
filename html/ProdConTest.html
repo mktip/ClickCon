@@ -54,7 +54,7 @@
     
     inGame();
 
-    let randSize = Math.round(Math.random()*1000) + 1500;
+    let randSize = 1000; //Math.round(Math.random()*1000) + 1500;
     var teams = [];
     var players = [];
     var gameMap = randomGen(randSize, randSize);
@@ -73,7 +73,7 @@
     }
     //console.log(teams);
 
-    players[0] = new player(1, teams[0], "Knob-Player", colList[0], false);
+    players[0] = new player(1, teams[0], "Beta Tester", colList[0], false);
     players[0].team = teams[0];
     teams[0].addPlayer(players[0]);
 
@@ -96,6 +96,9 @@
         players[r].team = teams[r];
         teams[r].addPlayer(players[r]);
     }
+
+    // players[2] = new player(3, teams[2], "GaundlingWaggle", colList[2], false);
+    // teams[2].players[0] = players[2];
 
     //console.log(players);
     //console.log(teams);

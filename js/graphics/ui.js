@@ -145,12 +145,24 @@ function scoreboard(gam){
         else{
             contStr += players[ordered[r][0]].score;
         }
-         
-        addElement(("pScore"+r), "div", scoresBubble, contStr);
-        document.getElementById("pScore"+r).style.color = players[ordered[r][0]].colour;
+        scoresBubble.style.padding = "0% 2.5% 2.5% 2.5%";
+        let parent = scoresBubble;
+        if(players[ordered[r][0]].team.players.length > 1){
+            if(!document.getElementById("teamBubble" + players[ordered[r][0]].tChar)){
+                addElement("teamBubble" + players[ordered[r][0]].tChar, "div", scoresBubble, "Team " + players[ordered[r][0]].tChar + ": " + players[ordered[r][0]].team.getScore());
+                let bubble = document.getElementById("teamBubble" + players[ordered[r][0]].tChar);
+                bubble.style.color = players[ordered[r][0]].teamColour;
+                bubble.style.border = "3px solid";
+                bubble.style.fontWeight = "bold";
+            }
+            parent = document.getElementById("teamBubble" + players[ordered[r][0]].tChar);
+        }
+        addElement(("pScore"+r), "div", parent, contStr);
+        let pBubble = document.getElementById("pScore"+r);
+        pBubble.style.color = players[ordered[r][0]].colour;
         let tmpCurrentPlayer = gam.turnList[gam.currentPlayerInd].id;
         if((colourblindToggle.checked && players[ordered[r][0]].id != tmpCurrentPlayer) || (colourblindToggle.checked == false && players[ordered[r][0]].id == tmpCurrentPlayer)){
-            document.getElementById("pScore"+r).style.background = players[ordered[r][0]].cInverse;
+            pBubble.style.background = players[ordered[r][0]].cInverse;
         }
     }
 }

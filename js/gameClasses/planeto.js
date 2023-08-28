@@ -107,6 +107,11 @@ class planeto{
     }
 
     drawPlaneto(G, art, map, currentPlayer, settings, colourblind, showIDs){
+        let colBlindOffSet = 0;
+        let prodOffSet = 0;
+        if(settings.prodMode){
+            prodOffSet = 8;
+        }
         if(this.teamId == currentPlayer.teamId){
             art.drawPlanetoStar(this.x, this.y, this.radius, "#0ff");
         }
@@ -127,11 +132,12 @@ class planeto{
             }
             if(colourblind){
                 if(this.ownerId != 0){
+                    colBlindOffSet = 8;
                     if(this.lockLife > 0){
-                        art.drawText(this.x-14, this.y+7, (this.tChar + this.pChar), "bold 20px Arial", "#fff");
+                        art.drawText(this.x-14, this.y+7 + prodOffSet, (this.tChar + this.pChar), "bold 20px Consolas", "#fff");
                     }
                     else{
-                        art.drawText(this.x-14, this.y+7, (this.tChar + this.pChar), "bold 20px Arial", this.cInverse);
+                        art.drawText(this.x-14, this.y+7 + prodOffSet, (this.tChar + this.pChar), "bold 20px Consolas", this.cInverse);
                     }
                 }
             }
@@ -149,26 +155,26 @@ class planeto{
                 G.fillStyle = "#000";
                 G.strokeStyle = "#000";
                 G.fillRect(this.x-8, this.y-38, 15, 15);
-                art.drawText(this.x-5, this.y-27, this.shieldVal, "bold 15px Arial", "#0ff");            
+                art.drawText(this.x-5, this.y-27, this.shieldVal, "bold 15px Consolas", "#0ff");            
             }
         }
 
         if(settings.prodMode){
             if(this.ownerId != 0){
                 if(this.lockLife > 0){
-                    art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Arial", "#fff");
+                    art.drawText(this.x-8, this.y+7 - colBlindOffSet, this.defense, "bold 20px Consolas", "#fff");
                 }
                 else{
-                    art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Arial", this.cInverse);
+                    art.drawText(this.x-8, this.y+7 - colBlindOffSet, this.defense, "bold 20px Consolas", this.cInverse);
                 }
             }
             else{
-                art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Arial", "#000")
+                art.drawText(this.x-8, this.y+7, this.defense, "bold 20px Consolas", "#000")
             }
         }
     
         if(settings.debug || showIDs){
-            art.drawText(this.x-25, this.y-25, this.id.toString(), "bold 15px Arial", "#fff"); 
+            art.drawText(this.x-25, this.y-25, this.id.toString(), "bold 15px Consolas", "#fff"); 
         }
     }
 }

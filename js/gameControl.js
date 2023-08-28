@@ -131,12 +131,22 @@ function move(tar, gam){
     let map = gam.map;
     let pla = gam.currentPlayer;
     if(!gam.settings.prodMode){
+        let moveEvent = {
+            type: "", //Capture, Attack, Shield, Lock?
+            target: tar,
+            attacker: pla,
+            defender: ""
+        }
         if(tar.lockLife == 0){
             if(tar.hasShield == false){
                 if(tar.teamId == pla.teamId){
                     map[tar.id].shieldVal++;
+                    moveEvent.type = "Shield";
+                    moveEvent.defender = pla;
                 }
                 else{
+                    moveEvent.type = "Capture";
+                    moveEvent.defender = tar.owner;
                     map[tar.id].setOwner(pla);
                 }
             }
@@ -145,27 +155,44 @@ function move(tar, gam){
                     if(gam.settings.multiShield){
                         if(map[tar.id].shieldVal < 9){
                             map[tar.id].shieldVal++;
+                            moveEvent.type = "Shield";
+                            moveEvent.defender = pla;
                         }   
                     }
                     else{
                         map[tar.id].shieldVal = 1;
+                        moveEvent.type = "Shield";
+                        moveEvent.defender = pla;
                     }                        
                 }
                 else if(map[tar.id].hasShield == true && map[tar.id].teamId != pla.teamId){
                     if(gam.settings.multiShield){
                         map[tar.id].shieldVal--;
+                        moveEvent.type = "Attack";
+                        moveEvent.defender = tar.owner;
                     }
                     else{
                         map[tar.id].shieldVal = 0;
+                        moveEvent.type = "Attack";
+                        moveEvent.defender = tar.owner;
                     }            
                 }    
             }
-        } 
+        }
+        callBotUpdates(gam, moveEvent); 
     }
     else{
         makeAttack(gam, getAttackValue(gam), tar);
     }
     //console.log(map);
+}
+
+function callBotUpdates(gam, moveEvent){
+    for(let r = 0; r < gam.players.length; r++){
+        if(gam.players[r].isBot){
+            gam.players[r].mapUpdate(moveEvent);
+        }
+    }
 }
 
 function checkHit(gam){
