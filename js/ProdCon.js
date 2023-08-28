@@ -20,15 +20,12 @@ function makeAttack(gam, value, target){
                         let count = targOwnerTeam.players.length;
                         let tempTeam = targOwnerTeam.players.slice();
                         let borgerTeam = gam.currentPlayer.team;
-                        console.log(targOwnerTeam);
-                        console.log(borgerTeam);
                         for(let r = 0; r < count; r++){
                             let tempPlayer = tempTeam[r];
                             tempPlayer.team = borgerTeam;
                             borgerTeam.addPlayer(tempPlayer);
                             targOwnerTeam.removePlayer(tempPlayer);
                         }
-                        console.log(gam.teams);
                     }
                 }
             }
