@@ -7,25 +7,43 @@
 
 <body>
 
-    <h1>PLAYER</h1>
+    <h2>PLAYER</h2>
         <ul style="list-style-type:none">
-            <li>-id</li>
-            <li>-team</li>
-            <li>-name</li>
-            <li>-score</li>
-            <li>-isBot</li>
+            <li><b>-id</b> -> 0 reserved for "neutral", standard players are 1-16</li>
+            <li><b>-team</b> -> reference to team object the player is a part of</li>
+            <li><b>-name</b> -> duh</li>
+            <li><b>-score</b> -> score of the individual player, team score is separate and total of all players</li>
+            <li><b>-isBot</b> -> boolean of whether player is a bot or not</li>
+            <li><b>-getOwned(map)</b> -> pass copy of map and get a list of planets owned by this player</li>
+            <li><b>-getTeamOwned(map)</b> -> pass copy of map and get list of planets owned by this players team</li>
+            <li><b>-getTeamId()</b>-> returns integer id of this players team</li>
         </ul>
-    <h1>TEAM</h1>
-    
-    <h1>BOT</h1>
+    <h2>TEAM</h2>
+        <ul style="list-style-type:none">
+            <li><b>-id</b>-> same as Player class, numeric from 1-16</li>
+            <li><b>-players</b>-> get list of players on this team</li>
+            <li><b>-getScore()</b>->gets total score of this team</li>
+        </ul>
+    <h2>BOT</h2>
         Extends player class, your bot will extend bot class
         <ul style="list-style-type:none">
-            <li><b>-makeMove(gameMap)</b> -> The function you decide what move your bot makes. Receives a reference to the game map as a parameter</li>
-            <li><b>-onGameStart(gameMap)</b> -> The function called when the map is first loaded in, for any initial strategy decisions. Receives reference to game map.</li>
-            <li><b>-mapUpdate()</b> -> The function called after each turn is made. Parameters TBD.</li>
+            <li><b>-makeMove(gameMap, teams)</b> -> The function you decide what move your bot makes. Receives a reference to the game map as a parameter</li>
+            <li><b>-onGameStart(gameMap, teams)</b> -> The function called when the map is first loaded in, for any initial strategy decisions. Receives reference to game map.</li>
+            <li><b>-mapUpdate(gameMap, teams, action)</b> -> The function called after each turn is made.</li>
         </ul>
-        You may add any additional functions / variables, just ensuring that at least makeMove() is implemented.
-    <h1>PLANET</h1>
-
-
+        You may add any additional functions / variables, just ensuring that at least above functions are implemented.
+    <h2>PLANET</h2>
+        <ul style="list-style-type:none">
+            <li><b>-id</b>-> numeric id of the planet, from 0+</li>
+            <li><b>-owner</b>-> reference to player that owns this planet</li>
+            <li><b>-value</b>-> integer point value of the planet, 1 by default</li>
+            <li><b>-defense</b>-> integer value of how many "ships" / defense is on the planet (prod mode)</li>
+            <li><b>-connections</b>-> list of connected planet ids</li>
+            <li><b>-shieldVal</b>-> value of shield on planet, any value greater than 0 means shield</li>
+            <li><b>-bonerShowing</b>-> poorly named boolean for whether the planet is part of an activated bonus</li>
+            <li><b>-ownerId</b>-> id of player who owns planet</li>
+            <li><b>-teamId</b>-> id of team of player who owns planet. Reference this over ownerId to maximise compatibility with teams modes</li>
+            <li><b>-hasShield</b>-> returns boolean of whether or not planet has shield up</li>
+            <li><b>-isLocked</b>-> returns boolean of whether planet is locked</li>
+        </ul>
 </body>

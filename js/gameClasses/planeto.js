@@ -58,6 +58,10 @@ class planeto{
         return this.shieldVal > 0;
     }
 
+    get isLocked(){
+        return this.lockLife > 0;
+    }
+
     setOwner(owner){
         this.owner = owner;
         //other stuff
