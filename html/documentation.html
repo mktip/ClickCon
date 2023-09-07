@@ -27,7 +27,7 @@
     <h2>BOT</h2>
         Extends player class, your bot will extend bot class
         <ul style="list-style-type:none">
-            <li><b>-makeMove(gameMap, teams)</b> -> The function you decide what move your bot makes. Receives a reference to the game map as a parameter</li>
+            <li><b>-makeMove(gameMap, teams)</b> -> The function you decide what move your bot makes. Receives a reference to the game map and teams as parameters. Ensure to return a reference to the planet you wish to act on</li>
             <li><b>-onGameStart(gameMap, teams)</b> -> The function called when the map is first loaded in, for any initial strategy decisions. Receives reference to game map.</li>
             <li><b>-mapUpdate(gameMap, teams, action)</b> -> The function called after each turn is made.</li>
         </ul>

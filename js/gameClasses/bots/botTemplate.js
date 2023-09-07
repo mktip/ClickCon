@@ -5,8 +5,9 @@ class yourBotName extends bot{
 	}
 	makeMove(map, teams){
 		//Decide your move here!
-		//Additionally, the bot is passed the list of teams, which also contain the lists of players
-		//Receiving at least the game map is recommended
+		//Receives map and list of teams
+		//Return reference to planet you wish to act on
+	
 	}
 	onGameStart(map, teams){
 		//This function does not have to do anything, just make sure it is present
