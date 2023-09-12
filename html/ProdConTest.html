@@ -60,13 +60,25 @@
     var gameMap = randomGen(randSize, randSize);
     //var gameMap = mapConverter(galconGalaxy7());
     let teamC = Math.round(Math.random()*14)+2;
-    var teamCount = teamC; //16; //For testing convenience only******
-    var botCount = teamC-1;//15; //For testing convenience only******
+    var teamCount = 2; //teamC; //16; //For testing convenience only******
+    var botCount = 1;//teamC-1;//15; //For testing convenience only******
 
 
     let spawns = Math.round(Math.random()*100)+1;
 
-    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: spawns, randShields: true, randBlocks: false, fog: false, multiShield: false, borgMode: true, prodMode: true, maxDefense: 5, debug: false};
+    var settings = {playing: true, 
+        botTurn: false, 
+        botDelay: 75, 
+        hideScores: false, 
+        spawnCount: spawns, 
+        randShields: true, 
+        randBlocks: false, 
+        fog: false, 
+        multiShield: false, 
+        borgMode: true, 
+        prodMode: true, 
+        maxDefense: 5, 
+        debug: false};
     
     for(var r = 1; r <= teamCount; r++){
         teams.push(new team(r, colList[r-1]));
@@ -97,8 +109,8 @@
         teams[r].addPlayer(players[r]);
     }
 
-    // players[2] = new player(3, teams[2], "GaundlingWaggle", colList[2], false);
-    // teams[2].players[0] = players[2];
+    players[1] = new player(2, teams[1], "GaundlingWaggle", colList[1], false);
+    teams[1].players[0] = players[1];
 
     //console.log(players);
     //console.log(teams);

@@ -25,8 +25,30 @@ function setupNextPlayer(gam, art, gra){
     render(gra, art, gam);
 }
 
-function updateValues(map){
+function updateMapValues(map){
+    for(let r = 0; r < map.length; r++){
+        map[r].value = map[r].worth;
+        if(map[r].bonerShowing){
+            map[r].value += map[r].worth;
+        }
+    }
+}
 
+function checkBoneys(gam){
+    let boneys = gam.boneys;
+    for(let r = 0; r < boneys.length; r++){
+        let teamId = boneys[r][0].teamId;
+        let matched = true;
+        for(let t = 0; t < boneys[r].length; t++){
+            if(boneys[r][t].teamId != teamId){
+                matched = false;
+                break;
+            }
+        }
+        for(let t = 0; t < boneys[r].length; t++){
+            boneys[r][t].bonerShowing = matched;
+        }
+    }
 }
 
 function updateScores(gam){
@@ -51,9 +73,9 @@ function initMap(gam){
     if(settings.prodMode){
         let count = map.length;
         for(let r = 0; r < count; r++){
-            map[r].value = Math.floor(Math.random()*3) + 1;
+            map[r].worth = Math.floor(Math.random()*3) + 1;
             map[r].defense = Math.floor(Math.random()*gam.settings.maxDefense);
-            map[r].radius = 5 + map[r].value * 2;
+            map[r].radius = 5 + map[r].worth * 2;
         }
     }
 
@@ -78,8 +100,33 @@ function initMap(gam){
         }
     }
 
-    updateValues(map);
+    initBoneys(gam);
+
+    //checkBoneys(gam);
+    //updateMapValues(map);
     updateScores(gam);
+    callBotOnGameStart(gam);
+}
+
+function initBoneys(gam){
+    let map = gam.map;
+    let boneys = [];
+    let count = map.length * .15;
+    let length = map.length * .05;
+    for(let r = 0; r < count; r++){
+        let startLeg = Math.floor(Math.random()*map.length);
+        let currentLeg = map[startLeg];
+        let miniBone = [currentLeg];
+        for(let t = 0; t < length; t++){
+            let cons = currentLeg.connections;
+            let nextLegPick = Math.floor(Math.random()*cons.length);
+            miniBone.push(map[cons[nextLegPick]]);
+            currentLeg = map[cons[nextLegPick]];
+        }
+        boneys.push(miniBone);
+    }
+    console.log(boneys);
+    gam.boneys = boneys;
 }
 
 function setSpawns(gam, spawnCount){
@@ -184,13 +231,24 @@ function move(tar, gam){
     else{
         makeAttack(gam, getAttackValue(gam), tar);
     }
+    updateLockLife(gam.map);
+    //checkBoneys(gam);
+    //updateMapValues(gam.map);
     //console.log(map);
 }
 
 function callBotUpdates(gam, moveEvent){
     for(let r = 0; r < gam.players.length; r++){
         if(gam.players[r].isBot){
-            gam.players[r].mapUpdate(moveEvent);
+            gam.players[r].mapUpdate(gam.map.slice(), gam.teams.slice(), moveEvent);
+        }
+    }
+}
+
+function callBotOnGameStart(gam){
+    for(let r = 0; r < gam.players.length; r++){
+        if(gam.players[r].isBot){
+            gam.players[r].onGameStart(gam.map.slice(), gam.teams.slice());
         }
     }
 }
@@ -287,7 +345,7 @@ function botCycle(gam, art, gra){
         let botCaller = setInterval(function(gam){
             if(gam.settings.prodMode) updateDefense(gam);
             gam.settings.botTurn = true;
-            let turn = gam.currentPlayer.makeMove(gam.map, gam.teams);
+            let turn = gam.currentPlayer.makeMove(gam.map.slice(), gam.teams.slice());
             if(checkProximity(turn, gam.map, gam.currentPlayer.teamId) || turn.teamId == gam.currentPlayer.teamId){
                 move(turn, gam);
             }
