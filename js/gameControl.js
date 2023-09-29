@@ -102,8 +102,8 @@ function initMap(gam){
 
     initBoneys(gam);
 
-    //checkBoneys(gam);
-    //updateMapValues(map);
+    checkBoneys(gam);
+    updateMapValues(map);
     updateScores(gam);
     callBotOnGameStart(gam);
 }
@@ -177,7 +177,7 @@ function move(tar, gam){
     //console.log("move function");
     let map = gam.map;
     let pla = gam.currentPlayer;
-    if(!gam.settings.prodMode){
+        if(!gam.settings.prodMode){
         let moveEvent = {
             type: "", //Capture, Attack, Shield, Lock?
             target: tar,
@@ -232,8 +232,8 @@ function move(tar, gam){
         makeAttack(gam, getAttackValue(gam), tar);
     }
     updateLockLife(gam.map);
-    //checkBoneys(gam);
-    //updateMapValues(gam.map);
+    checkBoneys(gam);
+    updateMapValues(gam.map);
     //console.log(map);
 }
 

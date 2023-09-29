@@ -54,7 +54,7 @@
     
     inGame();
 
-    let randSize = Math.round(Math.random()*1000) + 1500;
+    let randSize = 2000; //Math.round(Math.random()*1000) + 1500;
     var teams = [];
     var players = [];
     var gameMap = randomGen(randSize, randSize);
@@ -78,7 +78,7 @@
         borgMode: true, 
         prodMode: true, 
         maxDefense: 5, 
-        debug: false};
+        debug: true};
     
     for(var r = 1; r <= teamCount; r++){
         teams.push(new team(r, colList[r-1]));
@@ -109,7 +109,7 @@
         teams[r].addPlayer(players[r]);
     }
 
-    players[1] = new player(2, teams[1], "GaundlingWaggle", colList[1], false);
+    players[1] = new clusterGuard(2, teams[1], "ClustyBot", colList[1], true);
     teams[1].players[0] = players[1];
 
     //console.log(players);
