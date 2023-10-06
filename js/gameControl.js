@@ -317,9 +317,11 @@ function surrender(gam, art, gra){
         let tmpTeam = gam.currentPlayer.team.players;
         if(gam.currentPlayer.team.players.length > 1){
              tmpTeam = removeItem(tmpTeam, gam.currentPlayer);
+             console.log(tmpTeam);
              for(let r = 0; r < list.length; r++){
-                 let pick = Math.round(Math.random() * tmpTeam.length);
-                 gam.map[list[r]].setOwner(tmpTeam(pick));
+                 let pick = Math.floor(Math.random() * tmpTeam.length);
+                 console.log(pick);
+                 gam.map[list[r]].setOwner(tmpTeam[pick]);
              }
         }
         else{

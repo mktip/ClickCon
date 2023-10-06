@@ -53,9 +53,14 @@ function inGame(){
     var master = document.getElementById("masterDivGame");
     addElement("holder", "div", master);
 
-    addElement("scores", "div", holder, "Scores");
+    addElement("sidebarHolder", "div", holder);
+    sidebarHolder.style.zIndex = 1;
 
-    addElement("controls", "div", holder, "Controls");
+    addElement("menuHolder", "div", sidebarHolder);
+
+    addElement("scores", "div", menuHolder, "Scores");
+
+    addElement("controls", "div", menuHolder, "Controls");
     addElement("skipBtn", "button", controls, "Skip Turn");
     addElement("surrBtn", "button", controls, "Surrender");
     addElement("toLobBtn", "button", controls, "Back To Lobby");
@@ -67,11 +72,13 @@ function inGame(){
     addElement("IDToggle", "input", controls);
     IDToggle.type = "checkbox";
     IDTogTxt.htmlFor = 'IDToggle';
+    addElement("minBtn", "button", sidebarHolder, "<");
 
     addElement("map", "div", holder);
     addElement("mapCan", "canvas", map, "Mins");
     mapCan.width = 750;
     mapCan.height = 750;
+    mapCan.style.zIndex = -1;
 }
 
 function setCanvasDims(map){
@@ -101,6 +108,17 @@ function setUpControls(gra, gam, art){
          event.preventDefault();
          render(gra, art, gam);
         };
+    minBtn.onclick = function(event){
+        event.preventDefault();
+        if(menuHolder.style.display == "none"){
+            menuHolder.style.display = "";
+            minBtn.innerHTML = "<";
+        }
+        else{
+            menuHolder.style.display = "none";
+            minBtn.innerHTML = ">";
+        }
+    }
 
     surrBtn.onclick = function(event){
         event.preventDefault(); 

@@ -50,6 +50,7 @@ class clusterGuard extends bot{
     onGameStart(map, teams){
 		//Get list of planets, build list of highest priority to protect (most exposed)
 		//Ensure to account for single connection planets
+		
     }
 
     mapUpdate(map, teams, action){
