@@ -7,11 +7,19 @@
 }
 #minBtn{
     display: block;
+    height: 100%;
 }
 #sidebarHolder{
     width: 20%;
     position: fixed;
     top: 0;
+}
+@media only screen and (max-width: 768px){
+    #sidebarHolder{
+        width: 40%;
+        position: fixed;
+        top: 0;
+    }
 }
 #menuHolder{
     border: 3px solid rgb(175, 174, 174);

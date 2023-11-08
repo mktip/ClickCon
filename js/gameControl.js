@@ -100,10 +100,10 @@ function initMap(gam){
         }
     }
 
-    initBoneys(gam);
+    //initBoneys(gam);
 
-    checkBoneys(gam);
-    updateMapValues(map);
+    //checkBoneys(gam);
+    //updateMapValues(map);
     updateScores(gam);
     callBotOnGameStart(gam);
 }
@@ -232,8 +232,8 @@ function move(tar, gam){
         makeAttack(gam, getAttackValue(gam), tar);
     }
     updateLockLife(gam.map);
-    checkBoneys(gam);
-    updateMapValues(gam.map);
+    //checkBoneys(gam);
+    //updateMapValues(gam.map);
     //console.log(map);
 }
 

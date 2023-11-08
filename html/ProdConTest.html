@@ -54,14 +54,14 @@
     
     inGame();
 
-    let randSize = 1000; //Math.round(Math.random()*1000) + 1500;
+    let randSize = Math.round(Math.random()*1000) + 1500;
     var teams = [];
     var players = [];
     var gameMap = randomGen(randSize, randSize);
     //var gameMap = mapConverter(galconGalaxy7());
     let teamC = Math.round(Math.random()*14)+2;
-    var teamCount = 2; //teamC; //16; //For testing convenience only******
-    var botCount = 1;//teamC-1;//15; //For testing convenience only******
+    var teamCount = teamC; //16; //For testing convenience only******
+    var botCount = teamC-1;//15; //For testing convenience only******
 
 
     let spawns = Math.round(Math.random()*100)+1;
