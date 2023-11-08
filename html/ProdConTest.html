@@ -66,7 +66,19 @@
 
     let spawns = Math.round(Math.random()*100)+1;
 
-    var settings = {playing: true, botTurn: false, botDelay: 75, hideScores: false, spawnCount: spawns, randShields: true, randBlocks: false, fog: false, multiShield: false, borgMode: true, prodMode: true, maxDefense: 5, debug: false};
+    var settings = {playing: true, 
+        botTurn: false, 
+        botDelay: 75, 
+        hideScores: false, 
+        spawnCount: spawns, 
+        randShields: true, 
+        randBlocks: false, 
+        fog: false, 
+        multiShield: false, 
+        borgMode: true, 
+        prodMode: true, 
+        maxDefense: 5, 
+        debug: true};
     
     for(var r = 1; r <= teamCount; r++){
         teams.push(new team(r, colList[r-1]));
@@ -97,8 +109,8 @@
         teams[r].addPlayer(players[r]);
     }
 
-    // players[2] = new player(3, teams[2], "GaundlingWaggle", colList[2], false);
-    // teams[2].players[0] = players[2];
+    players[1] = new clusterGuard(2, teams[1], "ClustyBot", colList[1], true);
+    teams[1].players[0] = players[1];
 
     //console.log(players);
     //console.log(teams);

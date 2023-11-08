@@ -10,7 +10,7 @@ class clusterGuard extends bot{
 			var cons = map[owned[r]].connections;
 			var creps = cons.length;
 			for (var t = 0; t<creps; t++){
-				if(map[cons[t]].teamId != this.teamId && map[cons[t]].lockLife == 0){
+				if(map[cons[t]].teamId != this.teamId && map[cons[t]].isLocked == false){
 					hitList.push(map[cons[t]]);
 				}
 			}
@@ -47,13 +47,19 @@ class clusterGuard extends bot{
 		return tar;
     }
 
-    onGameStart(){
-
-    }
-
-    mapUpdate(){
+    onGameStart(map, teams){
+		//Get list of planets, build list of highest priority to protect (most exposed)
+		//Ensure to account for single connection planets
 		
     }
+
+    mapUpdate(map, teams, action){
+		//Determine if we took a planet or a planet was taken from us
+    }
+
+	updatePriorityList(map){
+		
+	}
 
 
 }

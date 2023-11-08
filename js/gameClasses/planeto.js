@@ -5,6 +5,7 @@ class planeto{
         this.y = y;
         this.owner = owner;
         this.value = 1; //To be used in future
+        this.worth = 1;
         this.defense = 0; //For "prod" mode
         this.radius = radius;
         this.connections = cons;
@@ -15,7 +16,7 @@ class planeto{
         this.heatLife = 0;
         this.lockLife = 0;
         this.maxHeat = (Math.floor(Math.random()*5)) + 4;
-        this.prevOwner = 0;
+        this.prevOwner = {teamId: 0};
     }
 
     spew(){
@@ -63,8 +64,18 @@ class planeto{
     }
 
     setOwner(owner){
+        if(owner.teamId == this.prevOwner.teamId){
+            //console.log("Heating!");
+            this.heatLife = 5;
+            this.heat++;
+            if(this.heat >= this.maxHeat){
+                //console.log("Maxed!");
+                this.lockLife = Math.floor(Math.random()*5) + 3;
+                owner = {id:0, colour: "#fff", team:{id:0, colour: "#fff"}};
+            }
+        }
+        this.prevOwner = this.owner;
         this.owner = owner;
-        //other stuff
     }
 
     decayLockLife(){
