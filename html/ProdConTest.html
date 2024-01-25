@@ -2,13 +2,13 @@
 <head>
     <title>ProdCon!</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="../css/global.css">
 
     <script src="../js/graphics/ui.js"></script>
     <script src="../js/graphics/art.js"></script>
-    
+
     <script src="../js/utils/utils.js"></script>
     <script src="../js/utils/map.js"></script>
     <script src="../js/utils/randMapBuilder.js"></script>
@@ -35,23 +35,23 @@
 
     <div id=masterDivGame>
     <script>
-    var colList = [{colour:"#ff0000",char:"A",inverse:"#00ffff"}, 
-    {colour:"#00ff00",char:"B",inverse:"#ff00ff"}, 
-    {colour:"#0000ff",char:"C",inverse:"#ffff00"}, 
-    {colour:"#ffff00",char:"D",inverse:"#0000ff"}, 
-    {colour:"#ff00ff",char:"E",inverse:"#00ff00"}, 
-    {colour:"#00cccc",char:"F",inverse:"#ff3333"}, 
-    {colour:"#e65c00",char:"G",inverse:"#19a3ff"}, 
-    {colour:"#2e5cb8",char:"H",inverse:"#d1a347"}, 
-    {colour:"#800080",char:"I",inverse:"#7fff7f"}, 
-    {colour:"#663300",char:"J",inverse:"#99ccff"}, 
-    {colour:"#ff8080",char:"K",inverse:"#007f7f"}, 
-    {colour:"#00802b",char:"L",inverse:"#ff7fd4"}, 
-    {colour:"#008080",char:"M",inverse:"#ff7f7f"}, 
-    {colour:"#800000",char:"N",inverse:"#7fffff"}, 
-    {colour:"#666699",char:"O",inverse:"#999966"}, 
+    var colList = [{colour:"#ff0000",char:"A",inverse:"#00ffff"},
+    {colour:"#00ff00",char:"B",inverse:"#ff00ff"},
+    {colour:"#0000ff",char:"C",inverse:"#ffff00"},
+    {colour:"#ffff00",char:"D",inverse:"#0000ff"},
+    {colour:"#ff00ff",char:"E",inverse:"#00ff00"},
+    {colour:"#00cccc",char:"F",inverse:"#ff3333"},
+    {colour:"#e65c00",char:"G",inverse:"#19a3ff"},
+    {colour:"#2e5cb8",char:"H",inverse:"#d1a347"},
+    {colour:"#800080",char:"I",inverse:"#7fff7f"},
+    {colour:"#663300",char:"J",inverse:"#99ccff"},
+    {colour:"#ff8080",char:"K",inverse:"#007f7f"},
+    {colour:"#00802b",char:"L",inverse:"#ff7fd4"},
+    {colour:"#008080",char:"M",inverse:"#ff7f7f"},
+    {colour:"#800000",char:"N",inverse:"#7fffff"},
+    {colour:"#666699",char:"O",inverse:"#999966"},
     {colour:"#cc9900",char:"P",inverse:"#3366ff"}];
-    
+
     inGame();
 
     let randSize = Math.round(Math.random()*1000) + 1500;
@@ -59,96 +59,45 @@
     var players = [];
     var gameMap = randomGen(randSize, randSize);
     //var gameMap = mapConverter(galconGalaxy7());
-    let teamC = Math.round(Math.random()*14)+2;
-    var teamCount = teamC; //16; //For testing convenience only******
-    var botCount = teamC-1;//15; //For testing convenience only******
+    var teamCount = 1; //16; //For testing convenience only******
 
 
-    let spawns = Math.round(Math.random()*100)+1;
+    var settings = {
+      playing: true,
+      botTurn: false,
+      botDelay: 75,
+      hideScores: false,
+      spawnCount: 1,
+      randShields: true,
+      randBlocks: false,
+      fog: false,
+      multiShield: false,
+      borgMode: false,
+      prodMode: true,
+      maxDefense: 5,
+      debug: true
+    };
 
-    var settings = {playing: true, 
-        botTurn: false, 
-        botDelay: 75, 
-        hideScores: false, 
-        spawnCount: spawns, 
-        randShields: true, 
-        randBlocks: false, 
-        fog: false, 
-        multiShield: false, 
-        borgMode: true, 
-        prodMode: true, 
-        maxDefense: 5, 
-        debug: true};
-    
-    for(var r = 1; r <= teamCount; r++){
-        teams.push(new team(r, colList[r-1]));
-    }
-    //console.log(teams);
+    teams.push(new team(1, colList[0]));
 
-    players[0] = new player(1, teams[0], "Beta Tester", colList[0], false);
+    players[0] = new expandAndStab(1, teams[0], "Beta Tester", colList[0], true);
     players[0].team = teams[0];
     teams[0].addPlayer(players[0]);
 
-    for(var r = 1; r <= botCount; r++){
-        let botType = Math.floor(Math.random()*4);
-        switch(botType){
-            case 0: 
-                players.push(new wildStep((r+1), {}, "Knob-" + r, colList[r], true));
-                break;
-            case 1:
-                players.push(new wildExpand((r+1), {}, "Knob-" + r, colList[r], true));
-                break;
-            case 2:
-                players.push(new clusterGuard((r+1), {}, "Knob-" + r, colList[r], true));
-                break;
-            case 3:
-                players.push(new expandAndStab((r+1), {}, "Knob-" + r, colList[r], true));
-        }
-        //console.log(r%2);
-        players[r].team = teams[r];
-        teams[r].addPlayer(players[r]);
-    }
+    var gameA = new game([teams[0]], [players[0]], gameMap, settings);
 
-    players[1] = new clusterGuard(2, teams[1], "ClustyBot", colList[1], true);
-    teams[1].players[0] = players[1];
-
-    //console.log(players);
-    //console.log(teams);
-
-    //players[1].team = teams[1];
-    //players[2].team = teams[0];
-    //players[3].team = teams[1];
-    //players[4].team = teams[0];
-    //players[5].team = teams[1];
-
-    //teams[0].addPlayer(players[0]);
-
-    //teams[1].addPlayer(players[1]);
-    //teams[0].addPlayer(players[2]);
-    //teams[1].addPlayer(players[3]);
-    //teams[0].addPlayer(players[4]);
-    //teams[1].addPlayer(players[5]);
-
-    // for(let r = 0; r < players.length; r++){
-    //     players[r].team = teams[r];
-    //     teams[r].addPlayer(players[r]);
-    // }
-
-    var gameA = new game(teams, players, gameMap, settings);
 
     gameA.loadTurnList();
 
-    //console.log(gameA);
-    
     initMap(gameA);
 
     var g = mapCan.getContext("2d");
     var arty = new art(g);
-    
+
     setCanvasDims(gameMap);
     scoreboard(gameA, settings.hideScores);
     setUpControls(g, gameA, arty, settings);
-    //g.scale(.15, .15);
+    //g.scale(.50, .50);
     //console.log(gameA.teams);
     updateDefense(gameA);
     render(g, arty, gameA);
