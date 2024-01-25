@@ -1,6 +1,7 @@
 class wildStep extends bot{
     
     makeMove(map){
+		super.makeMove();
 		//Pick random planet from our list      
 		var tar = 0;
 		if(this.hitList.size > 0){

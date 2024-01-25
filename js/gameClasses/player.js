@@ -7,6 +7,7 @@ class player{
         this.score = 0;
         this.isBot = isBot;
         this.surrendered = false;
+        this.moveCount = 0;
     }
 
     getOwned(map){

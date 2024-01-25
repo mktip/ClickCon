@@ -1,5 +1,6 @@
 class wildExpand extends bot{
     makeMove(map){
+		super.makeMove();
 		//Pick a random planet from our list of targets
     	var tar = 0;
 		if(this.hitList.size > 0){

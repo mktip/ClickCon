@@ -232,6 +232,7 @@ function move(tar, gam){
         makeAttack(gam, getAttackValue(gam), tar);
     }
     updateLockLife(gam.map);
+    pla.moves
     //checkBoneys(gam);
     //updateMapValues(gam.map);
     //console.log(map);
@@ -345,6 +346,13 @@ function skipPlayer(gam, art, gra){
 function botCycle(gam, art, gra){
     if(gam.currentPlayer.isBot){
         let botCaller = setInterval(function(gam){
+            // console.log('hi');
+
+            // if (gam.map.every(m => m.owner.id !== 0)) {
+            //     console.log('game has finished');
+            // }
+
+
             if(gam.settings.prodMode) updateDefense(gam);
             gam.settings.botTurn = true;
             let turn = gam.currentPlayer.makeMove(gam.map.slice(), gam.teams.slice());
@@ -352,7 +360,13 @@ function botCycle(gam, art, gra){
                 move(turn, gam);
             }
             setupNextPlayer(gam, art, gra);
-            if(gam.currentPlayer.isBot == false){
+
+            // TODO: Finishes when every node is taken by *some* player
+            const isGameFinished = gam.map.every(m => m.owner.id !== 0);
+
+            // if(isGameFinished || !gam.currentPlayer.isBot){
+            if(isGameFinished){
+                console.log('Finished');
                 clearInterval(botCaller);
                 gam.settings.botTurn = false;
                 if(gam.settings.prodMode) updateDefense(gam);

@@ -3,6 +3,7 @@ class clusterGuard extends bot{
 		super(id, team, name, colour, isBot);
 	}
     makeMove(map){
+		super.makeMove();
         var hitList = [];
 		var owned = this.getTeamOwned(map);
 		var reps = owned.length;

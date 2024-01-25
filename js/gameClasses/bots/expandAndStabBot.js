@@ -5,6 +5,7 @@ class expandAndStab extends bot{
         this.expanding = true;
     }
 	makeMove(map, teams){
+        super.makeMove();
         let safeRatio = Math.round((map.length / teams.length) *.9); //Determine rough amount of planets to have safe to determine if established
         let owned = this.getTeamOwned(map);
         let safeCount = this.determineSafeCount(map, owned); //Determine how many planets are "safe" (completely surrounded by own planets)
