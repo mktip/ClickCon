@@ -25,6 +25,7 @@
     <script src="../js/gameClasses/bots/wildStepBot.js"></script>
     <script src="../js/gameClasses/bots/clusterGuardBot.js"></script>
     <script src="../js/gameClasses/bots/expandAndStabBot.js"></script>
+    <script src="../js/gameClasses/bots/ourBot.js"></script>
 
     <script src="../js/gameControl.js"></script>
     <script src="../js/ProdCon.js"></script>
@@ -80,11 +81,11 @@
 
     teams.push(new team(1, colList[0]));
 
-    players[0] = new expandAndStab(1, teams[0], "Beta Tester", colList[0], true);
+    players[0] = new ourBot(1, teams[0], "Beta Tester", colList[0], true);
     players[0].team = teams[0];
     teams[0].addPlayer(players[0]);
 
-    var gameA = new game([teams[0]], [players[0]], gameMap, settings);
+    var gameA = new game(teams, players, gameMap, settings);
 
 
     gameA.loadTurnList();
